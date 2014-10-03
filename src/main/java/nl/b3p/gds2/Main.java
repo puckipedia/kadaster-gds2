@@ -73,9 +73,5 @@ public class Main {
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         System.out.println("Aantal afgiftes: " + afgiftes.size());
-
-
-
     }
-
 }
