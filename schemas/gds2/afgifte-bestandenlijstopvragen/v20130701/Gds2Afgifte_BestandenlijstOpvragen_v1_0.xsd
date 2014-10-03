@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:bo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20130701"
+  xmlns:blsc="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701"
+  targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20130701"
+  elementFormDefault="qualified" attributeFormDefault="unqualified"
+  version="0.1">
+  <xsd:import
+    namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701"
+    schemaLocation="../../afgifte-bestandenlijstselectie/v20130701/Gds2Afgifte_BestandenlijstSelectiecriteria_v1_0.xsd" />
+  <xsd:element name="BestandenlijstOpvragen" type="bo:BestandenlijstOpvragenType" />
+  <xsd:complexType name="BestandenlijstOpvragenType">
+    <xsd:annotation>
+      <xsd:documentation>Het opvragen van een bestandenlijst met (niet
+        grote) bestanden inclusief afgifte gegevens. De lijst zal alleen
+        die afgiftes gaan bevatten die voldoen aan de gebruikte
+        selectiegegevens. Indien er geen afgiftes voldoen aan deze
+        selectie gegevens, dan zal er geen bestandenlijst aanwezig zijn
+        in het resultaat. </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="blsc:AfgifteSelectieCriteria" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalen/v20120901" xmlns:aid="http://www.kadaster.nl/schemas/gds2/imgds/afgifte-id/v20120901" targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalen/v20120901" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/imgds/afgifte-id/v20120901" schemaLocation="../../imgds/afgifte-id/v20120901/Gds2Afgifte_imgds_AfgifteId_v0_1.xsd"/>
+	<xsd:element name="BestandOphalen" type="bo:BestandOphalenType"/>
+	<xsd:complexType name="BestandOphalenType">
+		<xsd:sequence>
+			<xsd:element ref="aid:Afgifte"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

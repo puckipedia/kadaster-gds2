@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:blgbor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20130701"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:element name="Bestand" type="blgbor:Bestand">
+		<xsd:annotation>
+			<xsd:documentation>Gegevens over het bestand. Dit element bevat niet
+				het bestand zelf. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="Bestand">
+		<xsd:sequence>
+			<xsd:element name="bestandsnaam">
+				<xsd:annotation>
+					<xsd:documentation>De unieke identificatie van een bestand. Deze
+						naam is uniek binnen de dienst waartoe het bestand behoort en is
+						door middel van een prefix met de dienstnaam ook
+						dienstoverstijgend uniek gemaakt.  </xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="297" />
+						<xsd:minLength value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="bestandsreferentie" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>TODO: MS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="1024" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

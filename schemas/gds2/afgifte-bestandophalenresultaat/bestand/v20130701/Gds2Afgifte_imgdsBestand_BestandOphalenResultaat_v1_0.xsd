@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/bestand/v20130701"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/bestand/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:element name="Bestand" type="bbor:Bestand">
+		<xsd:annotation>
+			<xsd:documentation>Gegevens over het bestand. Dit element bevat niet
+				het bestand zelf. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="Bestand">
+		<xsd:sequence>
+			<xsd:element name="bestandsnaam">
+				<xsd:annotation>
+					<xsd:documentation>De unieke identificatie van een bestand. Deze
+						naam is uniek binnen de dienst waartoe het bestand behoort.
+						Dienstoverstijgend is de naam in combinatie met met het
+						dienstnummer de unieke identificatie van het bestand.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="256" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Attachment" type="bbor:Attachment">
+		<xsd:annotation>
+			<xsd:documentation>Bevat het opgehaalde bestand. De overige gegevens
+				over dit bestand zijn opgenomen in het element Bestand.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="Attachment">
+		<xsd:sequence>
+			<xsd:element name="base64Attachment" type="xsd:base64Binary">
+				<xsd:annotation>
+					<xsd:documentation>Het bestand is base64encoded opgenomen. Om het
+						feitelijke bestand te krijgen is het nodig om het bestand eerst te
+						decoderen. Voor meer informatie, zie 'Standard Base64 encoding'.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

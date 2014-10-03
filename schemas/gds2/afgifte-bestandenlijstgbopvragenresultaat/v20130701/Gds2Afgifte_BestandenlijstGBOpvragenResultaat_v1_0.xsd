@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:gbor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbopvragenresultaat/v20130701"
+	xmlns:result="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922"
+	xmlns:ablgbor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbresultaat/afgifte/v20130701"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbopvragenresultaat/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922"
+		schemaLocation="../../../generiek-extern/procesresultaat/v20110922/GenProcesResultaatExtern_v0_6.xsd" />
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbresultaat/afgifte/v20130701"
+		schemaLocation="../../afgifte-bestandenlijstgbresultaat/afgifte/v20130701/Gds2Afgifte_imgdsAfgifte_BestandenlijstGBOpvragenResultaat_v1_0.xsd" />
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbresultaat/afgifte/v20120901"
+		schemaLocation="../../afgifte-bestandenlijstgbresultaat/afgifte/v20120901/Gds2Afgifte_imgdsAfgifte_BestandenlijstGBOpvragenResultaat_v0_1.xsd" />
+	<xsd:element name="BestandenlijstGbOpvragenResultaat"
+		type="gbor:BestandenlijstGbOpvragenResultaatType" />
+	<xsd:complexType name="BestandenlijstGbOpvragenResultaatType">
+		<xsd:annotation>
+			<xsd:documentation>De opgevraagde bestandenlijst met grote bestanden
+				inclusief afgifte gegevens. De lijst bevat die afgiftes die voldoen
+				aan de gebruikte selectiegegevens. Indien er geen afgiftes voldoen
+				aan deze selectie gegevens, dan is er geen bestandenlijst aanwezig
+				in het resultaat. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="result:ProcesVerwerking" />
+			<xsd:element ref="ablgbor:BestandenLijstGB" minOccurs="0" />
+			<xsd:element name="meerAfgiftesbeschikbaar" default="J"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indien er meer dan het maximum aantal afgiftes
+						zijn gevonden, dan is dit element aanwezig met de waarde J (ja)
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

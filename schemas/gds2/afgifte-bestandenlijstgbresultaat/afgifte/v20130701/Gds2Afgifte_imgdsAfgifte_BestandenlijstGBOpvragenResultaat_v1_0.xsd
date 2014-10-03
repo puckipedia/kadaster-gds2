@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ablgbor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbresultaat/afgifte/v20130701"
+	xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10"
+	xmlns:ablr="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20130701"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbresultaat/afgifte/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:import namespace="http://www.logius.nl/digikoppeling/gb/2010/10"
+		schemaLocation="../../../../digikoppeling/gb/2010/10/gb-meta.xsd" />
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20130701"
+		schemaLocation="../../../afgifte-bestandenlijstresultaat/afgifte/v20130701/Gds2Afgifte_imgdsAfgifte_BestandenlijstResultaat_v1_0.xsd" />
+	<xsd:element name="AfgifteGB" type="ablgbor:AfgifteGBType">
+		<xsd:annotation>
+			<xsd:documentation>De standaard afgifte van een groot bestand. Deze
+				bevat niet het bestand zelf, maar bevatten de uri van het bestand,
+				waarmee het bestand in een aparte download op te halen is.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="AfgifteGBType">
+		<xsd:complexContent>
+			<xsd:extension base="ablr:AfgifteType">
+				<xsd:sequence>
+					<xsd:element ref="tns:digikoppeling-external-datareferences" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="BestandenLijstGB" type="ablgbor:BestandenLijstGBType">
+		<xsd:annotation>
+			<xsd:documentation>De bestandenlijst met grote bestanden. Deze bevat
+				alleen afgiftes waarin sprake is van een groot bestand. Om deze
+				bestanden op te halen moet de external datareference (url) gebruikt
+				worden zoals voorgeschreven in de digikoppelijng standaard voor
+				grote bestanden. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="BestandenLijstGBType">
+		<xsd:sequence>
+			<xsd:element ref="ablgbor:AfgifteGB" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

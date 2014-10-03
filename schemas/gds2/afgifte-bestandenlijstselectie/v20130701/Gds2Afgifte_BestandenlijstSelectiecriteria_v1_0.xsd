@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:blsc="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701" 
+	xmlns:ap="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20130701" 
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701" 
+	elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20130701" 
+		schemaLocation="../../afgifte-proces/v20130701/Gds2Afgifte_Procesgegevens_v1_0.xsd"/>
+	<xsd:element name="AfgifteSelectieCriteria" type="blsc:AfgifteSelectieCriteriaType"/>
+	<xsd:complexType name="AfgifteSelectieCriteriaType">
+		<xsd:sequence>
+			<xsd:element ref="blsc:BestandKenmerken" minOccurs="0"/>
+			<xsd:element ref="ap:Periode" minOccurs="0"/>
+			<xsd:element ref="ap:NogNietGerapporteerd" minOccurs="0"/>
+			<xsd:element ref="ap:Sortering" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="BestandKenmerken" type="blsc:BestandKenmerkenType">
+		<xsd:annotation>
+			<xsd:documentation>Kenmerken van een GDS bestand. Deze kunnen in het verzoek gebruikt kunnen worden als filter bij het opvragen van de bestandenlijst.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="BestandKenmerkenType">
+		<xsd:sequence>
+			<xsd:element name="contractnummer" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="artikelnummer" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:bor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/v20130701"
+	xmlns:abor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/afgifte/v20130701"
+	xmlns:result="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922"
+		schemaLocation="../../../generiek-extern/procesresultaat/v20110922/GenProcesResultaatExtern_v0_6.xsd" />
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/afgifte/v20130701"
+		schemaLocation="../../afgifte-bestandophalenresultaat/afgifte/v20130701/Gds2Afgifte_imgdsAfgifte_BestandOphalenResultaat_v1_0.xsd" />
+	<xsd:element name="BestandOphalenResultaat" type="bor:BestandOphalenResultaatType" />
+	<xsd:complexType name="BestandOphalenResultaatType">
+		<xsd:annotation>
+			<xsd:documentation>Het opgehaalde bestand, behorende bij de opgegeven
+				afgifte identificatie. Indien de afgifte identificatie bekend is,
+				dan is er altijd een bestand aanwezig. Zo niet, dan wordt een
+				functionele foutmelding gegeven, waarin het afgifte identificatie
+				wordt teruggekoppeld.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="result:ProcesVerwerking" />
+			<xsd:element ref="abor:AfgifteBestand" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

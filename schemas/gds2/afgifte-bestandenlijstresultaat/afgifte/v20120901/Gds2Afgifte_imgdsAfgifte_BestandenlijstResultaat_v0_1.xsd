@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ablr="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20120901" xmlns:bblr="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20120901" xmlns:kblor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20120901" targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20120901" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20120901" schemaLocation="../../../afgifte-bestandenlijstresultaat/bestand/v20120901/Gds2Afgifte_imgdsBestand_BestandenlijstResultaat_v0_1.xsd"/>
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20120901" schemaLocation="../../../afgifte-bestandenlijstresultaat/kenmerken/v20120901/Gds2Afgifte_imgdsBestandkenmerken_BestandenlijstResultaat_v0_1.xsd"/>
+	<xsd:element name="Afgifte" type="ablr:AfgifteType">
+		<xsd:annotation>
+			<xsd:documentation>De standaard afgifte van bestanden. Deze bevatten het bestand zelf. Een afgifte betreft altijd 1 bestand. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="AfgifteType">
+		<xsd:sequence>
+			<xsd:element name="afgifteID">
+				<xsd:annotation>
+					<xsd:documentation>De unieke identificatie van een Afgifte.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="afgiftereferentie" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1024"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element ref="bblr:Bestand"/>
+			<xsd:element name="beschikbaarTot" type="xsd:dateTime">
+				<xsd:annotation>
+					<xsd:documentation>De datum tot wanneer de afgifte beschikbaar. Het bestand behorende bij de afgifte hoort voor deze tijd te zijn opgehaald.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="kblor:BestandKenmerken" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

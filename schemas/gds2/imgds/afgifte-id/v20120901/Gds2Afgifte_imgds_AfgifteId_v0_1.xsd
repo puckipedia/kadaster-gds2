@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:aid="http://www.kadaster.nl/schemas/gds2/imgds/afgifte-id/v20120901" targetNamespace="http://www.kadaster.nl/schemas/gds2/imgds/afgifte-id/v20120901" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:element name="Afgifte" type="aid:Afgifte">
+		<xsd:annotation>
+			<xsd:documentation>De afgifte van bestanden, geschikt gemaakt voor processen waarin alleen de identificatie van de afgifte nodig is. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="Afgifte">
+		<xsd:annotation>
+			<xsd:documentation>De standaard afgifte van bestanden. Deze bevatten het bestand zelf. Een afgifte betreft altijd 1 bestand. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="afgifteID">
+				<xsd:annotation>
+					<xsd:documentation>De unieke identificatie van een Afgifte.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

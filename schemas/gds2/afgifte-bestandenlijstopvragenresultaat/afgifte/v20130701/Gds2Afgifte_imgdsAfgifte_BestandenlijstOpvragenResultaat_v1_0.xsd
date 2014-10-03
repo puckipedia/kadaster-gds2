@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ablor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/afgifte/v20130701"
+	xmlns:ablr="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20130701"
+	xmlns:aid="http://www.kadaster.nl/schemas/gds2/imgds/afgifte-id/v20120608"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/afgifte/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20130701"
+		schemaLocation="../../../afgifte-bestandenlijstresultaat/afgifte/v20130701/Gds2Afgifte_imgdsAfgifte_BestandenlijstResultaat_v1_0.xsd" />
+	<xsd:element name="AfgifteBestand" type="ablor:AfgifteBestandType">
+		<xsd:annotation>
+			<xsd:documentation>De standaard afgifte van een groot bestand. Deze
+				bevat niet het bestand zelf, maar bevatten de uri van het bestand,
+				waarmee het bestand in een aparte download op te halen is.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="AfgifteBestandType">
+		<xsd:complexContent>
+			<xsd:extension base="ablr:AfgifteType" />
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="BestandenLijst" type="ablor:BestandenLijstType">
+		<xsd:annotation>
+			<xsd:documentation>De bestandenlijst met (niet grote) bestanden. Om
+				deze bestanden op te halen moet de afgifteId gebruikt worden.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="BestandenLijstType">
+		<xsd:sequence>
+			<xsd:element ref="ablr:Afgifte" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:bo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20130701"
+  xmlns:bor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20130701"
+  targetNamespace="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20130701"
+  elementFormDefault="qualified" attributeFormDefault="unqualified"
+  version="0.1">
+  <xsd:import
+    namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20130701"
+    schemaLocation="../../../afgifte-bestandenlijstopvragen/v20130701/Gds2Afgifte_BestandenlijstOpvragen_v1_0.xsd" />
+  <xsd:import
+    namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20130701"
+    schemaLocation="../../../afgifte-bestandenlijstopvragenresultaat/v20130701/Gds2Afgifte_BestandenlijstOpvragenResultaat_v1_0.xsd" />
+  <xsd:element name="BestandenlijstOpvragenRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="verzoek" type="bo:BestandenlijstOpvragenType" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="BestandenlijstOpvragenResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="antwoord"
+          type="bor:BestandenlijstOpvragenResultaatType" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

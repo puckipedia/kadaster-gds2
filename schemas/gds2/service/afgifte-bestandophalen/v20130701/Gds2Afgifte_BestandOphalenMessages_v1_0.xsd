@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:abos="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandophalen/v20130701"
+	xmlns:bo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalen/v20120901"
+	xmlns:bor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/v20130701"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandophalen/v20130701"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalen/v20120901"
+		schemaLocation="../../../afgifte-bestandophalen/v20120901/Gds2Afgifte_BestandOphalen_v0_1.xsd" />
+	<xsd:import
+		namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/v20130701"
+		schemaLocation="../../../afgifte-bestandophalenresultaat/v20130701/Gds2Afgifte_BestandOphalenResultaat_v1_0.xsd" />
+	<xsd:element name="BestandOphalenRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="verzoek" type="bo:BestandOphalenType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BestandOphalenResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="antwoord" type="bor:BestandOphalenResultaatType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
