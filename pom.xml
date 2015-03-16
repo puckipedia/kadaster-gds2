@@ -38,9 +38,11 @@
           </execution>
         </executions>
         <configuration>
+            <wsdlDirectory>src/main/resources/schemas</wsdlDirectory>
             <wsdlFiles>
-                <wsdlFile>${basedir}/schemas/gds2/service/afgifte/v20130701/Gds2Afgifte_AfgifteService_v1_0.wsdl</wsdlFile>
+                <wsdlFile>gds2/service/afgifte/v20130701/Gds2Afgifte_AfgifteService_v1_0.wsdl</wsdlFile>
             </wsdlFiles>
+            <wsdlLocation>/schemas/*</wsdlLocation>
         </configuration>
       </plugin>
 
