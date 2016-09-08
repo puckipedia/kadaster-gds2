@@ -10,6 +10,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <prerequisites>
+        <maven>3.2.5</maven>
+    </prerequisites>
     <scm>
         <connection>scm:git:git@github.com:B3Partners/kadaster-gds2.git</connection>
         <developerConnection>scm:git:git@github.com:B3Partners/kadaster-gds2.git</developerConnection>
@@ -59,7 +62,7 @@
             <!-- Don't forget to use endorsed with JAX-WS 2.2 on Java 6 !! -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -102,7 +105,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -116,7 +119,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>2.10.4</version>
                 <configuration />
                 <executions>
                     <execution>
