@@ -66,7 +66,6 @@ public class Main {
         System.out.println("Initializing SSLContext");
         SSLContext context = SSLContext.getInstance("TLS", "SunJSSE");
         context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-        SSLContext.setDefault(context);
         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
 
         BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);
