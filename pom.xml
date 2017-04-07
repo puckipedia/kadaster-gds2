@@ -17,12 +17,21 @@
     <prerequisites>
         <maven>3.2.5</maven>
     </prerequisites>
+    <organization>
+        <name>B3Partners B.V.</name>
+        <url>http://www.b3partners.nl/</url>
+    </organization>
+    <url>https://github.com/B3Partners/kadaster-gds2/</url>
     <scm>
         <connection>scm:git:git@github.com:B3Partners/kadaster-gds2.git</connection>
         <developerConnection>scm:git:git@github.com:B3Partners/kadaster-gds2.git</developerConnection>
         <url>https://github.com/B3Partners/kadaster-gds2.git</url>
         <tag>HEAD</tag>
     </scm>
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/B3Partners/kadaster-gds2/issues</url>
+    </issueManagement>
     <dependencies>
         <!--
         voor een update controle gebruik je het volgende maven commando:
@@ -116,6 +125,47 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.6</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.trajano.wagon</groupId>
+                        <artifactId>wagon-git</artifactId>
+                        <!-- 2.0.4 heeft problemen met accepteren/toevoegen van de RSA fingerprint -->
+                        <version>2.0.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <generateSitemap>true</generateSitemap>
+                    <attach>false</attach>
+                    <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+                    <locales>nl</locales>
+                    <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.9</version>
+                        </plugin>
+                        <plugin>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.10.4</version>
+                            <configuration>
+                                <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten! -->
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                            </configuration>
+                            <reportSets>
+                                <reportSet>
+                                    <reports>
+                                        <report>javadoc-no-fork</report>
+                                    </reports>
+                                </reportSet>
+                            </reportSets>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
             </plugin>
         </plugins>
     </build>
