@@ -59,6 +59,11 @@
             <name>B3Partners snapshots repository</name>
             <url>http://repo.b3p.nl/nexus/content/repositories/snapshots/</url>
         </snapshotRepository>
+        <site>
+            <id>gh-pages</id>
+            <name>github pages site</name>
+            <url>github:http://b3partners.github.io/kadaster-gds2/</url>
+        </site>
     </distributionManagement>
     <build>
         <!--
