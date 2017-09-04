@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
 package nl.b3p.gds2;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
@@ -14,10 +17,13 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
@@ -42,58 +48,30 @@ import nl.logius.digikoppeling.gb._2010._10.DataReference;
 /**
  *
  * @author Matthijs Laan
+ * @author mprins
  */
 public class Main {
 
-    private static final String PEM_KEY_START = "-----BEGIN PRIVATE KEY-----";
-    private static final String PEM_KEY_END = "-----END PRIVATE KEY-----";
-    private static final String PEM_CERT_START = "-----BEGIN CERTIFICATE-----";
-    private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
+    private static final int BESTANDENLIJST_ATTEMPTS = 5;
+    private static final int BESTANDENLIJST_RETRY_WAIT = 10000;
 
     public static void main(String[] args) throws Exception {
-
         //java.lang.System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
         //java.lang.System.setProperty("sun.security.ssl.allowLegacyHelloMessages", "true");
         //java.lang.System.setProperty("javax.net.debug", "ssl,plaintext");
         Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
-
-        BestandenlijstOpvragenRequest request = new BestandenlijstOpvragenRequest();
-        BestandenlijstOpvragenType verzoek = new BestandenlijstOpvragenType();
-        request.setVerzoek(verzoek);
-        AfgifteSelectieCriteriaType criteria = new AfgifteSelectieCriteriaType();
-
-        criteria.setPeriode(new FilterDatumTijdType());
-        XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(new GregorianCalendar(2017, (5 - 1) /*0-based month*/, 15));
-        System.out.println("DatumTijdVanaf criterium: " + date);
-        criteria.getPeriode().setDatumTijdVanaf(date);
-
-        //criteria.getBestandKenmerken().setArtikelnummer("2508");
-        //criteria.getBestandKenmerken().setContractnummer("");
-        criteria.setBestandKenmerken(new BestandKenmerkenType());
-
-        verzoek.setAfgifteSelectieCriteria(criteria);
-
-        BestandenlijstGBOpvragenRequest requestGb = new BestandenlijstGBOpvragenRequest();
-        BestandenlijstGbOpvragenType verzoekGb = new BestandenlijstGbOpvragenType();
-        requestGb.setVerzoek(verzoekGb);
-        verzoekGb.setAfgifteSelectieCriteria(criteria);
-
         BindingProvider bp = (BindingProvider) gds2;
-
         Map<String, Object> ctxt = bp.getRequestContext();
-
         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         System.out.println("Origineel endpoint: " + endpoint);
 
         //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  "http://localhost:8088/AfgifteService");
         //System.out.println("Endpoint protocol gewijzigd naar mock");
         final char[] thePassword = "changeit".toCharArray();
-
         System.out.println("Loading keystore");
         KeyStore ks = KeyStore.getInstance("jks");
 
         ks.load(Main.class.getResourceAsStream("/pkioverheid.jks"), thePassword);
-
         System.out.println("Initializing TrustManagerFactory");
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("PKIX");
         tmf.init(ks);
@@ -108,106 +86,285 @@ public class Main {
             kmf.init(ks, thePassword);
         } else {
             ks.load(null);
-            PrivateKey privateKey = getPrivateKeyFromPEM(new String(Files.readAllBytes(Paths.get("private.key"))));
-            Certificate certificate = getCertificateFromPEM(new String(Files.readAllBytes(Paths.get("public.key"))));
+            PrivateKey privateKey = GDS2Util.getPrivateKeyFromPEM(new String(Files.readAllBytes(Paths.get("private.key"))).trim());
+            Certificate certificate = GDS2Util.getCertificateFromPEM(new String(Files.readAllBytes(Paths.get("public.key"))).trim());
             ks.setKeyEntry("thekey", privateKey, thePassword, new Certificate[]{certificate});
             kmf.init(ks, thePassword);
         }
-
         System.out.println("Initializing SSLContext");
         SSLContext context = SSLContext.getInstance("TLS", "SunJSSE");
         context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
         SSLContext.setDefault(context);
         ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());
 
-        List<AfgifteType> afgiftes = null;
-        List<AfgifteGBType> afgiftesGb = null;
+        BestandenlijstOpvragenRequest request = new BestandenlijstOpvragenRequest();
+        BestandenlijstOpvragenType verzoek = new BestandenlijstOpvragenType();
+        request.setVerzoek(verzoek);
+        AfgifteSelectieCriteriaType criteria = new AfgifteSelectieCriteriaType();
+        verzoek.setAfgifteSelectieCriteria(criteria);
+        criteria.setBestandKenmerken(new BestandKenmerkenType());
 
+        //criteria.getBestandKenmerken().setArtikelnummer("2508");
+        //criteria.getBestandKenmerken().setContractnummer("");
+        boolean alGerapporteerd = false;
+        criteria.setNogNietGerapporteerd(alGerapporteerd);
+        System.out.println("alGerapporteerd criterium: " + alGerapporteerd);
+
+        GregorianCalendar vanaf = new GregorianCalendar(2017, (1 - 1) /*0-based month*/, 1);
+        GregorianCalendar tot = new GregorianCalendar();
+        tot.setTime(new Date());
+        System.out.println("DatumTijdVanaf criterium: " + vanaf.getTime());
+        System.out.println("DatumTijdTot criterium: " + tot.getTime());
+
+        criteria.setPeriode(new FilterDatumTijdType());
+        XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(vanaf);
+        criteria.getPeriode().setDatumTijdVanaf(date);
+
+        BestandenlijstGBOpvragenRequest requestGb = new BestandenlijstGBOpvragenRequest();
+        BestandenlijstGbOpvragenType verzoekGb = new BestandenlijstGbOpvragenType();
+        requestGb.setVerzoek(verzoekGb);
+        verzoekGb.setAfgifteSelectieCriteria(criteria);
+
+        GregorianCalendar currentMoment = null;
+        boolean parseblePeriod = false;
+        int loopType = Calendar.DAY_OF_MONTH;
+        int loopMax = 180;
+        int loopNum = 0;
+        boolean reducePeriod = false;
+        boolean increasePeriod = false;
+
+        if (vanaf != null && tot != null && vanaf.before(tot)) {
+            parseblePeriod = true;
+            currentMoment = vanaf;
+        }
+
+        List<AfgifteGBType> afgiftesGb = new ArrayList<>();
         try {
-            BestandenlijstGBOpvragenResponse responseGb = gds2.bestandenlijstGBOpvragen(requestGb);
+            boolean morePeriods2Process = false;
+            do /* while morePeriods2Process is true */ {
+                System.out.println("\n*** start periode ***");
+                //zet periode in criteria indien gewenst
+                if (parseblePeriod) {
+                    //check of de periodeduur verkleind moet worden
+                    if (reducePeriod) {
+                        switch (loopType) {
+                            case Calendar.DAY_OF_MONTH:
+                                currentMoment.add(loopType, -1);
+                                loopType = Calendar.HOUR_OF_DAY;
+                                System.out.println("* Verklein loop periode naar uur");
 
-            afgiftesGb = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
-            for (AfgifteGBType a : afgiftesGb) {
-                String kenmerken = "(geen)";
-                if (a.getBestandKenmerken() != null) {
-                    kenmerken = String.format("contractnr: %s, artikelnr: %s, artikelomschrijving: %s",
-                            a.getBestandKenmerken().getContractnummer(),
-                            a.getBestandKenmerken().getArtikelnummer(),
-                            a.getBestandKenmerken().getArtikelomschrijving());
-                }
-                System.out.printf("ID: %s, referentie: %s, bestandsnaam: %s, bestandref: %s, beschikbaarTot: %s, kenmerken: %s\n",
-                        a.getAfgifteID(),
-                        a.getAfgiftereferentie(),
-                        a.getBestand().getBestandsnaam(),
-                        a.getBestand().getBestandsreferentie(),
-                        a.getBeschikbaarTot(),
-                        kenmerken);
-                if (a.getDigikoppelingExternalDatareferences() != null
-                        && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                    for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-                        System.out.println(dr.getTransport().getLocation().getSenderUrl().getValue());
-                        System.out.printf("   Digikoppeling datareference: contextId: %s, creationTime: %s, expirationTime: %s, filename: %s, checksum: %s, size: %d, type: %s, senderUrl: %s, receiverUrl: %s\n",
-                                dr.getContextId(),
-                                dr.getLifetime().getCreationTime().getValue(),
-                                dr.getLifetime().getExpirationTime().getValue(),
-                                dr.getContent().getFilename(),
-                                dr.getContent().getChecksum().getValue(),
-                                dr.getContent().getSize(),
-                                dr.getContent().getContentType(),
-                                dr.getTransport().getLocation().getSenderUrl() == null ? "-" : dr.getTransport().getLocation().getSenderUrl().getValue(),
-                                dr.getTransport().getLocation().getReceiverUrl() == null ? "-" : dr.getTransport().getLocation().getReceiverUrl().getValue());
+                                break;
+                            case Calendar.HOUR_OF_DAY:
+                                currentMoment.add(loopType, -1);
+                                loopType = Calendar.MINUTE;
+                                System.out.println("* Verklein loop periode naar minuut");
+
+                                break;
+                            case Calendar.MINUTE:
+                            default:
+                                /*
+                                 * Hier kom je alleen als binnen een minuut meer
+                                 * dan 2000 berichten zijn aangamaakt en het
+                                 * vinkje ook "al rapporteerde berichten
+                                 * ophalen" staat aan.
+                                 */
+                                System.out.println("Niet alle gevraagde berichten zijn opgehaald");
+                        }
+                        reducePeriod = false;
+                    }
+
+                    //check of de periodeduur vergroot moet worden
+                    if (increasePeriod) {
+                        switch (loopType) {
+                            case Calendar.HOUR_OF_DAY:
+                                loopType = Calendar.DAY_OF_MONTH;
+                                System.out.println("* Vergroot loop periode naar dag");
+
+                                break;
+                            case Calendar.MINUTE:
+                                loopType = Calendar.HOUR_OF_DAY;
+                                System.out.println("* Vergroot loop periode naar uur");
+
+                                break;
+                            case Calendar.DAY_OF_MONTH:
+                            default:
+                            //not possible
+                        }
+                        increasePeriod = false;
+                    }
+
+                    FilterDatumTijdType d = new FilterDatumTijdType();
+                    d.setDatumTijdVanaf(DatatypeFactory.newInstance().newXMLGregorianCalendar(currentMoment));
+                    System.out.println(String.format("Datum vanaf: %tc", currentMoment.getTime()));
+
+                    currentMoment.add(loopType, 1);
+                    d.setDatumTijdTot(DatatypeFactory.newInstance().newXMLGregorianCalendar(currentMoment));
+                    System.out.println(String.format("Datum tot: %tc", currentMoment.getTime()));
+
+                    criteria.setPeriode(d);
+
+                    switch (loopType) {
+                        case Calendar.HOUR_OF_DAY:
+                            //0-23
+                            if (currentMoment.get(loopType) == 0) {
+                                increasePeriod = true;
+                            }
+                            break;
+                        case Calendar.MINUTE:
+                            //0-59
+                            if (currentMoment.get(loopType) == 0) {
+                                increasePeriod = true;
+                            }
+                            break;
+                        case Calendar.DAY_OF_MONTH:
+                        default:
+                            //alleen dagen tellen, uur en minuut altijd helemaal
+                            loopNum++;
+                    }
+
+                    //bereken of einde van periode bereikt is
+                    if (currentMoment.before(tot) && loopNum < loopMax) {
+                        morePeriods2Process = true;
+                    } else {
+                        morePeriods2Process = false;
                     }
                 }
-            }
 
-            System.out.println("Meer afgiftes beschikbaar: " + responseGb.getAntwoord().getMeerAfgiftesbeschikbaar());
+                verzoekGb.setAfgifteSelectieCriteria(criteria);
+                BestandenlijstGBOpvragenResponse responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);
+
+                int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();
+                System.out.println("Aantal in antwoord: " + aantalInAntwoord);
+
+                // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+                boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                System.out.println("Meer afgiftes beschikbaar: " + hasMore);
+
+
+                /*
+                 * Als "al gerapporteerde berichten" moeten worden opgehaald en
+                 * er zitten dan 2000 berichten in het antwoord dan heeft het
+                 * geen zin om meer keer de berichten op te halen, je krijgt
+                 * telkens dezelfde.
+                 */
+                if (hasMore && alGerapporteerd) {
+                    reducePeriod = true;
+                    morePeriods2Process = true;
+                    increasePeriod = false;
+                    // als er geen parsable periode is
+                    // (geen periode ingevuld en alGerapporteerd is true
+                    // dan moet morePeriods2Process false worden om een
+                    // eindloze while loop te voorkomen
+                    if (!parseblePeriod) {
+                        morePeriods2Process = false;
+                    } else {
+                        continue;
+                    }
+                }
+
+                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());
+
+                /*
+                 * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
+                 * aangegeven of uitsluitend de nog niet gerapporteerde
+                 * bestanden moeten worden opgenomen in de lijst, of dat alle
+                 * beschikbare bestanden worden genoemd. Niet gerapporteerd
+                 * betekent in dit geval ‘niet eerder opgevraagd in deze
+                 * bestandenlijst’. Als deze indicator wordt gebruikt, dan
+                 * worden na terugmelding van de bestandenlijst de bijbehorende
+                 * bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het
+                 * systeem van GDS.
+                 */
+                boolean dontGetMoreConfig = false;
+                while (hasMore && !dontGetMoreConfig) {
+                    criteria.setNogNietGerapporteerd(true);
+                    responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);
+
+                    List<AfgifteGBType> afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();
+                    afgiftesGb.addAll(afgiftes);
+                    aantalInAntwoord = afgiftes.size();
+                    System.out.println("Aantal in antwoord: " + aantalInAntwoord);
+
+                    hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase("true");
+                    System.out.println("Nog meer afgiftes beschikbaar: " + hasMore);
+                }
+            } while (morePeriods2Process);
+            System.out.println("Totaal aantal op te halen berichten: " + afgiftesGb.size());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        verwerkAfgiftesGb(afgiftesGb);
 
+        System.out.println("\n\n**** resultaat ****\n");
+        System.out.println("Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
+
+        List<AfgifteType> afgiftes = null;
         try {
             BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);
-
             afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        System.out.println("\n\n**** resultaat ****\n");
         System.out.println("Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()));
-        System.out.println("Aantal afgiftes grote bestanden: " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
-
     }
 
-    private static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        if (!pem.startsWith(PEM_KEY_START)) {
-            throw new IllegalArgumentException("Private key moet beginnen met " + PEM_KEY_START);
+    private static void verwerkAfgiftesGb(List<AfgifteGBType> afgiftesGb) {
+        System.out.println("Afgiftegegevens, bestandskenmerken en Digikoppeling datareference gegevens van de bestandenlijst.");
+        System.out.println("ID\treferentie\tbestandsnaam\tbestandref\tbeschikbaarTot\tcontractnr\tartikelnr\tartikelomschrijving\tcontextId\tcreationTime\texpirationTime\tfilename\tchecksum\ttype\tsize\tsenderUrl\treceiverUrl");
+        for (AfgifteGBType a : afgiftesGb) {
+            //String kenmerken = "(geen)";
+            String kenmerken = "-\t-\t-";
+            if (a.getBestandKenmerken() != null) {
+                //kenmerken = String.format("contractnr: %s, artikelnr: %s, artikelomschrijving: %s",
+                kenmerken = String.format("%s\t%s\t%s",
+                        a.getBestandKenmerken().getContractnummer(),
+                        a.getBestandKenmerken().getArtikelnummer(),
+                        a.getBestandKenmerken().getArtikelomschrijving());
+            }
+            //System.out.printf("ID: %s, referentie: %s, bestandsnaam: %s, bestandref: %s, beschikbaarTot: %s, kenmerken: %s",
+            System.out.printf("%s\t%s\t%s\t%s\t%s\t%s",
+                    a.getAfgifteID(),
+                    a.getAfgiftereferentie(),
+                    a.getBestand().getBestandsnaam(),
+                    a.getBestand().getBestandsreferentie(),
+                    a.getBeschikbaarTot(),
+                    kenmerken);
+            if (a.getDigikoppelingExternalDatareferences() != null
+                    && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
+                    //System.out.printf("   Digikoppeling datareference: contextId: %s, creationTime: %s, expirationTime: %s, filename: %s, checksum: %s, size: %d, type: %s, senderUrl: %s, receiverUrl: %s\n",
+                    System.out.printf("\t%s\t%s\t%s\t%s\t%s\t%d\t%s\t%s\t%s\n",
+                            dr.getContextId(),
+                            dr.getLifetime().getCreationTime().getValue(),
+                            dr.getLifetime().getExpirationTime().getValue(),
+                            dr.getContent().getFilename(),
+                            dr.getContent().getChecksum().getValue(),
+                            dr.getContent().getSize(),
+                            dr.getContent().getContentType(),
+                            dr.getTransport().getLocation().getSenderUrl() == null ? "-" : dr.getTransport().getLocation().getSenderUrl().getValue(),
+                            dr.getTransport().getLocation().getReceiverUrl() == null ? "-" : dr.getTransport().getLocation().getReceiverUrl().getValue());
+                }
+            }
         }
-        while (pem.endsWith("\n")) {
-            pem = pem.substring(0, pem.length() - 1);
-        }
-        if (!pem.endsWith(PEM_KEY_END)) {
-            throw new IllegalArgumentException("Private key moet eindigen met " + PEM_KEY_END);
-        }
-        pem = pem.replace(PEM_KEY_START, "").replace(PEM_KEY_END, "");
-
-        byte[] decoded = Base64.getMimeDecoder().decode(pem);
-
-        KeyFactory kf = KeyFactory.getInstance("RSA");
-        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
-        return kf.generatePrivate(spec);
     }
 
-    private static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
-        if (!pem.startsWith(PEM_CERT_START)) {
-            throw new IllegalArgumentException("Certificaat moet beginnen met " + PEM_CERT_START);
+    private static BestandenlijstGBOpvragenResponse retryBestandenLijstGBOpvragen(Gds2AfgifteServiceV20130701 gds2, BestandenlijstGBOpvragenRequest requestGb) throws Exception {
+        int attempt = 0;
+        while (true) {
+            try {
+                return gds2.bestandenlijstGBOpvragen(requestGb);
+            } catch (Exception e) {
+                attempt++;
+                if (attempt == BESTANDENLIJST_ATTEMPTS) {
+                    System.out.println("Fout bij laatste poging ophalen bestandenlijst: " + e.getClass().getName() + ": " + e.getMessage());
+                    throw e;
+                } else {
+                    System.out.println("Fout bij poging " + attempt + " om bestandenlijst op te halen: " + e.getClass().getName() + ": " + e.getMessage());
+                    Thread.sleep(BESTANDENLIJST_RETRY_WAIT);
+                    System.out.println("Uitvoeren poging " + (attempt + 1) + " om bestandenlijst op te halen...");
+                }
+            }
         }
-        while (pem.endsWith("\n")) {
-            pem = pem.substring(0, pem.length() - 1);
-        }
-        if (!pem.endsWith(PEM_CERT_END)) {
-            throw new IllegalArgumentException("Certificaat moet eindigen met " + PEM_CERT_END);
-        }
-        return CertificateFactory.getInstance("X509").generateCertificate(new ByteArrayInputStream(pem.getBytes("US-ASCII")));
     }
 }
