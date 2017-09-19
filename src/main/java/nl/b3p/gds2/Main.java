@@ -4,24 +4,15 @@
 package nl.b3p.gds2;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
-import java.io.ByteArrayInputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.KeyFactory;
 import java.security.KeyStore;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import javax.net.ssl.KeyManagerFactory;
@@ -56,9 +47,9 @@ public class Main {
     private static final int BESTANDENLIJST_RETRY_WAIT = 10000;
 
     public static void main(String[] args) throws Exception {
-        //java.lang.System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
-        //java.lang.System.setProperty("sun.security.ssl.allowLegacyHelloMessages", "true");
-        //java.lang.System.setProperty("javax.net.debug", "ssl,plaintext");
+        // java.lang.System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
+        // java.lang.System.setProperty("sun.security.ssl.allowLegacyHelloMessages", "true");
+        // java.lang.System.setProperty("javax.net.debug", "ssl,plaintext");
         Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
@@ -104,8 +95,10 @@ public class Main {
         verzoek.setAfgifteSelectieCriteria(criteria);
         criteria.setBestandKenmerken(new BestandKenmerkenType());
 
-        //criteria.getBestandKenmerken().setArtikelnummer("2508");
-        //criteria.getBestandKenmerken().setContractnummer("");
+        // criteria.getBestandKenmerken().setArtikelnummer("2508");
+        // criteria.getBestandKenmerken().setArtikelnummer("0002516");
+        // criteria.getBestandKenmerken().setContractnummer("0000015967");
+        // criteria.getBestandKenmerken().setContractnummer("15967");
         boolean alGerapporteerd = false;
         criteria.setNogNietGerapporteerd(alGerapporteerd);
         System.out.println("alGerapporteerd criterium: " + alGerapporteerd);
