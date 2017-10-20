@@ -94,20 +94,34 @@ public class Main {
         AfgifteSelectieCriteriaType criteria = new AfgifteSelectieCriteriaType();
         verzoek.setAfgifteSelectieCriteria(criteria);
         criteria.setBestandKenmerken(new BestandKenmerkenType());
-
-        // criteria.getBestandKenmerken().setArtikelnummer("2508");
-        // criteria.getBestandKenmerken().setArtikelnummer("0002516");
-        // criteria.getBestandKenmerken().setContractnummer("0000015967");
-        // criteria.getBestandKenmerken().setContractnummer("15967");
+        // alGerapporteerd
         boolean alGerapporteerd = false;
         criteria.setNogNietGerapporteerd(alGerapporteerd);
-        System.out.println("alGerapporteerd criterium: " + alGerapporteerd);
 
-        GregorianCalendar vanaf = new GregorianCalendar(2017, (1 - 1) /*0-based month*/, 1);
+        // maandelijkse mutaties NL
+        // criteria.getBestandKenmerken().setArtikelnummer("2508");
+        // dagelijkse mutaties NL
+        // criteria.getBestandKenmerken().setArtikelnummer("2516");
+        // criteria.getBestandKenmerken().setArtikelnummer("2522");
+        // soms met voorloopnullen
+        // criteria.getBestandKenmerken().setArtikelnummer("0002522");
+        // contractnummer
+        // criteria.getBestandKenmerken().setContractnummer("0005014500");
+
+
+        // vanaf 1 juli 2017
+        GregorianCalendar vanaf = new GregorianCalendar(2017, (7 - 1) /* GregorianCalendar heeft 0-based month */, 1);
         GregorianCalendar tot = new GregorianCalendar();
+        // tot vandaag
         tot.setTime(new Date());
+        // tot 1 okt 2017
+        // tot = new GregorianCalendar(2017, 11 - 1, 1);
+
+        System.out.println("Contract nummer: " + criteria.getBestandKenmerken().getContractnummer());
+        System.out.println("Artikel nummer: " + criteria.getBestandKenmerken().getArtikelnummer());
         System.out.println("DatumTijdVanaf criterium: " + vanaf.getTime());
         System.out.println("DatumTijdTot criterium: " + tot.getTime());
+        System.out.println("alGerapporteerd criterium: " + alGerapporteerd);
 
         criteria.setPeriode(new FilterDatumTijdType());
         XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(vanaf);
@@ -158,8 +172,8 @@ public class Main {
                                 /*
                                  * Hier kom je alleen als binnen een minuut meer
                                  * dan 2000 berichten zijn aangamaakt en het
-                                 * vinkje ook "al rapporteerde berichten
-                                 * ophalen" staat aan.
+                                 * vinkje "al rapporteerde berichten
+                                 * ophalen" ook staat aan.
                                  */
                                 System.out.println("Niet alle gevraagde berichten zijn opgehaald");
                         }
@@ -304,18 +318,19 @@ public class Main {
 
     private static void verwerkAfgiftesGb(List<AfgifteGBType> afgiftesGb) {
         System.out.println("Afgiftegegevens, bestandskenmerken en Digikoppeling datareference gegevens van de bestandenlijst.");
+        // tab gescheiden output, of kvp
         System.out.println("ID\treferentie\tbestandsnaam\tbestandref\tbeschikbaarTot\tcontractnr\tartikelnr\tartikelomschrijving\tcontextId\tcreationTime\texpirationTime\tfilename\tchecksum\ttype\tsize\tsenderUrl\treceiverUrl");
         for (AfgifteGBType a : afgiftesGb) {
-            //String kenmerken = "(geen)";
+            // String kenmerken = "(geen)";
             String kenmerken = "-\t-\t-";
             if (a.getBestandKenmerken() != null) {
-                //kenmerken = String.format("contractnr: %s, artikelnr: %s, artikelomschrijving: %s",
+                // kenmerken = String.format("contractnr: %s, artikelnr: %s, artikelomschrijving: %s",
                 kenmerken = String.format("%s\t%s\t%s",
                         a.getBestandKenmerken().getContractnummer(),
                         a.getBestandKenmerken().getArtikelnummer(),
                         a.getBestandKenmerken().getArtikelomschrijving());
             }
-            //System.out.printf("ID: %s, referentie: %s, bestandsnaam: %s, bestandref: %s, beschikbaarTot: %s, kenmerken: %s",
+            // System.out.printf("ID: %s, referentie: %s, bestandsnaam: %s, bestandref: %s, beschikbaarTot: %s, kenmerken: %s",
             System.out.printf("%s\t%s\t%s\t%s\t%s\t%s",
                     a.getAfgifteID(),
                     a.getAfgiftereferentie(),
@@ -326,7 +341,7 @@ public class Main {
             if (a.getDigikoppelingExternalDatareferences() != null
                     && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
                 for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-                    //System.out.printf("   Digikoppeling datareference: contextId: %s, creationTime: %s, expirationTime: %s, filename: %s, checksum: %s, size: %d, type: %s, senderUrl: %s, receiverUrl: %s\n",
+                    // System.out.printf("   Digikoppeling datareference: contextId: %s, creationTime: %s, expirationTime: %s, filename: %s, checksum: %s, size: %d, type: %s, senderUrl: %s, receiverUrl: %s\n",
                     System.out.printf("\t%s\t%s\t%s\t%s\t%s\t%d\t%s\t%s\t%s\n",
                             dr.getContextId(),
                             dr.getLifetime().getCreationTime().getValue(),
