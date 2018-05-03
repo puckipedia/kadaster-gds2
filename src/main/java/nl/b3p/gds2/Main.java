@@ -107,15 +107,14 @@ public class Main {
         // criteria.getBestandKenmerken().setArtikelnummer("0002522");
         // contractnummer
         // criteria.getBestandKenmerken().setContractnummer("0005014500");
-
-
-        // vanaf 1 juli 2017
-        GregorianCalendar vanaf = new GregorianCalendar(2017, (7 - 1) /* GregorianCalendar heeft 0-based month */, 1);
+        criteria.getBestandKenmerken().setContractnummer("9700004549");
+        // vanaf 1 jan 2018
+        GregorianCalendar vanaf = new GregorianCalendar(2018, (1 - 1) /* GregorianCalendar heeft 0-based month */, 1);
         GregorianCalendar tot = new GregorianCalendar();
         // tot vandaag
         tot.setTime(new Date());
-        // tot 1 okt 2017
-        // tot = new GregorianCalendar(2017, 11 - 1, 1);
+        // tot 1 feb 2018
+        tot = new GregorianCalendar(2018, 2 - 1, 1);
 
         System.out.println("Contract nummer: " + criteria.getBestandKenmerken().getContractnummer());
         System.out.println("Artikel nummer: " + criteria.getBestandKenmerken().getArtikelnummer());
