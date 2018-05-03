@@ -1,2 +1,8 @@
 gds2_key.jks
 target
+*.key
+*.pem
+*.log
+notes
+!private.key
+!public.key
