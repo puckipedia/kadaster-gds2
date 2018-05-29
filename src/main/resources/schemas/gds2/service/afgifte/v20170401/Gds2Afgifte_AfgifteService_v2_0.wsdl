@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Correcties in elementdefinities
+	Introductie KlantAfgiftenummer, gesplitste URLs.
+	Verwijderen ophalenBestand en kleine bestandenlijst. Hernoemen grote bestanden opvraging.
+-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/"
+	xmlns:gds2-asblblo="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401"
+	xmlns:gds2-as="http://www.kadaster.nl/schemas/gds2/service/afgifte/v20170401"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/service/afgifte/v20170401">
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified"
+			attributeFormDefault="unqualified" version="0.1">
+			<xsd:import
+				schemaLocation="../../../service/afgifte-bestandenlijstopvragen/v20170401/Gds2Afgifte_BestandenlijstOpvragenMessages_v2_0.xsd"
+				namespace="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="BestandenlijstOpvragenRequest">
+		<wsdl:part name="parameters"
+			element="gds2-asblblo:BestandenlijstOpvragenRequest" />
+	</wsdl:message>
+	<wsdl:message name="BestandenlijstOpvragenResponse">
+		<wsdl:part name="parameters"
+			element="gds2-asblblo:BestandenlijstOpvragenResponse" />
+	</wsdl:message>
+	<wsdl:portType name="Gds2AfgifteService_v20170401">
+		<wsdl:operation name="BestandenlijstOpvragen">
+			<wsdl:input message="gds2-as:BestandenlijstOpvragenRequest" />
+			<wsdl:output message="gds2-as:BestandenlijstOpvragenResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="Gds2AfgifteServiceSoapOverHttp" type="gds2-as:Gds2AfgifteService_v20170401">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="BestandenlijstOpvragen">
+			<soap:operation
+				soapAction="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Gds2AfgifteService_v20170401Service">
+		<wsdl:port name="AGds2AfgifteService_v20170401" binding="gds2-as:Gds2AfgifteServiceSoapOverHttp">
+			<soap:address location="https://service30.kadaster.nl/gds2/afgifte/v20170401" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

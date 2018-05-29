@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster) -->
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Introductie klantAfgiftenummer filter
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ap="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401" targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="Periode" type="ap:FilterDatumTijdType">
+		<xsd:annotation>
+			<xsd:documentation>Selectiecriteria. Hiermee kan de bestandenlijst beperkt worden tot afgiftes vanaf een aanmeldingsdatum+tijd en/of tot en met een aanmeldingsdatum+tijdstip (op seconde). Bv. vanaf de 1e van de vorige maand tot en met de 1e van de huidige maand. Indien de datum ver in het verleden ligt dan is de bewaartermijn verstreken. Deze bestanden zijn niet meer op te vragen. De bewaartermijn is per dienst verschillend en is opvraagbaar bij het kadaster.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FilterDatumTijdType">
+		<xsd:sequence>
+			<xsd:element name="DatumTijdVanaf" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="DatumTijdTotmet" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="KlantAfgiftenummerReeks" type="ap:KlantAfgiftenummerReeksType">
+		<xsd:annotation>
+			<xsd:documentation>Selectiecriteria. Hiermee kan de bestandenlijst beperkt worden tot afgiftes met een bepaald nummer.  Bv. vanaf een startnummer tot en met een eindnummer. Indien de afgifte datum ver in het verleden ligt dan is de bewaartermijn verstreken. Deze bestanden zijn niet meer op te vragen. De bewaartermijn is per dienst verschillend en is opvraagbaar bij het kadaster.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="KlantAfgiftenummerReeksType">
+		<xsd:sequence>
+			<xsd:element name="klantAfgiftenummerVanaf" type="xsd:integer"/>
+			<xsd:element name="klantAfgiftenummerTotmet" type="xsd:integer" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="NogNietGerapporteerd" type="xsd:boolean">
+		<xsd:annotation>
+			<xsd:documentation>Selectiecriteria.. Met deze indicatie wordt aangegeven of uitsluitend de nog niet gerapporteerde afgiftes moeten worden opgenomen in de bestandenlijst. Indien niet ingevuld worden geen afgiftes uitgefilterd.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MeerAfgiftesBeschikbaar">
+		<xsd:annotation>
+			<xsd:documentation>Met deze indicator wordt aangegeven of er meer afgiftes gevonden zijn die voldoen aan de opgegeven selectie criteria. Om ook deze afgiftes te selecteren kan gekozen worden om dezelfde selectie criteria te gebruiken, aangevuld met NogNietGerapporteerd = 1 (true).</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BeschikbaarTot" type="xsd:dateTime">
+		<xsd:annotation>
+			<xsd:documentation>De uiterste datum tot wanneer een bestand nog opvraagbaar is. Deze datum is gelijk aan de laatste dag van de bewaringstermijn van de afgifte.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Sortering" type="ap:SorteringType">
+		<xsd:annotation>
+			<xsd:documentation>Sortering. Hiermee kan de bestandenlijst worden gesorteerd. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="SorteringType">
+		<xsd:sequence>
+			<xsd:element name="Kolom">
+				<xsd:annotation>
+					<xsd:documentation>Kolommen waar op gesorteerd kan worden. Voor de kolom datum aanmelding moet de string DATUM_AANMELDING worden gebruikt. Zie verder documentatie </xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Volgorde">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="ASC"/>
+						<xsd:enumeration value="DESC"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Afgiftereferentie" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation> Selectiecriteria. Hiermee kan de bestandenlijst beperkt worden tot afgiftes die voldoen aan de opgegeven afgiftereferentie.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

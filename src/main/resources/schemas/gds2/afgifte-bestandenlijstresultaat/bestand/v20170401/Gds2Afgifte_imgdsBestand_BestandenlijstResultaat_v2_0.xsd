@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+ v20170401:
+	Bestandsnaam base is NCName zodat namen aan Digikoppling voldoen.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:blorb="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401"
+	targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="0.1">
+	<xsd:element name="Bestand" type="blorb:Bestand">
+		<xsd:annotation>
+			<xsd:documentation>Gegevens over het bestand. Dit element bevat niet
+				het bestand zelf. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="Bestand">
+		<xsd:sequence>
+			<xsd:element name="bestandsnaam">
+				<xsd:annotation>
+					<xsd:documentation>De unieke identificatie van een bestand. Deze
+						naam is uniek binnen de dienst waartoe het bestand behoort en is
+						door middel van een prefix met de dienstnaam ook
+						dienstoverstijgend uniek gemaakt.  </xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:NCName">
+						<xsd:maxLength value="297" />
+						<xsd:minLength value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="bestandsreferentie" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>TODO: MS</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1" />
+						<xsd:maxLength value="1024" />
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
