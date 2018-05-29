@@ -27,6 +27,11 @@
     <menu name="Informatie" inherit="top">
       <item name="Home" href="/index.html" />
     </menu>
+    <menu name="Documentatie Kadaster">
+      <item name="Gebruikershandleiding voor klanten" href="/Gebruikershandleiding voor klanten van GDS v2.4.pdf" />
+      <item name="Handleiding GDS Afgifte SoapUI Server Stub" href="/Handleiding GDS Afgifte SoapUI Server Stub v1.2.pdf" />
+      <item name="Handleiding Koppelvlak GDS - Schema's" href="/Handleiding Koppelvlak GDS - Schema's (v20170401) v2.4.pdf" />
+    </menu>
     <menu ref="modules" />
     <menu ref="reports" />
   </body>
