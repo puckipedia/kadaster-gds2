@@ -57,9 +57,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -80,6 +80,12 @@
             <url>scm:git:ssh://git@github.com/b3partners/kadaster-gds2.git</url>
         </site>
     </distributionManagement>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>smartbear-sweden-plugin-repository</id>
+            <url>http://www.soapui.org/repository/maven2</url>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <pluginManagement>
             <plugins>
@@ -174,6 +180,11 @@
                     <artifactId>maven-toolchains-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>com.smartbear.soapui</groupId>
+                    <artifactId>soapui-maven-plugin</artifactId>
+                    <version>5.4.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -217,6 +228,13 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <argLine>@{argLine}</argLine>
                 </configuration>
@@ -302,6 +320,26 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.smartbear.soapui</groupId>
+                <artifactId>soapui-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <projectFile>Gds2Afgifte-AfgifteService-v2-0-soapui-project_20171130.xml</projectFile>
+                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>
+                            <junitReport>true</junitReport>
+                            <host>http://127.0.0.1:8088</host>
+                            <mockService>AfgifteService Mock</mockService>
+                            <noBlock>true</noBlock>
+                        </configuration>
+                        <goals>
+                            <goal>mock</goal>
+                        </goals>
+                        <phase>process-test-classes</phase>
                     </execution>
                 </executions>
             </plugin>

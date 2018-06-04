@@ -13,8 +13,6 @@ import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.SorteringType;
 import nl.kadaster.schemas.gds2.imgds.baseurl.v20170401.BaseURLType;
 import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401;
 import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401Service;
-import org.junit.After;
-import org.junit.Before;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.sun.xml.ws.developer.JAXWSProperties;
@@ -52,11 +50,13 @@ import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV201
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenRequest;
 import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenResponse;
 
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * @author Mark Prins
@@ -71,7 +71,7 @@ public class GDS2MockTest {
     /**
      *
      */
-    @Before
+    @BeforeEach
     public void initContext() {
         this.gds2 = new Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();
         BindingProvider bp = (BindingProvider) gds2;
@@ -87,7 +87,7 @@ public class GDS2MockTest {
 
     }
 
-    @After
+    @AfterEach
     public void cleanupContext() {
         this.gds2 = null;
         this.ctxt = null;
@@ -111,7 +111,7 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes=response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(5, afgiftes.size());
-        assertFalse("Er moeten geen afgiftes meer beschikbaar zijn", response.getAntwoord().isMeerAfgiftesbeschikbaar());
+        assertFalse(response.getAntwoord().isMeerAfgiftesbeschikbaar(),"Er moeten geen afgiftes meer beschikbaar zijn");
 
         assertEquals("https://service30.kadaster.nl/gds2/download/privateMock_bestand1.txt", getAfgifteURL(afgiftes.get(0), this.getBaseURL(response.getAntwoord())));
     }
@@ -130,7 +130,7 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes=response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(1, afgiftes.size());
-        assertTrue("Er zouden meer afgiftes beschikbaar moeten zijn",response.getAntwoord().isMeerAfgiftesbeschikbaar());
+        assertTrue(response.getAntwoord().isMeerAfgiftesbeschikbaar(),"Er zouden meer afgiftes beschikbaar moeten zijn");
 
         assertEquals("https://service30.kadaster.nl/gds2/download/privateMock_bestand2.txt", getAfgifteURL(afgiftes.get(0), this.getBaseURL(response.getAntwoord())));
     }
@@ -150,7 +150,7 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes=response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(2, afgiftes.size());
-        assertTrue("Er zouden meer afgiftes beschikbaar moeten zijn",response.getAntwoord().isMeerAfgiftesbeschikbaar());
+        assertTrue(response.getAntwoord().isMeerAfgiftesbeschikbaar(),"Er zouden meer afgiftes beschikbaar moeten zijn");
 
         assertEquals("https://service30.kadaster.nl/gds2/download/privateMock_bestand4.txt", getAfgifteURL(afgiftes.get(0), this.getBaseURL(response.getAntwoord())));
     }
