@@ -1,0 +1,1942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="595a9503-d6ad-4ae8-9044-44a00670aa61" activeEnvironment="Default" name="Gds2Afgifte_AfgifteService_v2_0" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="TestSuite" value="Mock test"/>
+  <con:entry key="Endpoint" value=""/>
+  <con:entry key="Select Report Type" value=""/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Export JUnit Results with test properties" value="false"/>
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="TestCase" value="BestandenlijstOpvragen TestCase"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="user-settings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Environment" value="Default"/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Save Project" value="false"/>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" id="4e3f82a3-6fd5-43f0-bdfe-3461bc12f333" wsaVersion="NONE" name="Gds2AfgifteServiceSoapOverHttp" type="wsdl" bindingName="{http://www.kadaster.nl/schemas/gds2/service/afgifte/v20170401}Gds2AfgifteServiceSoapOverHttp" soapVersion="1_1" anonymous="optional" definition="file:/U:/Services/RVTs/IV/Diensten/GDS%202/documentatie/Interfacespecificaties/2017%20versie%2020171013/schemas/gds2/service/afgifte/v20170401/Gds2Afgifte_AfgifteService_v2_0.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\service\afgifte\v20170401\Gds2Afgifte_AfgifteService_v2_0.wsdl"><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\service\afgifte\v20170401\Gds2Afgifte_AfgifteService_v2_0.wsdl</con:url><con:content><![CDATA[<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Correcties in elementdefinities
+	Introductie KlantAfgiftenummer, gesplitste URLs.
+	Verwijderen ophalenBestand en kleine bestandenlijst. Hernoemen grote bestanden opvraging.-->
+<wsdl:definitions targetNamespace="http://www.kadaster.nl/schemas/gds2/service/afgifte/v20170401" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" xmlns:gds2-asblblo="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:gds2-as="http://www.kadaster.nl/schemas/gds2/service/afgifte/v20170401">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+      <xsd:import schemaLocation="../../../service/afgifte-bestandenlijstopvragen/v20170401/Gds2Afgifte_BestandenlijstOpvragenMessages_v2_0.xsd" namespace="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="BestandenlijstOpvragenRequest">
+    <wsdl:part name="parameters" element="gds2-asblblo:BestandenlijstOpvragenRequest"/>
+  </wsdl:message>
+  <wsdl:message name="BestandenlijstOpvragenResponse">
+    <wsdl:part name="parameters" element="gds2-asblblo:BestandenlijstOpvragenResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="Gds2AfgifteService_v20170401">
+    <wsdl:operation name="BestandenlijstOpvragen">
+      <wsdl:input message="gds2-as:BestandenlijstOpvragenRequest"/>
+      <wsdl:output message="gds2-as:BestandenlijstOpvragenResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Gds2AfgifteServiceSoapOverHttp" type="gds2-as:Gds2AfgifteService_v20170401">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="BestandenlijstOpvragen">
+      <soap:operation soapAction="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Gds2AfgifteService_v20170401Service">
+    <wsdl:port name="AGds2AfgifteService_v20170401" binding="gds2-as:Gds2AfgifteServiceSoapOverHttp">
+      <soap:address location="https://service30.kadaster.nl/gds2/afgifte/v20170401"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\service\afgifte-bestandenlijstopvragen\v20170401\Gds2Afgifte_BestandenlijstOpvragenMessages_v2_0.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster)-->
+<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401:
+	Ondersteunt nu opvragen ebstandenlijst 'grote' bestanden, kleine bestanden als bijzonder geval vervalt.-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20170401" xmlns:blor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:ns1="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401">
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20170401" schemaLocation="../../../afgifte-bestandenlijstopvragen/v20170401/Gds2Afgifte_BestandenlijstOpvragen_v2_0.xsd"/>
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" schemaLocation="../../../afgifte-bestandenlijstopvragenresultaat/v20170401/Gds2Afgifte_BestandenlijstOpvragenResultaat_v2_0.xsd"/>
+  <xsd:element name="BestandenlijstOpvragenRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="verzoek" type="blo:BestandenlijstOpvragenType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="BestandenlijstOpvragenResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="antwoord" type="blor:BestandenlijstOpvragenResultaatType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-bestandenlijstopvragen\v20170401\Gds2Afgifte_BestandenlijstOpvragen_v2_0.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster)-->
+<!--v20130701 (v1):
+	Initiele productieversie-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20170401" xmlns:blosc="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401">
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" schemaLocation="../../afgifte-bestandenlijstselectie/v20170401/Gds2Afgifte_BestandenlijstSelectiecriteria_v2_0.xsd"/>
+  <xsd:element name="BestandenlijstOpvragen" type="blo:BestandenlijstOpvragenType"/>
+  <xsd:complexType name="BestandenlijstOpvragenType">
+    <xsd:annotation>
+      <xsd:documentation>Het opvragen van een bestandenlijst met grote
+        bestanden inclusief afgifte gegevens. De lijst zal alleen die
+        afgiftes gaan bevatten die voldoen aan de gebruikte
+        selectiegegevens. Indien er geen afgiftes voldoen aan deze
+        selectie gegevens, dan zal er geen bestandenlijst aanwezig zijn
+        in het resultaat.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="blosc:AfgifteSelectieCriteria"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-bestandenlijstselectie\v20170401\Gds2Afgifte_BestandenlijstSelectiecriteria_v2_0.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster)-->
+<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Introductie klantafgiftenummer filter-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blosc="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:ap="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401" schemaLocation="../../afgifte-proces/v20170401/Gds2Afgifte_Procesgegevens_v2_0.xsd"/>
+  <xsd:element name="AfgifteSelectieCriteria" type="blosc:AfgifteSelectieCriteriaType"/>
+  <xsd:complexType name="AfgifteSelectieCriteriaType">
+    <xsd:sequence>
+      <xsd:element ref="blosc:BestandKenmerken" minOccurs="0"/>
+      <xsd:choice minOccurs="0">
+        <xsd:element ref="ap:Periode" minOccurs="0"/>
+        <xsd:element ref="ap:KlantAfgiftenummerReeks" minOccurs="0"/>
+      </xsd:choice>
+      <xsd:element ref="ap:NogNietGerapporteerd" minOccurs="0"/>
+      <xsd:element ref="ap:Sortering" minOccurs="0"/>
+      <xsd:element ref="ap:Afgiftereferentie" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="BestandKenmerken" type="blosc:BestandKenmerkenType">
+    <xsd:annotation>
+      <xsd:documentation>Kenmerken van een GDS bestand. Deze kunnen in het verzoek gebruikt kunnen worden als filter bij het opvragen van de bestandenlijst.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="BestandKenmerkenType">
+    <xsd:sequence>
+      <xsd:element name="contractnummer" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="10"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="artikelnummer" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-proces\v20170401\Gds2Afgifte_Procesgegevens_v2_0.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster)-->
+<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Introductie klantAfgiftenummer filter-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ap="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+  <xsd:element name="Periode" type="ap:FilterDatumTijdType">
+    <xsd:annotation>
+      <xsd:documentation>Selectiecriteria. Hiermee kan de bestandenlijst beperkt worden tot afgiftes vanaf een aanmeldingsdatum+tijd en/of tot en met een aanmeldingsdatum+tijdstip (op seconde). Bv. vanaf de 1e van de vorige maand tot en met de 1e van de huidige maand. Indien de datum ver in het verleden ligt dan is de bewaartermijn verstreken. Deze bestanden zijn niet meer op te vragen. De bewaartermijn is per dienst verschillend en is opvraagbaar bij het kadaster.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="FilterDatumTijdType">
+    <xsd:sequence>
+      <xsd:element name="DatumTijdVanaf" type="xsd:dateTime" minOccurs="0"/>
+      <xsd:element name="DatumTijdTotmet" type="xsd:dateTime" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="KlantAfgiftenummerReeks" type="ap:KlantAfgiftenummerReeksType">
+    <xsd:annotation>
+      <xsd:documentation>Selectiecriteria. Hiermee kan de bestandenlijst beperkt worden tot afgiftes met een bepaald nummer.  Bv. vanaf een startnummer tot en met een eindnummer. Indien de afgifte datum ver in het verleden ligt dan is de bewaartermijn verstreken. Deze bestanden zijn niet meer op te vragen. De bewaartermijn is per dienst verschillend en is opvraagbaar bij het kadaster.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="KlantAfgiftenummerReeksType">
+    <xsd:sequence>
+      <xsd:element name="klantAfgiftenummerVanaf" type="xsd:integer"/>
+      <xsd:element name="klantAfgiftenummerTotmet" type="xsd:integer" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="NogNietGerapporteerd" type="xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation>Selectiecriteria.. Met deze indicatie wordt aangegeven of uitsluitend de nog niet gerapporteerde afgiftes moeten worden opgenomen in de bestandenlijst. Indien niet ingevuld worden geen afgiftes uitgefilterd.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="MeerAfgiftesBeschikbaar">
+    <xsd:annotation>
+      <xsd:documentation>Met deze indicator wordt aangegeven of er meer afgiftes gevonden zijn die voldoen aan de opgegeven selectie criteria. Om ook deze afgiftes te selecteren kan gekozen worden om dezelfde selectie criteria te gebruiken, aangevuld met NogNietGerapporteerd = 1 (true).</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="BeschikbaarTot" type="xsd:dateTime">
+    <xsd:annotation>
+      <xsd:documentation>De uiterste datum tot wanneer een bestand nog opvraagbaar is. Deze datum is gelijk aan de laatste dag van de bewaringstermijn van de afgifte.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Sortering" type="ap:SorteringType">
+    <xsd:annotation>
+      <xsd:documentation>Sortering. Hiermee kan de bestandenlijst worden gesorteerd.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="SorteringType">
+    <xsd:sequence>
+      <xsd:element name="Kolom">
+        <xsd:annotation>
+          <xsd:documentation>Kolommen waar op gesorteerd kan worden. Voor de kolom datum aanmelding moet de string DATUM_AANMELDING worden gebruikt. Zie verder documentatie</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Volgorde">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ASC"/>
+            <xsd:enumeration value="DESC"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Afgiftereferentie" type="xsd:string">
+    <xsd:annotation>
+      <xsd:documentation>Selectiecriteria. Hiermee kan de bestandenlijst beperkt worden tot afgiftes die voldoen aan de opgegeven afgiftereferentie.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-bestandenlijstopvragenresultaat\v20170401\Gds2Afgifte_BestandenlijstOpvragenResultaat_v2_0.xsd</con:url><con:content><![CDATA[<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Correctie type 'meerAfgiftesBeschikbaar' (boolean)
+	Introductie klantAfgiftenummer max beschikbaar veld
+	Introductie 'aantal afgiftes in lijst' teller
+	Introductie gesplitste URLs-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:result="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:blora="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:burl="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401">
+  <xsd:import namespace="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" schemaLocation="../../../generiek-extern/procesresultaat/v20110922/GenProcesResultaatExtern_v0_6.xsd"/>
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" schemaLocation="../../afgifte-bestandenlijstresultaat/afgifte/v20170401/Gds2Afgifte_imgdsAfgifte_BestandenlijstResultaat_v2_0.xsd"/>
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" schemaLocation="../../imgds/baseurl/v20170401/Gds2Afgifte_imgds_BaseURL_v2_0.xsd"/>
+  <xsd:element name="BestandenlijstOpvragenResultaat" type="blor:BestandenlijstOpvragenResultaatType"/>
+  <xsd:complexType name="BestandenlijstOpvragenResultaatType">
+    <xsd:annotation>
+      <xsd:documentation>De opgevraagde bestandenlijst met afgifte gegevens
+				voor bestanden. De lijst bevat die afgiftes die voldoen
+				aan de gebruikte selectiegegevens. Indien er geen afgiftes voldoen
+				aan deze selectie gegevens, dan is er geen bestandenlijst aanwezig
+				in het resultaat.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="result:ProcesVerwerking"/>
+      <xsd:element name="klantAfgiftenummerMax" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Bevat het hoogste klantafgiftenummer waarvoor een afgifte beschikbaar is.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="afgifteAantalInLijst" type="xsd:int">
+        <xsd:annotation>
+          <xsd:documentation>Bevat de telling voor het aantal afgiftes dat geselecteerd is als resultaat.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="BaseURLSet" type="burl:BaseURLSetType" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Optionele lijst baseURLs als prefix voor de verschillende download URLs.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="blora:BestandenLijst" minOccurs="0"/>
+      <xsd:element name="meerAfgiftesbeschikbaar" type="xsd:boolean" default="true" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Indien er meer dan het maximum aantal afgiftes
+						zijn gevonden, dan is dit element aanwezig met de waarde true</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\generiek-extern\procesresultaat\v20110922\GenProcesResultaatExtern_v0_6.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2010 (http://www.altova.com) by Kadaster (Kadaster)-->
+<xs:schema targetNamespace="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.6" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:result="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922">
+  <xs:element name="ProcesVerwerking" type="result:ProcesVerwerking">
+    <xs:annotation>
+      <xs:documentation>Standaard element t.b.v. het terugkoppelen van het resultaat van een verzoek. Er zijn diverse functionele situaties waarin dit element uitgebreid moet worden t.b.v. een specifieke(re) functionele context. Dit gebeurd via de extend methodiek.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="ProcesVerwerking">
+    <xs:sequence>
+      <xs:element ref="result:ProcesVerwerkingCode"/>
+      <xs:element ref="result:SeverityCode">
+        <xs:annotation>
+          <xs:documentation>Dit element is een bouwsteen, welke gebruikt kan worden om de ernst van een fout aan te geven. De standaard classificaties worden gebruikt (in aflopende volgorde van ernst): SECURITY, FATAL, ERROR, WARNING, INFO. De default is INFO.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="result:Melding" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Dit element is een bouwsteen, welke gebruikt kan worden om een melding, in het bijzonder een foutmelding, terug te koppelen.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Melding" type="result:Melding">
+    <xs:annotation>
+      <xs:documentation>Dit element is een bouwsteen, welke gebruikt kan worden om een (goed) melding, in het bijzonder een foutmelding, terug te koppelen.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="Melding">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="omschrijving" type="xs:string"/>
+      <xs:element ref="result:SeverityCode">
+        <xs:annotation>
+          <xs:documentation>Dit element is een bouwsteen, welke gebruikt kan worden om de ernst van een fout aan te geven. De standaard classificaties worden gebruikt (in aflopende volgorde van ernst): SECURITY, FATAL, ERROR, WARNING, INFO. De default is INFO.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProcesVerwerkingCode" type="xs:string" default="1">
+    <xs:annotation>
+      <xs:documentation>Dit element is een bouwsteen, welke gebruikt wordt om het resultaat van de verwerking aan te geven. Dit kan zowel goed of fout zijn. De default waarde is 1. Dit betekent dat het verzoek succesvol is verwerkt.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="SeverityCode" type="xs:string" default="INFO">
+    <xs:annotation>
+      <xs:documentation>Dit element is een bouwsteen, welke gebruikt kan worden om de ernst van een fout aan te geven. De standaard classificaties worden gebruikt: SECURITY, FATAL, ERROR, WARNING, INFO. De default is INFO.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-bestandenlijstresultaat\afgifte\v20170401\Gds2Afgifte_imgdsAfgifte_BestandenlijstResultaat_v2_0.xsd</con:url><con:content><![CDATA[<!--edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster)-->
+<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Toevoegen klantAfgiftenummer per afgifte
+	Omvormen naar Afgiftes voor alle bestanden (onderscheid klein-groot vervalt).-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blora="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:blorb="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:blork="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10">
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" schemaLocation="../../../afgifte-bestandenlijstresultaat/bestand/v20170401/Gds2Afgifte_imgdsBestand_BestandenlijstResultaat_v2_0.xsd"/>
+  <xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" schemaLocation="../../../afgifte-bestandenlijstresultaat/kenmerken/v20170401/Gds2Afgifte_imgdsBestandkenmerken_BestandenlijstResultaat_v2_0.xsd"/>
+  <xsd:import namespace="http://www.logius.nl/digikoppeling/gb/2010/10" schemaLocation="../../../../digikoppeling/gb/2010/10/gb-meta.xsd"/>
+  <xsd:element name="Afgifte" type="blora:AfgifteType">
+    <xsd:annotation>
+      <xsd:documentation>De standaard afgifte van een bestand.
+				Deze bevat niet het bestand zelf, maar bevatten de uri van het bestand,
+				waarmee het bestand in een aparte download op te halen is.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="AfgifteType">
+    <xsd:sequence>
+      <xsd:element name="afgifteID">
+        <xsd:annotation>
+          <xsd:documentation>De unieke identificatie van een Afgifte.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="36"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="klantAfgiftenummer" type="xsd:integer"/>
+      <xsd:element name="afgiftereferentie" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="1024"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="contractAfgiftenummer" type="xsd:integer" minOccurs="0"/>
+      <xsd:element ref="blorb:Bestand"/>
+      <xsd:element name="beschikbaarTot" type="xsd:dateTime">
+        <xsd:annotation>
+          <xsd:documentation>De datum tot wanneer de afgifte beschikbaar. Het
+						bestand behorende bij de afgifte hoort voor deze tijd te zijn
+						opgehaald.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element ref="blork:BestandKenmerken" minOccurs="0"/>
+      <xsd:element ref="tns:digikoppeling-external-datareferences"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="BestandenLijst" type="blora:BestandenLijstType">
+    <xsd:annotation>
+      <xsd:documentation>De bestandenlijst met afgiftes voor bestanden.  Om deze
+				bestanden op te halen moet de external datareference (url) gebruikt
+				worden zoals voorgeschreven in de digikoppelijng standaard voor
+				grote bestanden.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="BestandenLijstType">
+    <xsd:sequence>
+      <xsd:element ref="blora:Afgifte" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-bestandenlijstresultaat\bestand\v20170401\Gds2Afgifte_imgdsBestand_BestandenlijstResultaat_v2_0.xsd</con:url><con:content><![CDATA[<!--v20130701 (v1):
+	Initiele productieversie
+ v20170401:
+	Bestandsnaam base is NCName zodat namen aan Digikoppling voldoen.-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blorb="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401">
+  <xsd:element name="Bestand" type="blorb:Bestand">
+    <xsd:annotation>
+      <xsd:documentation>Gegevens over het bestand. Dit element bevat niet
+				het bestand zelf.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="Bestand">
+    <xsd:sequence>
+      <xsd:element name="bestandsnaam">
+        <xsd:annotation>
+          <xsd:documentation>De unieke identificatie van een bestand. Deze
+						naam is uniek binnen de dienst waartoe het bestand behoort en is
+						door middel van een prefix met de dienstnaam ook
+						dienstoverstijgend uniek gemaakt.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:NCName">
+            <xsd:maxLength value="297"/>
+            <xsd:minLength value="1"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="bestandsreferentie" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>TODO: MS</xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="1024"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\afgifte-bestandenlijstresultaat\kenmerken\v20170401\Gds2Afgifte_imgdsBestandkenmerken_BestandenlijstResultaat_v2_0.xsd</con:url><con:content><![CDATA[<!--v20130701 (v1):
+	Initiele productieversie-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blork="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401">
+  <xsd:element name="BestandKenmerken" type="blork:BestandKenmerkenType">
+    <xsd:annotation>
+      <xsd:documentation>Selectiegegevens die in het verzoek gebruikt zijn als filter bij het opvragen van de bestandenlijst.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="BestandKenmerkenType">
+    <xsd:sequence>
+      <xsd:element name="contractnummer" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="10"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="artikelnummer" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="artikelomschrijving" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="80"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\digikoppeling\gb\2010\10\gb-meta.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" targetNamespace="http://www.logius.nl/digikoppeling/gb/2010/10" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10">
+  <xs:element name="digikoppeling-external-datareferences" type="tns:external-data-reference"></xs:element>
+  <xs:complexType name="external-data-reference">
+    <xs:sequence>
+      <xs:element name="data-reference" maxOccurs="unbounded" type="tns:data-reference"/>
+    </xs:sequence>
+    <xs:attribute name="profile" type="tns:gb-profile"/>
+  </xs:complexType>
+  <xs:complexType name="data-reference">
+    <xs:sequence minOccurs="1">
+      <xs:element name="lifetime">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="creationTime" type="tns:datetimeType" minOccurs="0"/>
+            <xs:element name="expirationTime" type="tns:datetimeType" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="content">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="filename" type="xs:NCName"/>
+            <xs:element name="checksum" type="tns:checksumType"/>
+            <xs:element name="size" type="xs:unsignedLong"/>
+          </xs:sequence>
+          <xs:attribute name="contentType" use="required" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="transport">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="location">
+              <xs:complexType>
+                <xs:choice>
+                  <xs:element name="senderUrl" type="tns:urlType"/>
+                  <xs:element name="receiverUrl" type="tns:urlType"/>
+                </xs:choice>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="contextId" use="optional"/>
+  </xs:complexType>
+  <xs:simpleType name="gb-profile" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="digikoppeling-gb-1.0"/>
+      <!--DigiKoppeling GB profiel 1 aanduiding-->
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="datetimeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:dateTime">
+        <xs:attribute name="type" use="required" type="xs:string" fixed="xs:dateTime"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="checksumType">
+    <xs:simpleContent>
+      <xs:extension base="tns:md5String">
+        <xs:attribute name="type" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="MD5"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="urlType">
+    <xs:simpleContent>
+      <xs:extension base="tns:anyString">
+        <xs:attribute name="type" use="required" fixed="xs:anyURI"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="md5String">
+    <xs:simpleContent>
+      <xs:restriction base="tns:anyString">
+        <xs:pattern value="[0-9a-fA-F]*"/>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="anyString">
+    <xs:simpleContent>
+      <xs:extension base="xs:string"/>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\U:\Services\RVTs\IV\Diensten\GDS%202\documentatie\Interfacespecificaties\2017%20versie%2020171013\schemas\gds2\imgds\baseurl\v20170401\Gds2Afgifte_imgds_BaseURL_v2_0.xsd</con:url><con:content><![CDATA[<!--v20170401 (v2):
+	Initiele productieversie - definities BaseURLSet-->
+<xsd:schema targetNamespace="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:burl="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401">
+  <xsd:element name="BaseURLSet" type="burl:BaseURLSetType">
+    <xsd:annotation>
+      <xsd:documentation>Een lijst BaseURLs waaruit de geschikte gekozen moet worden, om met het AfgifteID en volledige downloadURL te vormen.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:complexType name="BaseURLSetType">
+    <xsd:sequence>
+      <xsd:element name="BaseURL" type="burl:BaseURLType" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="BaseURLType">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="type" use="required">
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>Gedefinieerde lijst waarden.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:restriction>
+          </xsd:simpleType>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://service30.kadaster.nl/gds2/afgifte/v20170401</con:endpoint></con:endpoints><con:operation id="57d427d1-3a2f-4643-bda2-beb8dd00f396" isOneWay="false" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen" name="BestandenlijstOpvragen" bindingOperationName="BestandenlijstOpvragen" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ace71e54-1213-46fe-8d65-9a4c3b261a5f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://service30.kadaster.nl/gds2/afgifte/v20170401</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <v20:BestandenlijstOpvragenRequest>\r
+         <v20:verzoek>\r
+            <v201:AfgifteSelectieCriteria>\r
+               <!--Optional:-->\r
+               <v201:BestandKenmerken>\r
+                  <!--Optional:-->\r
+                  <v201:contractnummer>?</v201:contractnummer>\r
+                  <!--Optional:-->\r
+                  <v201:artikelnummer>?</v201:artikelnummer>\r
+               </v201:BestandKenmerken>\r
+               <!--You have a CHOICE of the next 2 items at this level-->\r
+               <!--Optional:-->\r
+               <v202:Periode>\r
+                  <!--Optional:-->\r
+                  <v202:DatumTijdVanaf>?</v202:DatumTijdVanaf>\r
+                  <!--Optional:-->\r
+                  <v202:DatumTijdTotmet>?</v202:DatumTijdTotmet>\r
+               </v202:Periode>\r
+               <!--Optional:-->\r
+               <v202:KlantAfgiftenummerReeks>\r
+                  <v202:klantAfgiftenummerVanaf>?</v202:klantAfgiftenummerVanaf>\r
+                  <!--Optional:-->\r
+                  <v202:klantAfgiftenummerTotmet>?</v202:klantAfgiftenummerTotmet>\r
+               </v202:KlantAfgiftenummerReeks>\r
+               <!--Optional:-->\r
+               <v202:NogNietGerapporteerd>?</v202:NogNietGerapporteerd>\r
+               <!--Optional:-->\r
+               <v202:Sortering>\r
+                  <v202:Kolom>?</v202:Kolom>\r
+                  <v202:Volgorde>?</v202:Volgorde>\r
+               </v202:Sortering>\r
+               <!--Optional:-->\r
+               <v202:Afgiftereferentie>?</v202:Afgiftereferentie>\r
+            </v201:AfgifteSelectieCriteria>\r
+         </v20:verzoek>\r
+      </v20:BestandenlijstOpvragenRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:call><con:call id="f0e2dba7-6181-46f6-8917-49c02b4961a8" name="Request 2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://service30.kadaster.nl/gds2/afgifte/v20170401</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:call></con:operation></con:interface><con:testSuite name="Mock test" id="706de3cb-85a7-40aa-8fb1-cbf048e4acc4"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="BestandenlijstOpvragen TestCase" searchProperties="true" id="74f1f48d-05b0-46bb-8153-a11d221a162f"><con:settings/><con:testStep type="request" name="BestandenlijstOpvragen - AlleBestandenRequest" id="f9d1ae20-0b88-4ce2-8510-dfa5a82ae99f"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - AlleBestandenRequest" id="41584766-be25-4b26-b5b3-6ca8414395a4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v202:NogNietGerapporteerd>false</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" name="SOAP Response" id="0d66cdd0-4163-44fd-927c-bfda6403946f"/><con:assertion type="Schema Compliance" name="Schema Compliance" id="f97e1b20-5927-41e9-8444-9318cdcd23f5"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - ArtikelnummerRequest" id="fd20bdab-8b55-40d5-8edc-1a2987706218"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - ArtikelnummerRequest" id="1616246e-5472-42ed-b4cb-b351b2d117db"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v201:BestandKenmerken>
+                  <v201:artikelnummer>4</v201:artikelnummer>
+               </v201:BestandKenmerken>
+               <v202:NogNietGerapporteerd>true</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="d084d04d-c38b-44b9-b74b-87d1f864a24f"/><con:assertion type="Schema Compliance" id="c7ec8a69-8625-491f-9bce-68b440bfb5e2"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - ContractnummerRequest" id="60ace3ce-27e9-4f01-8699-0648995f45be"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - ContractnummerRequest" id="4dbfbd37-e5ad-4ece-8991-c883cb2e7487"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v201:BestandKenmerken>
+                  <v201:contractnummer>0000000002</v201:contractnummer>
+               </v201:BestandKenmerken>
+               <v202:NogNietGerapporteerd>false</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="80dd1348-75a6-4045-a2c2-0266ec36e4f6"/><con:assertion type="Schema Compliance" id="566666da-2b9c-4315-be86-fe3361d3c86b"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - DatumTotRequest" id="61f3ca4f-aaf3-4074-a4d6-a513c4809a6d"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - DatumTotRequest" id="92607cde-878a-481c-b64f-68d90768cde4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v202:Periode>
+                  <v202:DatumTijdVanaf>2012-06-30T10:27:47.0Z</v202:DatumTijdVanaf>
+                  <v202:DatumTijdTotmet>2020-07-17T10:27:47.0Z</v202:DatumTijdTotmet>
+               </v202:Periode>
+               <v202:NogNietGerapporteerd>false</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="85188669-5d57-4d4b-8e8e-44ca4f70d546"/><con:assertion type="Schema Compliance" id="12a3e0c1-0c56-446f-8db7-968baf659699"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - DatumVanRequest" id="f51fd27b-56ce-4102-ad81-2d7dc6c93a62"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - DatumVanRequest" id="1106e747-e230-4d12-ba80-e3dc264fb8d2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v202:Periode>
+                  <v202:DatumTijdVanaf>2017-04-01T00:00:00.0Z</v202:DatumTijdVanaf>
+               </v202:Periode>
+               <v202:NogNietGerapporteerd>false</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="af76dec6-bef1-4a43-971f-3fbf3b53bf9e"/><con:assertion type="Schema Compliance" id="8b797f77-a250-45c3-ad01-df3a9e9930ed"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - KlantAfgifteNummerTotRequest" id="da4c8284-a5b6-4447-87ba-ede89154723a"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - KlantAfgifteNummerTotRequest" id="3ba4b850-0003-415c-99a6-619989a795d0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v202:KlantAfgiftenummerReeks>
+                  <v202:klantAfgiftenummerVanaf>2</v202:klantAfgiftenummerVanaf>
+                  <v202:klantAfgiftenummerTotmet>3</v202:klantAfgiftenummerTotmet>
+               </v202:KlantAfgiftenummerReeks>
+               <v202:NogNietGerapporteerd>false</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="6f41a800-9ef3-47f5-99e0-dcb34c48b509"/><con:assertion type="Schema Compliance" id="0d0d7df2-b81c-4ed5-bfad-10a8e4cbb81a"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - KlantAfgifteNummerVanRequest" id="de498979-1188-4541-9eac-0809160e9322"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - KlantAfgifteNummerVanRequest" id="578a5fc1-5cdf-497a-aacd-7752e89299cc"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v202:KlantAfgiftenummerReeks>
+                  <v202:klantAfgiftenummerVanaf>3</v202:klantAfgiftenummerVanaf>
+               </v202:KlantAfgiftenummerReeks>
+               <v202:NogNietGerapporteerd>false</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="eebce0b6-bc93-4c52-8144-689ad28a2c1f"/><con:assertion type="Schema Compliance" id="90514222-d6f5-4636-9f65-e6b8b3fde354"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - NogNietGerapporteerdRequest" id="8e193cb5-891e-4913-adc5-c831db3323d7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - NogNietGerapporteerdRequest" id="f28537ce-c971-4a83-819e-7538428990a7"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v202:NogNietGerapporteerd>true</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="1497e8cd-6be9-4262-93ed-a8f881d1a89e"/><con:assertion type="Schema Compliance" id="abe383c3-b018-4cfc-8336-1f92f7a69710"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="BestandenlijstOpvragen - VolledigeSelectieRequest" id="c255669c-74e5-403c-8b70-324223341fab"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>Gds2AfgifteServiceSoapOverHttp</con:interface><con:operation>BestandenlijstOpvragen</con:operation><con:request name="BestandenlijstOpvragen - VolledigeSelectieRequest" id="41e6893c-a634-4fb0-8d8b-3090a9db1c64"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8088/AfgifteService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenRequest>
+         <v20:verzoek>
+            <v201:AfgifteSelectieCriteria>
+               <v201:BestandKenmerken>
+                  <v201:contractnummer>0000000002</v201:contractnummer>
+                  <v201:artikelnummer>3</v201:artikelnummer>
+               </v201:BestandKenmerken>
+               <v202:Periode>
+                  <v202:DatumTijdVanaf>2017-04-01T00:00:00.0Z</v202:DatumTijdVanaf>
+                  <v202:DatumTijdTotmet>2020-01-20T10:27:47.0Z</v202:DatumTijdTotmet>
+               </v202:Periode>
+               <v202:KlantAfgiftenummerReeks>
+                  <v202:klantAfgiftenummerVanaf>1</v202:klantAfgiftenummerVanaf>
+                  <v202:klantAfgiftenummerTotmet>5</v202:klantAfgiftenummerTotmet>
+               </v202:KlantAfgiftenummerReeks>
+               <v202:NogNietGerapporteerd>true</v202:NogNietGerapporteerd>
+               <v202:Sortering>
+                  <v202:Kolom>DATUM_AANMELDING</v202:Kolom>
+                  <v202:Volgorde>DESC</v202:Volgorde>
+               </v202:Sortering>
+            </v201:AfgifteSelectieCriteria>
+         </v20:verzoek>
+      </v20:BestandenlijstOpvragenRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="61ec3daa-e149-4d2a-b1c7-13829a60724a"/><con:assertion type="Schema Compliance" id="dcc510da-fb3b-4819-9807-4e508dd15939"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/AfgifteService" host="localhost" name="AfgifteService Mock" bindToHostOnly="false" docroot="" id="4e108166-bf40-415b-b6f5-1f747b373af3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="BestandenlijstOpvragen" interface="Gds2AfgifteServiceSoapOverHttp" operation="BestandenlijstOpvragen" id="01fc393b-d7b9-459f-b2c4-029bf3c3a6fa"><con:settings/><con:defaultResponse>GeenResponse</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+def holder = new com.eviware.soapui.support.XmlHolder(mockRequest.requestContent)
+/* beetje dom van kadaster; hardcoded namescapce aliases
+def contractnummer = String.valueOf(holder.getNodeValue("//v201:contractnummer"))
+def artikelnummer= String.valueOf(holder.getNodeValue("//v201:artikelnummer"))
+def datumtijdvan= String.valueOf(holder.getNodeValue("//v202:DatumTijdVanaf"))
+def datumtijdtot= String.valueOf(holder.getNodeValue("//v202:DatumTijdTotmet"))
+def klantafgiftenummervan = String.valueOf(holder.getNodeValue("//v202:klantAfgiftenummerVanaf"))
+def klantafgiftenummertot = String.valueOf(holder.getNodeValue("//v202:klantAfgiftenummerTotmet"))
+def rapport= String.valueOf(holder.getNodeValue("//v202:NogNietGerapporteerd"))
+*/
+def contractnummer = String.valueOf(holder.getNodeValue("//ns2:contractnummer"))
+def artikelnummer= String.valueOf(holder.getNodeValue("//ns2:artikelnummer"))
+def datumtijdvan= String.valueOf(holder.getNodeValue("//ns3:DatumTijdVanaf"))
+def datumtijdtot= String.valueOf(holder.getNodeValue("//ns3:DatumTijdTotmet"))
+def klantafgiftenummervan = String.valueOf(holder.getNodeValue("//ns3:klantAfgiftenummerVanaf"))
+def klantafgiftenummertot = String.valueOf(holder.getNodeValue("//ns3:klantAfgiftenummerTotmet"))
+def rapport= String.valueOf(holder.getNodeValue("//ns3:NogNietGerapporteerd"))
+
+randomInt = new Random().nextInt(500-50+1)+50
+sleep (randomInt);
+
+log.info("In the groovy BestandenlijstOpvragen");
+log.info("Contractnummer: " + contractnummer.toString());
+log.info("Artikelnummer: " + artikelnummer.toString());
+log.info("Datumtijd van: " + datumtijdvan.toString());
+log.info("Datumtijd tot: " + datumtijdtot.toString());
+log.info("KlantAfgifteNumer van: " + klantafgiftenummervan.toString());
+log.info("KlantAfgifteNumer tot: " + klantafgiftenummertot.toString());
+
+if (contractnummer.toString().equals("null") &&
+    artikelnummer.toString().equals("null") &&
+    datumtijdvan.toString().equals("null") &&
+    datumtijdtot.toString().equals("null") &&
+    klantafgiftenummervan.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null") &&
+    rapport.toString().equals("false")   )
+{
+	log.info "Alle bestanden";
+	return "AlleBestandenResponse"
+}
+if (contractnummer.toString().equals("null") &&
+    artikelnummer.toString().equals("null") &&
+    datumtijdvan.toString().equals("null") &&
+    datumtijdtot.toString().equals("null") &&
+    klantafgiftenummervan.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null") &&
+    rapport.toString().equals("true"))
+{
+	log.info "NogNietGerapporteerd";
+	return "NogNietGerapporteerdResponse"
+}
+if (contractnummer.toString().equals("null") &&   
+    klantafgiftenummervan.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null") &&
+    datumtijdvan.toString().equals("null") &&
+    datumtijdtot.toString().equals("null")   )
+{
+	log.info "Artikelnummer";
+	return "ArtikelnummerResponse"
+}
+if (artikelnummer.toString().equals("null") &&
+    datumtijdvan.toString().equals("null") &&
+    datumtijdtot.toString().equals("null") &&  
+    klantafgiftenummervan.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null")     )
+{
+	log.info "Contractnummer";
+	return "ContractnummerResponse"
+}
+if (contractnummer.toString().equals("null") &&
+    artikelnummer.toString().equals("null") &&
+    datumtijdtot.toString().equals("null") &&  
+    klantafgiftenummervan.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null") 		)
+{
+	log.info "Datum vanaf";
+	return "DatumVanResponse"
+}
+if (contractnummer.toString().equals("null") &&
+    artikelnummer.toString().equals("null") &&
+    klantafgiftenummervan.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null") 		)
+{
+	log.info "Datum Tot en met";
+	return "DatumTotResponse"
+}
+if ( !(contractnummer.toString().equals("null") &&
+       artikelnummer.toString().equals("null")  &&
+       datumtijdvan.toString().equals("null")   &&
+       datumtijdtot.toString().equals("null")     ))
+{
+	log.info "Volledige selectie";
+	return "VolledigeSelectieResponse"
+}
+if ( !(contractnummer.toString().equals("null") &&
+       artikelnummer.toString().equals("null")  &&
+       datumtijdvan.toString().equals("null")   &&
+       datumtijdtot.toString().equals("null")     ))
+{
+	log.info "Volledige selectie";
+	return "VolledigeSelectieResponse"
+}
+if ( !(klantafgiftenummervan.toString().equals("null") ||
+       klantafgiftenummertot.toString().equals("null")))
+{
+	log.info "KlantAfgifteNummer Tot en met";
+	return "KlantAfgifteNummerTotResponse"
+}
+if (contractnummer.toString().equals("null") &&
+    artikelnummer.toString().equals("null") &&
+    datumtijdvan.toString().equals("null") &&
+    datumtijdtot.toString().equals("null") &&
+    klantafgiftenummertot.toString().equals("null") &&
+    rapport.toString().equals("false"))
+{
+	log.info "KlantAfgifteNummer vanaf";
+	return "KlantAfgifteNummerVanResponse"
+}
+else {return "GeenResponse"}]]></con:dispatchPath><con:response name="AlleBestandenResponse" httpResponseStatus="200" encoding="UTF-8" id="c830e3ae-6738-4d2a-99ca-dc91e67d21a2"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>5</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>6xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>1</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref1</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>1</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand1.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand1.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-19T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>1</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand1.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-19T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand1.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa1111111111111111</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">6xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>7xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>2</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref2</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>2</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand2.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand2.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-18T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>2</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand2.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-18T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand2.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa2222222222222222</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">7xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>4xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>4</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref4</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>4</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand4.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand4.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-16T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand4.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-16T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand4.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa4444444444444444</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">4xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>5xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>5</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref5</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>5</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand5.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand5.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-15T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand5.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-15T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand5.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa5555555555555555</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">5xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>false</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="GeenResponse" httpResponseStatus="200" encoding="UTF-8" id="f05842a4-abcc-4bf1-abd0-4c94478f9d19"><con:settings/><con:responseContent>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   &lt;soapenv:Header/>
+   &lt;soapenv:Body>
+    Geen BestandenlijstOpvragen Response
+   &lt;/soapenv:Body>
+&lt;/soapenv:Envelope></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="ArtikelnummerResponse" httpResponseStatus="200" encoding="UTF-8" id="28b2bf66-99e4-4391-b6b4-bf6435f19f41"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>2</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>4xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>4</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref4</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>4</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand4.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand4.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-16T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand4.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-16T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand4.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa4444444444444444</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">4xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>5xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>5</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref5</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>5</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand5.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand4.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-15T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand5.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-15T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand5.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa5555555555555555</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">5xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>true</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="NogNietGerapporteerdResponse" httpResponseStatus="200" encoding="UTF-8" id="30c3f101-5a13-4ca3-baca-5d7614d57d0c"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>1</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>7xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>2</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref2</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>2</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand2.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand2.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-18T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>2</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand2.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-18T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand2.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa2222222222222222</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">7xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>true</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="ContractnummerResponse" httpResponseStatus="200" encoding="UTF-8" id="b060b76f-e0ee-4b65-b534-8a2ce5cbd618"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>2</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>6xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>1</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref1</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>1</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand1.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand1.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-19T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>1</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand1.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-19T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand1.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa1111111111111111</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">6xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>true</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="VolledigeSelectieResponse" httpResponseStatus="200" encoding="UTF-8" id="32589edb-b392-4267-946f-6510b607a324"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>1</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>true</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="KlantAfgifteNummerTotResponse" httpResponseStatus="200" encoding="UTF-8" id="38388f2f-3c44-4efb-99ce-8c7fe503fceb"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>2</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>7xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>2</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref2</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>2</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand2.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand2.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-18T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>2</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand2.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-18T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand2.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa2222222222222222</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">7xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>false</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="DatumVanResponse" httpResponseStatus="200" encoding="UTF-8" id="9ff2bb0c-0984-463a-9484-80452f288494"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>5</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>6xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>1</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref1</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>1</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand1.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand1.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-19T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>1</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand1.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-19T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand1.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa1111111111111111</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">6xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>7xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>2</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref2</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>2</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand2.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand2.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-18T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>2</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand2.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-18T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand2.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa2222222222222222</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">7xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>4xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>4</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref4</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>4</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand4.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand4.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-16T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand4.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-16T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand4.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa4444444444444444</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">4xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>5xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>5</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref5</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>5</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand5.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand5.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-15T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand5.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-15T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand5.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa5555555555555555</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">5xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>false</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="DatumTotResponse" httpResponseStatus="200" encoding="UTF-8" id="3be556a7-6590-4748-967c-804ee740fc86"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>3</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+             <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>4xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>4</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref4</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>4</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand4.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand4.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-16T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand4.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-16T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand4.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa4444444444444444</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">4xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>5xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>5</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref5</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>5</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand5.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand5.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-15T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand5.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-15T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand5.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa5555555555555555</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">5xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>false</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:response name="KlantAfgifteNummerVanResponse" httpResponseStatus="200" encoding="UTF-8" id="8ca2940e-220e-46c2-8e87-9e38ac5462fa"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" xmlns:v201="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" xmlns:v202="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:v203="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" xmlns:v204="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:v205="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:v206="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:ns="http://www.logius.nl/digikoppeling/gb/2010/10">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v20:BestandenlijstOpvragenResponse>
+         <v20:antwoord>
+            <v201:ProcesVerwerking>
+               <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
+               <v201:SeverityCode>INFO</v201:SeverityCode>
+            </v201:ProcesVerwerking>
+            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:afgifteAantalInLijst>3</v202:afgifteAantalInLijst>
+            <v202:BaseURLSet>
+               <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="certificaat">https://service30.kadaster.nl/gds2/download/private</v203:BaseURL>
+               <v203:BaseURL type="anoniem">https://service10.kadaster.nl/gds2/download/public</v203:BaseURL>
+               <v203:BaseURL type="diginetwerk">https://service30.diginetwerk.kadaster.nl/gds2/download/private</v203:BaseURL>
+            </v202:BaseURLSet>
+            <v204:BestandenLijst>
+               <v204:Afgifte>
+                  <v204:afgifteID>3xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>3</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref3</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>3</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand3.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand3.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-17T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000002</v206:contractnummer>
+                     <v206:artikelnummer>3</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand3.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-17T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand3.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa3333333333333333</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">3xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>4xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>4</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref4</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>4</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand4.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand4.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-16T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand4.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-16T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand4.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa4444444444444444</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">4xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+               <v204:Afgifte>
+                  <v204:afgifteID>5xxx-xxxx-xxxx-xxxx</v204:afgifteID>
+                  <v204:klantAfgiftenummer>5</v204:klantAfgiftenummer>
+                  <v204:afgiftereferentie>Afgifte ref5</v204:afgiftereferentie>
+                  <v204:contractAfgiftenummer>5</v204:contractAfgiftenummer>
+                  <v205:Bestand>
+                     <v205:bestandsnaam>Mock_bestand5.txt</v205:bestandsnaam>
+                     <v205:bestandsreferentie>Afgiftereferentie_mock_bestand5.txt</v205:bestandsreferentie>
+                  </v205:Bestand>
+                  <v204:beschikbaarTot>2020-07-15T00:00:00.000+02:00</v204:beschikbaarTot>
+                  <v206:BestandKenmerken>
+                     <v206:contractnummer>0000000001</v206:contractnummer>
+                     <v206:artikelnummer>4</v206:artikelnummer>
+                     <v206:artikelomschrijving>Artikelomschrijving_mock_bestand5.txt</v206:artikelomschrijving>
+                  </v206:BestandKenmerken>
+                  <ns:digikoppeling-external-datareferences profile="digikoppeling-gb-1.0">
+                     <ns:data-reference>
+                        <ns:lifetime>
+                           <ns:creationTime type="xs:dateTime">2017-04-01T10:00:00.000+02:00</ns:creationTime>
+                           <ns:expirationTime type="xs:dateTime">2020-07-15T00:00:00.000+02:00</ns:expirationTime>
+                        </ns:lifetime>
+                        <ns:content contentType="application/octet-stream">
+                           <ns:filename>Mock_bestand5.txt</ns:filename>
+                           <ns:checksum type="MD5">aaaaaaaaaaaaaaaa5555555555555555</ns:checksum>
+                           <ns:size>1</ns:size>
+                        </ns:content>
+                        <ns:transport>
+                           <ns:location>
+                              <ns:senderUrl type="xs:anyURI">5xxx-xxxx-xxxx-xxxx</ns:senderUrl>
+                           </ns:location>
+                        </ns:transport>
+                     </ns:data-reference>
+                  </ns:digikoppeling-external-datareferences>
+               </v204:Afgifte>
+            </v204:BestandenLijst>
+            <v202:meerAfgiftesbeschikbaar>false</v202:meerAfgiftesbeschikbaar>
+         </v20:antwoord>
+      </v20:BestandenlijstOpvragenResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.kadaster.nl/gds2/AfgifteService/BestandenlijstOpvragen"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

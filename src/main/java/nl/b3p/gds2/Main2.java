@@ -22,6 +22,9 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
+
+import nl.b3p.soap.logging.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.AfgifteType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.AfgifteSelectieCriteriaType;
@@ -36,13 +39,13 @@ import nl.logius.digikoppeling.gb._2010._10.DataReference;
 
 /**
  *
- * @author Matthijs Laan
  * @author mprins
  */
 public class Main2 {
 
     private static final int BESTANDENLIJST_ATTEMPTS = 5;
     private static final int BESTANDENLIJST_RETRY_WAIT = 10000;
+    private static final String MOCK_ENDPOINT = "http://localhost:8088/AfgifteService";
 
     public static void main(String[] args) throws Exception {
         // java.lang.System.setProperty("sun.security.ssl.allowUnsafeRenegotiation", "true");
@@ -51,11 +54,17 @@ public class Main2 {
         Gds2AfgifteServiceV20170401 gds2 = new Gds2AfgifteServiceV20170401Service().getAGds2AfgifteServiceV20170401();
         BindingProvider bp = (BindingProvider) gds2;
         Map<String, Object> ctxt = bp.getRequestContext();
+
+        // soap berichten logger inhaken (actief met TRACE level)
+        List<Handler> handlerChain = bp.getBinding().getHandlerChain();
+        handlerChain.add(new LogMessageHandler());
+        bp.getBinding().setHandlerChain(handlerChain);
+
         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         System.out.println("Origineel endpoint: " + endpoint);
+        ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, MOCK_ENDPOINT);
+        System.out.println("Endpoint protocol gewijzigd naar mock: " + MOCK_ENDPOINT);
 
-        //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  "http://localhost:8088/AfgifteService");
-        //System.out.println("Endpoint protocol gewijzigd naar mock");
         final char[] thePassword = "changeit".toCharArray();
         System.out.println("Loading keystore");
         KeyStore ks = KeyStore.getInstance("jks");
@@ -111,7 +120,7 @@ public class Main2 {
         // criteria.getBestandKenmerken().setArtikelnummer("0002522");
         // contractnummer
         // criteria.getBestandKenmerken().setContractnummer("0005014500");
-        criteria.getBestandKenmerken().setContractnummer("9700004549");
+        // criteria.getBestandKenmerken().setContractnummer("9700004549");
         // vanaf 1 jan 2018
         GregorianCalendar vanaf = new GregorianCalendar(2018, (1 - 1) /* GregorianCalendar heeft 0-based month */, 1);
         GregorianCalendar tot = new GregorianCalendar();

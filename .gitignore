@@ -9,6 +9,8 @@ gds2_key.jks
 notes
 !private.key
 !public.key
-# intellij
+
 .idea/
 *.iml
+
+kadaster/
