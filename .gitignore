@@ -1,5 +1,7 @@
-gds2_key.jks
 target
+.idea/
+kadaster-gds2.iml
+gds2_key.jks
 *.key
 *.pem
 *.crt
