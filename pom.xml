@@ -185,6 +185,15 @@
                     <artifactId>soapui-maven-plugin</artifactId>
                     <version>5.4.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>4.0.2</version>
+                    <configuration>
+                        <suppressionFile>${project.basedir}/.mvn/owasp-suppression.xml</suppressionFile>
+                        <format>ALL</format>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -228,13 +237,6 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit.platform.version}</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
                     <argLine>@{argLine}</argLine>
                 </configuration>
@@ -330,11 +332,12 @@
                     <execution>
                         <configuration>
                             <projectFile>Gds2Afgifte-AfgifteService-v2-0-soapui-project_20171130.xml</projectFile>
+                            <mockService>AfgifteService Mock</mockService>
+                            <port>8088</port>
+                            <noBlock>true</noBlock>
                             <outputFolder>${project.build.directory}/surefire-reports</outputFolder>
                             <junitReport>true</junitReport>
                             <host>http://127.0.0.1:8088</host>
-                            <mockService>AfgifteService Mock</mockService>
-                            <noBlock>true</noBlock>
                         </configuration>
                         <goals>
                             <goal>mock</goal>
