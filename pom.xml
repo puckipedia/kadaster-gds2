@@ -14,6 +14,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <netbeans.hint.jdkPlatform>JDK_${project.build.targetVersion}</netbeans.hint.jdkPlatform>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <junit.jupiter.version>5.3.1</junit.jupiter.version>
+        <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
     </properties>
     <organization>
         <name>B3Partners B.V.</name>
@@ -50,12 +52,12 @@
         <repository>
             <id>repo.b3p.nl</id>
             <name>B3Partners releases repository</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/releases/</url>
+            <url>https://repo.b3p.nl/nexus/repository/releases/</url>
         </repository>
         <snapshotRepository>
             <id>repo.b3p.nl</id>
             <name>B3Partners snapshots repository</name>
-            <url>http://repo.b3p.nl/nexus/content/repositories/snapshots/</url>
+            <url>https://repo.b3p.nl/nexus/repository/snapshots/</url>
         </snapshotRepository>
         <site>
             <id>gh-pages</id>
@@ -127,6 +129,11 @@
                     <version>3.0.0-M3</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>3.0.0-M2</version>
                 </plugin>
@@ -138,6 +145,15 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>5.1.0</version>
+                    <configuration>
+                        <suppressionFile>${project.basedir}/.mvn/owasp-suppression.xml</suppressionFile>
+                        <format>ALL</format>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -164,7 +180,40 @@
                 </executions>
             </plugin>
             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>@{argLine}</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <destFile>target/jacoco.exec</destFile>
+                    <excludes>
+                        <exclude>**/nl/kadaster/*</exclude>
+                        <exclude>**/nl/logius/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.jvnet.jax-ws-commons</groupId>
+                <!--java 11... <groupId>com.sun.xml.ws</groupId><version>2.3.1</version>-->
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -239,7 +288,8 @@
                 <executions>
                     <execution>
                         <id>scm-publish</id>
-                        <phase>site-deploy</phase><!-- deploy site with maven-scm-publish-plugin -->
+                        <phase>site-deploy</phase>
+                        <!-- deploy site with maven-scm-publish-plugin -->
                         <goals>
                             <goal>publish-scm</goal>
                         </goals>
