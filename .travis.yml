@@ -1,0 +1,37 @@
+dist: trusty
+language: java
+
+jdk:
+  - oraclejdk8
+  - openjdk8
+
+cache:
+  directories:
+  - $HOME/.m2
+  
+before_install:
+  # installeer een up-2-date Maven versie
+  - wget https://www.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
+  - unzip -qq apache-maven-3.6.0-bin.zip
+  - export M2_HOME=$PWD/apache-maven-3.6.0
+  - export PATH=$M2_HOME/bin:$PATH
+  - mvn -v
+
+install:
+  - mvn -e compile
+
+script:
+  - mvn -e verify
+  
+after_success:
+  # test of de javadoc compliant is met java-8 strict checks
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ]; then
+         travis_wait 30 mvn javadoc:javadoc;
+         travis_wait 30 mvn javadoc:test-javadoc;
+    fi
+    
+after_script:
+  # deploy maven site van master branch als test succes
+  - if [ "$TRAVIS_JDK_VERSION" == oraclejdk8 ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_TEST_RESULT" == 0 ]; then
+         travis_wait 50 mvn -B -e -T1 site site:stage
+    fi
