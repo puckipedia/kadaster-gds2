@@ -8,11 +8,14 @@
     <description>JAX-WS classes voor benaderen van de Generieke Download Service 2 van het Kadaster.</description>
     <name>Kadaster-GDS2</name>
     <properties>
-        <project.build.sourceVersion>1.8</project.build.sourceVersion>
-        <project.build.targetVersion>1.8</project.build.targetVersion>
+        <java.version>1.8</java.version>
+        <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
+        <project.build.targetVersion>${java.version}</project.build.targetVersion>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <netbeans.hint.jdkPlatform>JDK_${project.build.targetVersion}</netbeans.hint.jdkPlatform>
+        <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
@@ -155,6 +158,10 @@
                         <format>ALL</format>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-toolchains-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -178,6 +185,23 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-toolchains-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>toolchain</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <toolchains>
+                        <jdk>
+                            <version>${java.version}</version>
+                        </jdk>
+                    </toolchains>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
