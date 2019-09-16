@@ -38,7 +38,6 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
                 boolean isOutboundMessage=  (Boolean)context.get (MessageContext.MESSAGE_OUTBOUND_PROPERTY);
                 if(isOutboundMessage){
                     LOG.trace("Uitgaand soap bericht \n================");
-
                 }else{
                     LOG.trace("Inkomend soap bericht \n================");
                 }
@@ -46,7 +45,7 @@ public class LogMessageHandler implements SOAPHandler<SOAPMessageContext> {
                 Iterator<MimeHeader> i = context.getMessage().getMimeHeaders().getAllHeaders();
                 while (i.hasNext()) {
                     MimeHeader h = i.next();
-                    LOG.trace("header: " + h.getName() + "" + h.getValue());
+                    LOG.trace("header: " + h.getName() + " = " + h.getValue());
                 }
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 context.getMessage().writeTo(bos);

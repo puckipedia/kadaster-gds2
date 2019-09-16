@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="595a9503-d6ad-4ae8-9044-44a00670aa61" activeEnvironment="Default" name="Gds2Afgifte_AfgifteService_v2_0" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project id="595a9503-d6ad-4ae8-9044-44a00670aa61" activeEnvironment="Default" name="Gds2Afgifte_AfgifteService_v2_0" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Report Format(s)" value=""/>
   <con:entry key="Host:Port" value=""/>
   <con:entry key="Export JUnit Results" value="false"/>
@@ -792,9 +792,9 @@
          </v20:verzoek>
       </v20:BestandenlijstOpvragenRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="61ec3daa-e149-4d2a-b1c7-13829a60724a"/><con:assertion type="Schema Compliance" id="dcc510da-fb3b-4819-9807-4e508dd15939"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/AfgifteService" host="localhost" name="AfgifteService Mock" bindToHostOnly="false" docroot="" id="4e108166-bf40-415b-b6f5-1f747b373af3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="BestandenlijstOpvragen" interface="Gds2AfgifteServiceSoapOverHttp" operation="BestandenlijstOpvragen" id="01fc393b-d7b9-459f-b2c4-029bf3c3a6fa"><con:settings/><con:defaultResponse>GeenResponse</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="61ec3daa-e149-4d2a-b1c7-13829a60724a"/><con:assertion type="Schema Compliance" id="dcc510da-fb3b-4819-9807-4e508dd15939"><con:configuration/></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService port="8088" path="/AfgifteService" host="localhost" name="AfgifteService Mock" bindToHostOnly="false" docroot="" id="4e108166-bf40-415b-b6f5-1f747b373af3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting><con:setting id="com.eviware.soapui.impl.wsdl.panels.mock.WsdlMockServiceDesktopPanel$LogListModel@maxSize">100</con:setting></con:settings><con:properties/><con:mockOperation name="BestandenlijstOpvragen" interface="Gds2AfgifteServiceSoapOverHttp" operation="BestandenlijstOpvragen" id="01fc393b-d7b9-459f-b2c4-029bf3c3a6fa"><con:settings/><con:defaultResponse>GeenResponse</con:defaultResponse><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:dispatchPath><![CDATA[def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context)
 def holder = new com.eviware.soapui.support.XmlHolder(mockRequest.requestContent)
-/* beetje dom van kadaster; hardcoded namescapce aliases
+/* beetje dom van kadaster; hardcoded namescpace aliases
 def contractnummer = String.valueOf(holder.getNodeValue("//v201:contractnummer"))
 def artikelnummer= String.valueOf(holder.getNodeValue("//v201:artikelnummer"))
 def datumtijdvan= String.valueOf(holder.getNodeValue("//v202:DatumTijdVanaf"))
@@ -1505,7 +1505,7 @@ else {return "GeenResponse"}]]></con:dispatchPath><con:response name="AlleBestan
                <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
                <v201:SeverityCode>INFO</v201:SeverityCode>
             </v201:ProcesVerwerking>
-            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:klantAfgiftenummerMax>4140</v202:klantAfgiftenummerMax>
             <v202:afgifteAantalInLijst>5</v202:afgifteAantalInLijst>
             <v202:BaseURLSet>
                <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
@@ -1698,7 +1698,7 @@ else {return "GeenResponse"}]]></con:dispatchPath><con:response name="AlleBestan
                <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
                <v201:SeverityCode>INFO</v201:SeverityCode>
             </v201:ProcesVerwerking>
-            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:klantAfgiftenummerMax>41420</v202:klantAfgiftenummerMax>
             <v202:afgifteAantalInLijst>3</v202:afgifteAantalInLijst>
             <v202:BaseURLSet>
                <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
@@ -1823,7 +1823,7 @@ else {return "GeenResponse"}]]></con:dispatchPath><con:response name="AlleBestan
                <v201:ProcesVerwerkingCode>1</v201:ProcesVerwerkingCode>
                <v201:SeverityCode>INFO</v201:SeverityCode>
             </v201:ProcesVerwerking>
-            <v202:klantAfgiftenummerMax>4142</v202:klantAfgiftenummerMax>
+            <v202:klantAfgiftenummerMax>4143</v202:klantAfgiftenummerMax>
             <v202:afgifteAantalInLijst>3</v202:afgifteAantalInLijst>
             <v202:BaseURLSet>
                <v203:BaseURL type="login">https://service10.kadaster.nl/gds2/download/private</v203:BaseURL>
