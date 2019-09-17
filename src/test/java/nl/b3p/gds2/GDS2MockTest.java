@@ -73,18 +73,18 @@ public class GDS2MockTest {
         LOG.info("Test case: " + testInfo.getDisplayName());
 
         criteria.setNogNietGerapporteerd(Boolean.FALSE);
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(5, response.getAntwoord().getAfgifteAantalInLijst());
         assertFalse(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er moeten geen afgiftes meer beschikbaar zijn");
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand1.txt",
+                "https://service30.kadaster.nl/gds2/download/private/6xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand1.txt",
+                "https://service10.kadaster.nl/gds2/download/public/6xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getAnoniemBaseURL(response.getAntwoord()))
         );
     }
@@ -95,18 +95,18 @@ public class GDS2MockTest {
 
         criteria.setNogNietGerapporteerd(Boolean.TRUE);
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(1, response.getAntwoord().getAfgifteAantalInLijst());
         assertTrue(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden meer afgiftes beschikbaar moeten zijn");
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand2.txt",
+                "https://service30.kadaster.nl/gds2/download/private/7xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand2.txt",
+                "https://service10.kadaster.nl/gds2/download/public/7xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getAnoniemBaseURL(response.getAntwoord()))
         );
     }
@@ -118,14 +118,14 @@ public class GDS2MockTest {
         criteria.setBestandKenmerken(new BestandKenmerkenType());
         criteria.getBestandKenmerken().setArtikelnummer("4");
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(2, response.getAntwoord().getAfgifteAantalInLijst());
         assertTrue(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden meer afgiftes beschikbaar moeten zijn");
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand4.txt",
+                "https://service30.kadaster.nl/gds2/download/private/4xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getCertificaatBaseURL(response.getAntwoord()))
         );
     }
@@ -137,27 +137,27 @@ public class GDS2MockTest {
         criteria.setBestandKenmerken(new BestandKenmerkenType());
         criteria.getBestandKenmerken().setContractnummer("0000000002");
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(2, response.getAntwoord().getAfgifteAantalInLijst());
         assertTrue(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden meer afgiftes beschikbaar moeten zijn");
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand1.txt",
+                "https://service30.kadaster.nl/gds2/download/private/6xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand3.txt",
+                "https://service30.kadaster.nl/gds2/download/private/3xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(1), getCertificaatBaseURL(response.getAntwoord()))
         );
 
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand1.txt",
+                "https://service10.kadaster.nl/gds2/download/public/6xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getAnoniemBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand3.txt",
+                "https://service10.kadaster.nl/gds2/download/public/3xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(1), getAnoniemBaseURL(response.getAntwoord()))
         );
     }
@@ -172,7 +172,7 @@ public class GDS2MockTest {
         reeks.setKlantAfgiftenummerTotmet(java.math.BigInteger.valueOf(2));
         criteria.setKlantAfgiftenummerReeks(reeks);
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(2, response.getAntwoord().getAfgifteAantalInLijst());
         assertFalse(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden niet meer afgiftes beschikbaar moeten zijn");
@@ -180,20 +180,20 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand2.txt",
+                "https://service30.kadaster.nl/gds2/download/private/7xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand3.txt",
+                "https://service30.kadaster.nl/gds2/download/private/3xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(1), getCertificaatBaseURL(response.getAntwoord()))
         );
 
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand2.txt",
+                "https://service10.kadaster.nl/gds2/download/public/7xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getAnoniemBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand3.txt",
+                "https://service10.kadaster.nl/gds2/download/public/3xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(1), getAnoniemBaseURL(response.getAntwoord()))
         );
     }
@@ -209,7 +209,7 @@ public class GDS2MockTest {
         // NB moet op FALSE staan!
         criteria.setNogNietGerapporteerd(Boolean.FALSE);
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(3, response.getAntwoord().getAfgifteAantalInLijst());
         assertFalse(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden niet meer afgiftes beschikbaar moeten zijn");
@@ -217,19 +217,19 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand3.txt",
+                "https://service30.kadaster.nl/gds2/download/private/3xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand4.txt",
+                "https://service30.kadaster.nl/gds2/download/private/4xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(1), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service30.kadaster.nl/gds2/download/private/Mock_bestand5.txt",
+                "https://service30.kadaster.nl/gds2/download/private/5xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(2), getCertificaatBaseURL(response.getAntwoord()))
         );
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand3.txt",
+                "https://service10.kadaster.nl/gds2/download/public/3xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(0), getAnoniemBaseURL(response.getAntwoord()))
         );
     }
@@ -239,11 +239,11 @@ public class GDS2MockTest {
         LOG.info("Test case: " + testInfo.getDisplayName());
 
         criteria.setPeriode(new FilterDatumTijdType());
-        criteria.getPeriode().setDatumTijdVanaf(getGregorianCalendar(2017, 1, 1));
+        criteria.getPeriode().setDatumTijdVanaf(getXMLDatumTijd(2017, 1, 1));
         //criteria.getPeriode().setDatumTijdTotmet(tot);
         criteria.setNogNietGerapporteerd(Boolean.FALSE);
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(5, response.getAntwoord().getAfgifteAantalInLijst());
         assertFalse(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden niet meer afgiftes beschikbaar moeten zijn");
@@ -251,7 +251,7 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand5.txt",
+                "https://service10.kadaster.nl/gds2/download/public/5xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(4), getAnoniemBaseURL(response.getAntwoord()))
         );
     }
@@ -261,11 +261,11 @@ public class GDS2MockTest {
         LOG.info("Test case: " + testInfo.getDisplayName());
 
         criteria.setPeriode(new FilterDatumTijdType());
-        criteria.getPeriode().setDatumTijdVanaf(getGregorianCalendar(2017, 1, 1));
-        criteria.getPeriode().setDatumTijdTotmet(getGregorianCalendar(2020, 1, 1));
+        criteria.getPeriode().setDatumTijdVanaf(getXMLDatumTijd(2017, 1, 1));
+        criteria.getPeriode().setDatumTijdTotmet(getXMLDatumTijd(2020, 1, 1));
         criteria.setNogNietGerapporteerd(Boolean.FALSE);
 
-        BestandenlijstOpvragenResponse response = retryBestandenLijstGBOpvragen(gds2, request);
+        BestandenlijstOpvragenResponse response = retryBestandenLijstOpvragen(gds2, request);
 
         assertEquals(3, response.getAntwoord().getAfgifteAantalInLijst());
         assertFalse(response.getAntwoord().isMeerAfgiftesbeschikbaar(), "Er zouden niet meer afgiftes beschikbaar moeten zijn");
@@ -273,7 +273,7 @@ public class GDS2MockTest {
 
         List<AfgifteType> afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
         assertEquals(
-                "https://service10.kadaster.nl/gds2/download/public/Mock_bestand5.txt",
+                "https://service10.kadaster.nl/gds2/download/public/5xxx-xxxx-xxxx-xxxx",
                 getAfgifteURL(afgiftes.get(2), getAnoniemBaseURL(response.getAntwoord()))
         );
     }

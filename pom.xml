@@ -297,12 +297,16 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <skipSource>${skipTests}</skipSource>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten! -->
                     <doclint>none</doclint>
+                    <skip>${skipTests}</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -324,9 +328,10 @@
                             <mockService>AfgifteService Mock</mockService>
                             <port>8088</port>
                             <noBlock>true</noBlock>
-                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>
-                            <junitReport>true</junitReport>
-                            <host>http://127.0.0.1:8088</host>
+<!--                            <printReport>true</printReport>-->
+<!--                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>-->
+<!--                            <junitReport>true</junitReport>-->
+<!--                            <host>http://127.0.0.1:8088</host>-->
                         </configuration>
                         <goals>
                             <goal>mock</goal>
@@ -334,6 +339,22 @@
                         <phase>process-test-classes</phase>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <includeScope>runtime</includeScope>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
@@ -344,6 +365,7 @@
                     <outputEncoding>${project.build.sourceEncoding}</outputEncoding>
                     <locales>nl</locales>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                    <skip>${skipTests}</skip>
                 </configuration>
             </plugin>
             <plugin>

@@ -25,6 +25,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -79,10 +82,10 @@ public class GDS2Util {
      * @param gds2    afgifte service
      * @param request geconfigureerd verzoek
      * @return opgevraagde bestanden lijst
-     * @see #retryBestandenLijstGBOpvragen(Gds2AfgifteServiceV20170401, BestandenlijstOpvragenRequest, int, int)
+     * @see #retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401, BestandenlijstOpvragenRequest, int, int)
      */
-    public static BestandenlijstOpvragenResponse retryBestandenLijstGBOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request) throws Exception {
-        return retryBestandenLijstGBOpvragen(gds2, request, 2, 10000);
+    public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request) throws Exception {
+        return retryBestandenLijstOpvragen(gds2, request, 2, 10000);
     }
 
     /**
@@ -94,7 +97,7 @@ public class GDS2Util {
      * @param retryWait te wachten milliseconden tussen retries, wordt vermenigvuldigd met retry poging (dus periode steeds langer)
      * @return opgevraagde bestanden lijst
      */
-    public static BestandenlijstOpvragenResponse retryBestandenLijstGBOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request, int retries, int retryWait) throws Exception {
+    public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request, int retries, int retryWait) throws Exception {
         int attempt = 0;
         while (true) {
             try {
@@ -151,37 +154,101 @@ public class GDS2Util {
      * @return de afgifte url
      */
     public static String getAfgifteURL(AfgifteType afgifte, BaseURLType type) {
-        return type.getValue() + "/" + afgifte.getBestand().getBestandsnaam();
+        return type.getValue() + "/" + afgifte.getAfgifteID();
+    }
+
+
+    /**
+     * parse datum uit string.
+     *
+     * @param dateStr datum in dd-MM-yyyy formaat
+     * @return datum (of null in geval van een parse fout)
+     */
+    public static GregorianCalendar getDatumTijd(String dateStr) {
+        if (dateStr == null) {
+            return null;
+        }
+        Date date;
+        final DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        if (dateStr.equalsIgnoreCase("nu")) {
+            date = new Date();
+        } else {
+            try {
+                date = format.parse(dateStr);
+            } catch (ParseException ex) {
+                LOG.error(ex);
+                return null;
+            }
+        }
+        GregorianCalendar gregory = new GregorianCalendar();
+        gregory.setTime(date);
+        return gregory;
     }
 
     /**
-     * maakt een datum die te gebruiken is in een "van" of "tot" criterium, houdt rekening met de juiste maand.
+     * parse datum uit string en verschuif {@code dagen}.
+     *
+     * @param refDate datum in dd-MM-yyyy formaat
+     * @param before  aantal dagen dat de datum verschoven moet worden, bijvoorbeeld -3 voor 3 dagen eerder
+     * @return datum (of null in geval van een parse fout)
+     */
+    public static GregorianCalendar getDatumTijd(String refDate, int before) {
+        GregorianCalendar ref = getDatumTijd(refDate);
+        ref.add(GregorianCalendar.DAY_OF_YEAR, before);
+        return ref;
+    }
+
+    /**
+     * maakt een XML datum die te gebruiken is in een "van" of "tot" criterium, houdt rekening met de juiste maand.
      *
      * @param year  jaartal (4 cijfers, > 2000)
      * @param month maand (waarde van 0 t/m 12)
      * @param day   dag van de maand
-     * @return xml datum
-     * @throws DatatypeConfigurationException If the implementation of DatatypeFactory is not available or cannot be instantiated.
+     * @return xml datum (of null ingeval van een DatatypeConfigurationException)
      */
-    public static XMLGregorianCalendar getGregorianCalendar(int year, int month, int day) throws DatatypeConfigurationException {
-        return DatatypeFactory.newInstance().newXMLGregorianCalendar(
-                new GregorianCalendar(
-                        year,
-                        month - 1 /* GregorianCalendar heeft 0-based month */,
-                        day)
-        );
+    public static XMLGregorianCalendar getXMLDatumTijd(int year, int month, int day) {
+        try {
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(
+                    new GregorianCalendar(
+                            year,
+                            month - 1 /* GregorianCalendar heeft 0-based month */,
+                            day)
+            );
+        } catch (DatatypeConfigurationException e) {
+            LOG.error(e);
+            return null;
+        }
     }
 
     /**
-     * maakt een datum die te gebruiken is in een "van" of "tot" criterium.
+     * maakt een XML datum die te gebruiken is in een "van" of "tot" criterium.
      *
      * @param date datum
-     * @return xml datum
-     * @throws DatatypeConfigurationException If the implementation of DatatypeFactory is not available or cannot be instantiated.
+     * @return xml datum (of null ingeval van een DatatypeConfigurationException)
      */
-    public static XMLGregorianCalendar getGregorianCalendar(Date date) throws DatatypeConfigurationException {
+    public static XMLGregorianCalendar getXMLDatumTijd(Date date) {
         final GregorianCalendar cal = new GregorianCalendar();
         cal.setTime(date);
-        return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
+        try {
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
+        } catch (DatatypeConfigurationException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    /**
+     * maakt een XML datum die te gebruiken is in een "van" of "tot" criterium.
+     *
+     * @param date datum
+     * @return xml datum (of null ingeval van een DatatypeConfigurationException)
+     */
+    public static XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar date) throws DatatypeConfigurationException {
+        try {
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(date);
+        } catch (DatatypeConfigurationException e) {
+            LOG.error(e);
+            return null;
+        }
     }
 }

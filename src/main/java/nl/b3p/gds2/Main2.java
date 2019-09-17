@@ -27,6 +27,8 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,6 +44,13 @@ import static nl.b3p.gds2.GDS2Util.*;
 
 /**
  * Test klasse om gds2 te bevragen.
+ * <p>
+ * quick run:
+ * <code>
+ * cp some.private.key private.key && cp some.public.key public.key
+ * mvn clean install -DskipTests
+ * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.0-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
+ * <code/>
  *
  * @author mprins
  */
@@ -64,8 +73,9 @@ public class Main2 {
 
         String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
         LOG.info("Origineel endpoint: " + endpoint);
-        ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, MOCK_ENDPOINT);
-        LOG.info("Endpoint protocol gewijzigd naar mock: " + MOCK_ENDPOINT);
+        // om tegen soapui mock te praten
+        // ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, MOCK_ENDPOINT);
+        // LOG.info("Endpoint protocol gewijzigd naar mock: " + MOCK_ENDPOINT);
 
         final char[] thePassword = "changeit".toCharArray();
         LOG.debug("Loading keystore");
@@ -105,46 +115,60 @@ public class Main2 {
         verzoek.setAfgifteSelectieCriteria(criteria);
         criteria.setBestandKenmerken(new BestandKenmerkenType());
 
+        // Indicatie nog niet gerapporteerd
+        // Met deze indicatie wordt aangegeven of uitsluitend de nog niet gerapporteerde afgiftes
+        // moeten worden opgenomen in de lijst, of dat alle beschikbare afgiftes worden genoemd.
+        // Als deze indicator wordt gebruikt, dan worden na terugmelding van de bestandenlijst
+        // de bijbehorende bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het systeem van GDS.
         // alGerapporteerd
         final Boolean alGerapporteerd = Boolean.FALSE;
         criteria.setNogNietGerapporteerd(alGerapporteerd);
 
         // vanaf 1 jan 2018
-        XMLGregorianCalendar vanaf = getGregorianCalendar(2018, 1, 1);
-
+        XMLGregorianCalendar vanaf = getXMLDatumTijd(2018, 1, 1);
         XMLGregorianCalendar tot;
         // tot vandaag
-        tot = getGregorianCalendar(new Date());
-        // tot 1 sept 2019
-        tot = getGregorianCalendar(2019, 9, 1);
+        tot = getXMLDatumTijd(new Date());
+        // tot 1 aug 2019
+        // tot = getXMLDatumTijd(2019, 9, 1);
 
         // om bepaalde periode te selecteren; kan/mag niet samen met afgiftenummers
         criteria.setPeriode(new FilterDatumTijdType());
+        // Indien vermeld worden alleen de afgiftes opgenomen in de lijst met een
+        // aanmeldingstijdstip NA genoemde datum/tijd.
         criteria.getPeriode().setDatumTijdVanaf(vanaf);
+        // Idem, met een aanmeldingstijdstip TOT en MET genoemde datum/tijd
+        // (tijdstip op seconde nauwkeurig).
         criteria.getPeriode().setDatumTijdTotmet(tot);
 
         // om bepaalde afgiftenummers te selecteren; kan/mag niet samen met periode
         KlantAfgiftenummerReeksType afgiftenummers = new KlantAfgiftenummerReeksType();
-        afgiftenummers.setKlantAfgiftenummerTotmet(BigInteger.ONE);
+
+        // Indien vermeld worden alleen afgiftes opgenomen in de lijst met een klantAfgiftenummer
+        // groter of gelijk aan het genoemde nummer
         afgiftenummers.setKlantAfgiftenummerVanaf(BigInteger.ONE);
-        criteria.setKlantAfgiftenummerReeks(afgiftenummers);
+        // Indien vermeld worden alleen afgiftes opgenomen in de lijst met een klantAfgiftenummer
+        // kleiner of gelijk aan het genoemde nummer.
+        // Deze bovengrens is alleen mogelijk in combinatie met een ondergrens (klantAfgiftenummer vanaf).
+        afgiftenummers.setKlantAfgiftenummerTotmet(BigInteger.valueOf(10000));
+//        criteria.setKlantAfgiftenummerReeks(afgiftenummers);
 
         //
-        // product selectie
+        // artikelnummer
+        // Indien vermeld dan worden alleen de afgiftes opgenomen in de lijst die
+        // horen bij het genoemde artikelnummer
         //
         // maandelijkse BAG mutaties NL
-        criteria.getBestandKenmerken().setArtikelnummer("2508");
+        // criteria.getBestandKenmerken().setArtikelnummer("2508");
         // dagelijkse BAG mutaties NL
         criteria.getBestandKenmerken().setArtikelnummer("2516");
         //
-        // criteria.getBestandKenmerken().setArtikelnummer("2522");
-        // soms met voorloopnullen
-        // criteria.getBestandKenmerken().setArtikelnummer("0002522");
+        // contractnummer voor BRK
         //
-        // contractnummer
+        // Indien vermeld dan worden alleen de afgiftes opgenomen in de lijst die
+        // gekoppeld zijn aan het genoemde contractnummer
         //
-        // criteria.getBestandKenmerken().setContractnummer("0005014500");
-        // criteria.getBestandKenmerken().setContractnummer("9700004549");
+        // criteria.getBestandKenmerken().setContractnummer("9700005117");
 
         LOG.info("Contract nummer: " + criteria.getBestandKenmerken().getContractnummer());
         LOG.info("Artikel nummer: " + criteria.getBestandKenmerken().getArtikelnummer());
@@ -152,39 +176,39 @@ public class Main2 {
         LOG.info("DatumTijdTot criterium: " + tot.toGregorianCalendar().getTime());
         LOG.info("alGerapporteerd criterium: " + alGerapporteerd);
 
-
         BestandenlijstOpvragenRequest bestandenlijstOpvragenRequest = new BestandenlijstOpvragenRequest();
         BestandenlijstOpvragenType bestandenlijstOpvragenVerzoek = new BestandenlijstOpvragenType();
         bestandenlijstOpvragenRequest.setVerzoek(bestandenlijstOpvragenVerzoek);
         bestandenlijstOpvragenVerzoek.setAfgifteSelectieCriteria(criteria);
 
-        BestandenlijstOpvragenResponse bestandenlijstOpvragenResponse = retryBestandenLijstGBOpvragen(
-                gds2, bestandenlijstOpvragenRequest, 5,10000
+        BestandenlijstOpvragenResponse bestandenlijstOpvragenResponse = retryBestandenLijstOpvragen(
+                gds2, bestandenlijstOpvragenRequest, 1, 10000
         );
 
         // basis meta info van antwoord
-        //
         int afgifteAantalInLijst = bestandenlijstOpvragenResponse.getAntwoord().getAfgifteAantalInLijst();
-        LOG.info("aantal geselecteerde afgiftes in de lijst: " + afgifteAantalInLijst);
-
+        LOG.info("Aantal geselecteerde afgiftes in de lijst: " + afgifteAantalInLijst);
         int hoogsteAfgifteNummer = bestandenlijstOpvragenResponse.getAntwoord().getKlantAfgiftenummerMax();
-        LOG.info("hoogst toegekende klant afgiftenummer:" + hoogsteAfgifteNummer);
-
-        List<BaseURLType> baseURLs = bestandenlijstOpvragenResponse.getAntwoord().getBaseURLSet().getBaseURL();
-        LOG.info("baseurls te gebruiken als prefix voor download urls: " + baseURLs);
+        LOG.info("Hoogst toegekende klant afgiftenummer:" + hoogsteAfgifteNummer);
+        BaseURLType baseUrlAnon = getAnoniemBaseURL(bestandenlijstOpvragenResponse.getAntwoord());
+        BaseURLType baseUrlCert = getCertificaatBaseURL(bestandenlijstOpvragenResponse.getAntwoord());
+        LOG.info("Baseurl te gebruiken als prefix voor anon download urls: " + baseUrlAnon.getValue());
+        LOG.info("Baseurl te gebruiken als prefix voor anon certificaat urls: " + baseUrlCert.getValue());
+        // true als er meer dan het maximum aantal afgiftes zijn gevonden _voor de selectie criteria_
+        boolean hasMore = bestandenlijstOpvragenResponse.getAntwoord().isMeerAfgiftesbeschikbaar();
+        LOG.info("Meer afgiftes beschikbaar? " + hasMore);
 
         // afgiftes
         BestandenLijstType bestandenLijst = bestandenlijstOpvragenResponse.getAntwoord().getBestandenLijst();
-        // documentatie suggereert dat bestandenLijst null ("niet aanwezig") kan zijn als er geen afgiftes aan de selectie criteria voldoen.
-        List<AfgifteType> afgiftes = bestandenLijst.getAfgifte();
+        if (criteria.getBestandKenmerken().getContractnummer() == null) {
+            // bag
+            printAfgiftes(bestandenLijst.getAfgifte(), baseUrlAnon);
+        } else {
+            // brk
+            printAfgiftes(bestandenLijst.getAfgifte(), baseUrlCert);
+        }
 
-        printAfgiftes(afgiftes);
-
-        // true als er meer dan het maximum aantal afgiftes zijn gevonden voor de selectie criteria
-        boolean hasMore = bestandenlijstOpvragenResponse.getAntwoord().isMeerAfgiftesbeschikbaar();
-        LOG.info("Meer afgiftes beschikbaar: " + hasMore);
-
-        // TODO logica om datum periode of nummerreeks kleiner te maken
+        // TODO logica om datum periode of nummerreeks kleiner te maken dan max aantal
 
 //        GregorianCalendar currentMoment = null;
 //        boolean parseblePeriod = false;
@@ -370,58 +394,49 @@ public class Main2 {
 //        System.out.println("Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()));
     }
 
-    private static void printAfgiftes(List<AfgifteType> afgiftes) {
-        LOG.info("Afgiftegegevens, bestandskenmerken en Digikoppeling datareference gegevens van de bestandenlijst.");
-        // tab gescheiden output, of kvp
-        LOG.info("ID\treferentie\tbestandsnaam\tbestandref\tbeschikbaarTot\tcontractafgiftenr\tklantafgiftenr\tcontractnr\tartikelnr\tartikelomschrijving\tcontextId\tcreationTime\texpirationTime\tfilename\tchecksum\ttype\tsize\tsenderUrl\treceiverUrl");
-        for (AfgifteType a : afgiftes) {
-            // String kenmerken = "(geen)";
-            String kenmerken = "-\t-\t-";
-            if (a.getBestandKenmerken() != null) {
-                // kenmerken = String.format("contractnr: %s, artikelnr: %s, artikelomschrijving: %s",
-                kenmerken = String.format("%s\t%s\t%s",
-                        a.getBestandKenmerken().getContractnummer(),
-                        a.getBestandKenmerken().getArtikelnummer(),
-                        a.getBestandKenmerken().getArtikelomschrijving()
-                );
-            }
-            // System.out.printf("ID: %s,
-            // ref: %s,
-            // beschikbaarTot: %s,
-            // contractafgiftenummer: %s,
-            // klantafgiftenummer: %s,
-            // bestandsnaam: %s,
-            // bestandref: %s, kenmerken: %s",
-            LOG.info(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
-                    a.getAfgifteID(),
-                    a.getAfgiftereferentie(),
-                    a.getBestand().getBestandsnaam(),
-                    a.getBestand().getBestandsreferentie(),
-                    a.getBeschikbaarTot(),
-                    a.getContractAfgiftenummer(),
-                    a.getKlantAfgiftenummer(),
-
-                    kenmerken)
-            );
-
-            if (a.getDigikoppelingExternalDatareferences() != null
-                    && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
-                for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
-                    // System.out.printf("   Digikoppeling datareference: contextId: %s, creationTime: %s, expirationTime: %s, filename: %s, checksum: %s, size: %d, type: %s, senderUrl: %s, receiverUrl: %s\n",
-                    LOG.info(String.format("\t%s\t%s\t%s\t%s\t%s\t%d\t%s\t%s\t%s\n",
-                            dr.getContextId(),
-                            dr.getLifetime().getCreationTime().getValue(),
-                            dr.getLifetime().getExpirationTime().getValue(),
-                            dr.getContent().getFilename(),
-                            dr.getContent().getChecksum().getValue(),
-                            dr.getContent().getSize(),
-                            dr.getContent().getContentType(),
-                            dr.getTransport().getLocation().getSenderUrl() == null ? "-" : dr.getTransport().getLocation().getSenderUrl().getValue(),
-                            dr.getTransport().getLocation().getReceiverUrl() == null ? "-" : dr.getTransport().getLocation().getReceiverUrl().getValue())
+    private static void printAfgiftes(List<AfgifteType> afgiftes, BaseURLType baseUrl) {
+        LOG.info("Schrijf afgiftegegevens, bestandskenmerken en Digikoppeling datareference gegevens van de afgiftes in CSV.");
+        try (PrintWriter out = new PrintWriter("afgiftelijst.csv")) {
+            out.println("ID\treferentie\tdownloadUrl\tbestandsnaam\tbestandref\tbeschikbaarTot\tcontractafgiftenr\tklantafgiftenr\tcontractnr\tartikelnr\tartikelomschrijving\tcontextId\tcreationTime\texpirationTime\tfilename\tchecksum\ttype\tsize\tsenderUrl\treceiverUrl");
+            for (AfgifteType a : afgiftes) {
+                String kenmerken = "-\t-\t-";
+                if (a.getBestandKenmerken() != null) {
+                    kenmerken = String.format("%s\t%s\t%s",
+                            a.getBestandKenmerken().getContractnummer(),
+                            a.getBestandKenmerken().getArtikelnummer(),
+                            a.getBestandKenmerken().getArtikelomschrijving()
                     );
                 }
+                LOG.debug("Afgifte id: " + a.getAfgifteID());
+                out.printf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t",
+                        a.getAfgifteID(),
+                        a.getAfgiftereferentie(),
+                        getAfgifteURL(a, baseUrl),
+                        a.getBestand().getBestandsnaam(),
+                        a.getBestand().getBestandsreferentie(),
+                        a.getBeschikbaarTot(),
+                        a.getContractAfgiftenummer(),
+                        a.getKlantAfgiftenummer(),
+                        kenmerken);
+
+                if (a.getDigikoppelingExternalDatareferences() != null
+                        && a.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                    for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {
+                        out.printf("%s\t%s\t%s\t%s\t%s\t%s\t%d\t%s\t%s\n",
+                                dr.getContextId() == null ? "-" : dr.getContextId(),
+                                dr.getLifetime().getCreationTime().getValue(),
+                                dr.getLifetime().getExpirationTime().getValue(),
+                                dr.getContent().getFilename(),
+                                dr.getContent().getChecksum().getValue(),
+                                dr.getContent().getContentType(),
+                                dr.getContent().getSize(),
+                                dr.getTransport().getLocation().getSenderUrl() == null ? "-" : dr.getTransport().getLocation().getSenderUrl().getValue(),
+                                dr.getTransport().getLocation().getReceiverUrl() == null ? "-" : dr.getTransport().getLocation().getReceiverUrl().getValue());
+                    }
+                }
             }
+        } catch (FileNotFoundException e) {
+            LOG.error("CSV maken is mislukt", e);
         }
     }
-
 }
