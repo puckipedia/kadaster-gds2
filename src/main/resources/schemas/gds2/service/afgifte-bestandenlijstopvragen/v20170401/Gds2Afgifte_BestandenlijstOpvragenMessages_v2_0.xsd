@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster) -->
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+ v20170401:
+	Ondersteunt nu opvragen ebstandenlijst 'grote' bestanden, kleine bestanden als bijzonder geval vervalt.
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blo="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20170401" xmlns:blor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" xmlns:ns1="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" targetNamespace="http://www.kadaster.nl/schemas/gds2/service/afgifte-bestandenlijstopvragen/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragen/v20170401" schemaLocation="../../../afgifte-bestandenlijstopvragen/v20170401/Gds2Afgifte_BestandenlijstOpvragen_v2_0.xsd"/>
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401" schemaLocation="../../../afgifte-bestandenlijstopvragenresultaat/v20170401/Gds2Afgifte_BestandenlijstOpvragenResultaat_v2_0.xsd"/>
+	<xsd:element name="BestandenlijstOpvragenRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="verzoek" type="blo:BestandenlijstOpvragenType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="BestandenlijstOpvragenResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="antwoord" type="blor:BestandenlijstOpvragenResultaatType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blork="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:element name="BestandKenmerken" type="blork:BestandKenmerkenType">
+		<xsd:annotation>
+			<xsd:documentation>Selectiegegevens die in het verzoek gebruikt zijn als filter bij het opvragen van de bestandenlijst.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="BestandKenmerkenType">
+		<xsd:sequence>
+			<xsd:element name="contractnummer" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="artikelnummer" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="20"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="artikelomschrijving" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="80"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

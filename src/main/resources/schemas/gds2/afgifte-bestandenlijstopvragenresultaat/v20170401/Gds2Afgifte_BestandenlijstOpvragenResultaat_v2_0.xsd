@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Correctie type 'meerAfgiftesBeschikbaar' (boolean)
+	Introductie klantAfgiftenummer max beschikbaar veld
+	Introductie 'aantal afgiftes in lijst' teller
+	Introductie gesplitste URLs
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:blor="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401"
+	xmlns:result="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922"
+	xmlns:blora="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401"
+	xmlns:burl="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401"
+		targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstopvragenresultaat/v20170401"
+		elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:import namespace="http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922" schemaLocation="../../../generiek-extern/procesresultaat/v20110922/GenProcesResultaatExtern_v0_6.xsd"/>
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" schemaLocation="../../afgifte-bestandenlijstresultaat/afgifte/v20170401/Gds2Afgifte_imgdsAfgifte_BestandenlijstResultaat_v2_0.xsd"/>
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" schemaLocation="../../imgds/baseurl/v20170401/Gds2Afgifte_imgds_BaseURL_v2_0.xsd"/>
+	<xsd:element name="BestandenlijstOpvragenResultaat" type="blor:BestandenlijstOpvragenResultaatType"/>
+	<xsd:complexType name="BestandenlijstOpvragenResultaatType">
+		<xsd:annotation>
+			<xsd:documentation>De opgevraagde bestandenlijst met afgifte gegevens
+				voor bestanden. De lijst bevat die afgiftes die voldoen
+				aan de gebruikte selectiegegevens. Indien er geen afgiftes voldoen
+				aan deze selectie gegevens, dan is er geen bestandenlijst aanwezig
+				in het resultaat. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="result:ProcesVerwerking"/>
+			<xsd:element name="klantAfgiftenummerMax" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>Bevat het hoogste klantafgiftenummer waarvoor een afgifte beschikbaar is.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="afgifteAantalInLijst" type="xsd:int">
+				<xsd:annotation>
+					<xsd:documentation>Bevat de telling voor het aantal afgiftes dat geselecteerd is als resultaat.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BaseURLSet" type="burl:BaseURLSetType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Optionele lijst baseURLs als prefix voor de verschillende download URLs.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="blora:BestandenLijst" minOccurs="0"/>
+			<xsd:element name="meerAfgiftesbeschikbaar" type="xsd:boolean" default="true" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indien er meer dan het maximum aantal afgiftes
+						zijn gevonden, dan is dit element aanwezig met de waarde true
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

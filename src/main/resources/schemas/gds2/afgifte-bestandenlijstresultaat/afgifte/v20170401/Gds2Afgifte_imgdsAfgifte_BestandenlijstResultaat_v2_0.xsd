@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2015 sp1 (x64) (http://www.altova.com) by ﻿Kadaster (Kadaster) -->
+<!--
+ v20130701 (v1):
+	Initiele productieversie
+ v20170401 (v2):
+	Toevoegen klantAfgiftenummer per afgifte
+	Omvormen naar Afgiftes voor alle bestanden (onderscheid klein-groot vervalt).
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:blora="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" xmlns:blorb="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" xmlns:blork="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" xmlns:tns="http://www.logius.nl/digikoppeling/gb/2010/10" targetNamespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20170401" schemaLocation="../../../afgifte-bestandenlijstresultaat/bestand/v20170401/Gds2Afgifte_imgdsBestand_BestandenlijstResultaat_v2_0.xsd"/>
+	<xsd:import namespace="http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20170401" schemaLocation="../../../afgifte-bestandenlijstresultaat/kenmerken/v20170401/Gds2Afgifte_imgdsBestandkenmerken_BestandenlijstResultaat_v2_0.xsd"/>
+	<xsd:import namespace="http://www.logius.nl/digikoppeling/gb/2010/10" schemaLocation="../../../../digikoppeling/gb/2010/10/gb-meta.xsd"/>
+	<xsd:element name="Afgifte" type="blora:AfgifteType">
+		<xsd:annotation>
+			<xsd:documentation>De standaard afgifte van een bestand.
+				Deze bevat niet het bestand zelf, maar bevatten de uri van het bestand,
+				waarmee het bestand in een aparte download op te halen is.
+			</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="AfgifteType">
+		<xsd:sequence>
+			<xsd:element name="afgifteID">
+				<xsd:annotation>
+					<xsd:documentation>De unieke identificatie van een Afgifte.
+					</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="36"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="klantAfgiftenummer" type="xsd:integer"/>
+			<xsd:element name="afgiftereferentie" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1024"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="contractAfgiftenummer" type="xsd:integer" minOccurs="0"/>
+			<xsd:element ref="blorb:Bestand"/>
+			<xsd:element name="beschikbaarTot" type="xsd:dateTime">
+				<xsd:annotation>
+					<xsd:documentation>De datum tot wanneer de afgifte beschikbaar. Het
+						bestand behorende bij de afgifte hoort voor deze tijd te zijn
+						opgehaald.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="blork:BestandKenmerken" minOccurs="0"/>
+			<xsd:element ref="tns:digikoppeling-external-datareferences"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="BestandenLijst" type="blora:BestandenLijstType">
+		<xsd:annotation>
+			<xsd:documentation>De bestandenlijst met afgiftes voor bestanden.  Om deze
+				bestanden op te halen moet de external datareference (url) gebruikt
+				worden zoals voorgeschreven in de digikoppelijng standaard voor
+				grote bestanden. </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="BestandenLijstType">
+		<xsd:sequence>
+			<xsd:element ref="blora:Afgifte" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

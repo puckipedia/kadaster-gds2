@@ -6,6 +6,12 @@ gds2_key.jks
 *.pem
 *.crt
 *.log
+*.csv
 notes
 !private.key
 !public.key
+
+.idea/
+*.iml
+
+kadaster/

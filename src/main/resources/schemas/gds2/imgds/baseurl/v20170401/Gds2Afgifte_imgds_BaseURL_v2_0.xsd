@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ v20170401 (v2):
+	Initiele productieversie - definities BaseURLSet
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:burl="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" targetNamespace="http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401" elementFormDefault="qualified" attributeFormDefault="unqualified" version="0.1">
+	<xsd:element name="BaseURLSet" type="burl:BaseURLSetType">
+		<xsd:annotation>
+			<xsd:documentation>Een lijst BaseURLs waaruit de geschikte gekozen moet worden, om met het AfgifteID en volledige downloadURL te vormen.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="BaseURLSetType">
+		<xsd:sequence>
+			<xsd:element name="BaseURL" type="burl:BaseURLType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BaseURLType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="type" use="required">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>Gedefinieerde lijst waarden.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>
