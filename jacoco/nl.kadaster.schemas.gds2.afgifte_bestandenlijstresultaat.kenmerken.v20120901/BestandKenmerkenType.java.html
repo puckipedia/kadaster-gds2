@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BestandKenmerkenType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.kenmerken.v20120901</a> &gt; <span class="el_source">BestandKenmerkenType.java</span></div><h1>BestandKenmerkenType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.kenmerken.v20120901;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for BestandKenmerkenType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BestandKenmerkenType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;contractnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;minLength value=&quot;1&quot;/&amp;gt;
+ *               &amp;lt;maxLength value=&quot;10&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;artikelnummer&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;minLength value=&quot;1&quot;/&amp;gt;
+ *               &amp;lt;maxLength value=&quot;20&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;artikelomschrijving&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;minLength value=&quot;1&quot;/&amp;gt;
+ *               &amp;lt;maxLength value=&quot;80&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BestandKenmerkenType&quot;, propOrder = {
+    &quot;contractnummer&quot;,
+    &quot;artikelnummer&quot;,
+    &quot;artikelomschrijving&quot;
+})
+<span class="nc" id="L57">public class BestandKenmerkenType {</span>
+
+    protected String contractnummer;
+    protected String artikelnummer;
+    protected String artikelomschrijving;
+
+    /**
+     * Gets the value of the contractnummer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getContractnummer() {
+<span class="nc" id="L72">        return contractnummer;</span>
+    }
+
+    /**
+     * Sets the value of the contractnummer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setContractnummer(String value) {
+<span class="nc" id="L84">        this.contractnummer = value;</span>
+<span class="nc" id="L85">    }</span>
+
+    /**
+     * Gets the value of the artikelnummer property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getArtikelnummer() {
+<span class="nc" id="L96">        return artikelnummer;</span>
+    }
+
+    /**
+     * Sets the value of the artikelnummer property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setArtikelnummer(String value) {
+<span class="nc" id="L108">        this.artikelnummer = value;</span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * Gets the value of the artikelomschrijving property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getArtikelomschrijving() {
+<span class="nc" id="L120">        return artikelomschrijving;</span>
+    }
+
+    /**
+     * Sets the value of the artikelomschrijving property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setArtikelomschrijving(String value) {
+<span class="nc" id="L132">        this.artikelomschrijving = value;</span>
+<span class="nc" id="L133">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

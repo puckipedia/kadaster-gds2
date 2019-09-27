@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.gds2</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2015 B3Partners B.V.
+ */
+package nl.b3p.gds2;
+
+import com.sun.xml.ws.developer.JAXWSProperties;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
+import java.util.Calendar;
+import java.util.Date;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.BindingProvider;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGbOpvragenType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20130701.AfgifteType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701.AfgifteSelectieCriteriaType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701.BestandKenmerkenType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20130701.FilterDatumTijdType;
+import nl.kadaster.schemas.gds2.service.afgifte.v20130701.Gds2AfgifteServiceV20130701;
+import nl.kadaster.schemas.gds2.service.afgifte.v20130701.Gds2AfgifteServiceV20130701Service;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGBOpvragenRequest;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstgbopvragen.v20130701.BestandenlijstGBOpvragenResponse;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenRequest;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20130701.BestandenlijstOpvragenResponse;
+import nl.logius.digikoppeling.gb._2010._10.DataReference;
+
+/**
+ *
+ * @author Matthijs Laan
+ * @author mprins
+ */
+<span class="nc" id="L44">public class Main {</span>
+
+    private static final int BESTANDENLIJST_ATTEMPTS = 5;
+    private static final int BESTANDENLIJST_RETRY_WAIT = 10000;
+
+    public static void main(String[] args) throws Exception {
+        // java.lang.System.setProperty(&quot;sun.security.ssl.allowUnsafeRenegotiation&quot;, &quot;true&quot;);
+        // java.lang.System.setProperty(&quot;sun.security.ssl.allowLegacyHelloMessages&quot;, &quot;true&quot;);
+        // java.lang.System.setProperty(&quot;javax.net.debug&quot;, &quot;ssl,plaintext&quot;);
+<span class="nc" id="L53">        Gds2AfgifteServiceV20130701 gds2 = new Gds2AfgifteServiceV20130701Service().getAGds2AfgifteServiceV20130701();</span>
+<span class="nc" id="L54">        BindingProvider bp = (BindingProvider) gds2;</span>
+<span class="nc" id="L55">        Map&lt;String, Object&gt; ctxt = bp.getRequestContext();</span>
+<span class="nc" id="L56">        String endpoint = (String) ctxt.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);</span>
+<span class="nc" id="L57">        System.out.println(&quot;Origineel endpoint: &quot; + endpoint);</span>
+
+        //ctxt.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,  &quot;http://localhost:8088/AfgifteService&quot;);
+        //System.out.println(&quot;Endpoint protocol gewijzigd naar mock&quot;);
+<span class="nc" id="L61">        final char[] thePassword = &quot;changeit&quot;.toCharArray();</span>
+<span class="nc" id="L62">        System.out.println(&quot;Loading keystore&quot;);</span>
+<span class="nc" id="L63">        KeyStore ks = KeyStore.getInstance(&quot;jks&quot;);</span>
+
+<span class="nc" id="L65">        ks.load(Main.class.getResourceAsStream(&quot;/pkioverheid.jks&quot;), thePassword);</span>
+<span class="nc" id="L66">        System.out.println(&quot;Initializing TrustManagerFactory&quot;);</span>
+<span class="nc" id="L67">        TrustManagerFactory tmf = TrustManagerFactory.getInstance(&quot;PKIX&quot;);</span>
+<span class="nc" id="L68">        tmf.init(ks);</span>
+
+<span class="nc" id="L70">        System.out.println(&quot;Initializing KeyManagerFactory&quot;);</span>
+<span class="nc" id="L71">        KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());</span>
+<span class="nc" id="L72">        ks = KeyStore.getInstance(&quot;jks&quot;);</span>
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (args.length &gt; 0) {</span>
+<span class="nc" id="L75">            String keystore = &quot;/gds2_key.jks&quot;;</span>
+<span class="nc" id="L76">            ks.load(Main.class.getResourceAsStream(keystore), thePassword);</span>
+<span class="nc" id="L77">            kmf.init(ks, thePassword);</span>
+<span class="nc" id="L78">        } else {</span>
+<span class="nc" id="L79">            ks.load(null);</span>
+<span class="nc" id="L80">            PrivateKey privateKey = GDS2Util.getPrivateKeyFromPEM(new String(Files.readAllBytes(Paths.get(&quot;private.key&quot;))).trim());</span>
+<span class="nc" id="L81">            Certificate certificate = GDS2Util.getCertificateFromPEM(new String(Files.readAllBytes(Paths.get(&quot;public.key&quot;))).trim());</span>
+<span class="nc" id="L82">            ks.setKeyEntry(&quot;thekey&quot;, privateKey, thePassword, new Certificate[]{certificate});</span>
+<span class="nc" id="L83">            kmf.init(ks, thePassword);</span>
+        }
+<span class="nc" id="L85">        System.out.println(&quot;Initializing SSLContext&quot;);</span>
+<span class="nc" id="L86">        SSLContext context = SSLContext.getInstance(&quot;TLS&quot;, &quot;SunJSSE&quot;);</span>
+<span class="nc" id="L87">        context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);</span>
+<span class="nc" id="L88">        SSLContext.setDefault(context);</span>
+<span class="nc" id="L89">        ctxt.put(JAXWSProperties.SSL_SOCKET_FACTORY, context.getSocketFactory());</span>
+
+<span class="nc" id="L91">        BestandenlijstOpvragenRequest request = new BestandenlijstOpvragenRequest();</span>
+<span class="nc" id="L92">        BestandenlijstOpvragenType verzoek = new BestandenlijstOpvragenType();</span>
+<span class="nc" id="L93">        request.setVerzoek(verzoek);</span>
+<span class="nc" id="L94">        AfgifteSelectieCriteriaType criteria = new AfgifteSelectieCriteriaType();</span>
+<span class="nc" id="L95">        verzoek.setAfgifteSelectieCriteria(criteria);</span>
+<span class="nc" id="L96">        criteria.setBestandKenmerken(new BestandKenmerkenType());</span>
+        // alGerapporteerd
+<span class="nc" id="L98">        boolean alGerapporteerd = false;</span>
+<span class="nc" id="L99">        criteria.setNogNietGerapporteerd(alGerapporteerd);</span>
+
+        // maandelijkse mutaties NL
+        // criteria.getBestandKenmerken().setArtikelnummer(&quot;2508&quot;);
+        // dagelijkse mutaties NL
+        // criteria.getBestandKenmerken().setArtikelnummer(&quot;2516&quot;);
+        // criteria.getBestandKenmerken().setArtikelnummer(&quot;2522&quot;);
+        // soms met voorloopnullen
+        // criteria.getBestandKenmerken().setArtikelnummer(&quot;0002522&quot;);
+        // contractnummer
+        // criteria.getBestandKenmerken().setContractnummer(&quot;0005014500&quot;);
+<span class="nc" id="L110">        criteria.getBestandKenmerken().setContractnummer(&quot;9700004549&quot;);</span>
+        // vanaf 1 jan 2018
+<span class="nc" id="L112">        GregorianCalendar vanaf = new GregorianCalendar(2018, (1 - 1) /* GregorianCalendar heeft 0-based month */, 1);</span>
+<span class="nc" id="L113">        GregorianCalendar tot = new GregorianCalendar();</span>
+        // tot vandaag
+<span class="nc" id="L115">        tot.setTime(new Date());</span>
+        // tot 1 feb 2018
+<span class="nc" id="L117">        tot = new GregorianCalendar(2018, 2 - 1, 1);</span>
+
+<span class="nc" id="L119">        System.out.println(&quot;Contract nummer: &quot; + criteria.getBestandKenmerken().getContractnummer());</span>
+<span class="nc" id="L120">        System.out.println(&quot;Artikel nummer: &quot; + criteria.getBestandKenmerken().getArtikelnummer());</span>
+<span class="nc" id="L121">        System.out.println(&quot;DatumTijdVanaf criterium: &quot; + vanaf.getTime());</span>
+<span class="nc" id="L122">        System.out.println(&quot;DatumTijdTot criterium: &quot; + tot.getTime());</span>
+<span class="nc" id="L123">        System.out.println(&quot;alGerapporteerd criterium: &quot; + alGerapporteerd);</span>
+
+<span class="nc" id="L125">        criteria.setPeriode(new FilterDatumTijdType());</span>
+<span class="nc" id="L126">        XMLGregorianCalendar date = DatatypeFactory.newInstance().newXMLGregorianCalendar(vanaf);</span>
+<span class="nc" id="L127">        criteria.getPeriode().setDatumTijdVanaf(date);</span>
+
+<span class="nc" id="L129">        BestandenlijstGBOpvragenRequest requestGb = new BestandenlijstGBOpvragenRequest();</span>
+<span class="nc" id="L130">        BestandenlijstGbOpvragenType verzoekGb = new BestandenlijstGbOpvragenType();</span>
+<span class="nc" id="L131">        requestGb.setVerzoek(verzoekGb);</span>
+<span class="nc" id="L132">        verzoekGb.setAfgifteSelectieCriteria(criteria);</span>
+
+<span class="nc" id="L134">        GregorianCalendar currentMoment = null;</span>
+<span class="nc" id="L135">        boolean parseblePeriod = false;</span>
+<span class="nc" id="L136">        int loopType = Calendar.DAY_OF_MONTH;</span>
+<span class="nc" id="L137">        int loopMax = 180;</span>
+<span class="nc" id="L138">        int loopNum = 0;</span>
+<span class="nc" id="L139">        boolean reducePeriod = false;</span>
+<span class="nc" id="L140">        boolean increasePeriod = false;</span>
+
+<span class="nc bnc" id="L142" title="All 6 branches missed.">        if (vanaf != null &amp;&amp; tot != null &amp;&amp; vanaf.before(tot)) {</span>
+<span class="nc" id="L143">            parseblePeriod = true;</span>
+<span class="nc" id="L144">            currentMoment = vanaf;</span>
+        }
+
+<span class="nc" id="L147">        List&lt;AfgifteGBType&gt; afgiftesGb = new ArrayList&lt;&gt;();</span>
+        try {
+<span class="nc" id="L149">            boolean morePeriods2Process = false;</span>
+            do /* while morePeriods2Process is true */ {
+<span class="nc" id="L151">                System.out.println(&quot;\n*** start periode ***&quot;);</span>
+                //zet periode in criteria indien gewenst
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                if (parseblePeriod) {</span>
+                    //check of de periodeduur verkleind moet worden
+<span class="nc bnc" id="L155" title="All 2 branches missed.">                    if (reducePeriod) {</span>
+<span class="nc bnc" id="L156" title="All 3 branches missed.">                        switch (loopType) {</span>
+                            case Calendar.DAY_OF_MONTH:
+<span class="nc" id="L158">                                currentMoment.add(loopType, -1);</span>
+<span class="nc" id="L159">                                loopType = Calendar.HOUR_OF_DAY;</span>
+<span class="nc" id="L160">                                System.out.println(&quot;* Verklein loop periode naar uur&quot;);</span>
+
+<span class="nc" id="L162">                                break;</span>
+                            case Calendar.HOUR_OF_DAY:
+<span class="nc" id="L164">                                currentMoment.add(loopType, -1);</span>
+<span class="nc" id="L165">                                loopType = Calendar.MINUTE;</span>
+<span class="nc" id="L166">                                System.out.println(&quot;* Verklein loop periode naar minuut&quot;);</span>
+
+<span class="nc" id="L168">                                break;</span>
+                            case Calendar.MINUTE:
+                            default:
+                                /*
+                                 * Hier kom je alleen als binnen een minuut meer
+                                 * dan 2000 berichten zijn aangamaakt en het
+                                 * vinkje &quot;al rapporteerde berichten
+                                 * ophalen&quot; ook staat aan.
+                                 */
+<span class="nc" id="L177">                                System.out.println(&quot;Niet alle gevraagde berichten zijn opgehaald&quot;);</span>
+                        }
+<span class="nc" id="L179">                        reducePeriod = false;</span>
+                    }
+
+                    //check of de periodeduur vergroot moet worden
+<span class="nc bnc" id="L183" title="All 2 branches missed.">                    if (increasePeriod) {</span>
+<span class="nc bnc" id="L184" title="All 3 branches missed.">                        switch (loopType) {</span>
+                            case Calendar.HOUR_OF_DAY:
+<span class="nc" id="L186">                                loopType = Calendar.DAY_OF_MONTH;</span>
+<span class="nc" id="L187">                                System.out.println(&quot;* Vergroot loop periode naar dag&quot;);</span>
+
+<span class="nc" id="L189">                                break;</span>
+                            case Calendar.MINUTE:
+<span class="nc" id="L191">                                loopType = Calendar.HOUR_OF_DAY;</span>
+<span class="nc" id="L192">                                System.out.println(&quot;* Vergroot loop periode naar uur&quot;);</span>
+
+<span class="nc" id="L194">                                break;</span>
+                            case Calendar.DAY_OF_MONTH:
+                            default:
+                            //not possible
+                        }
+<span class="nc" id="L199">                        increasePeriod = false;</span>
+                    }
+
+<span class="nc" id="L202">                    FilterDatumTijdType d = new FilterDatumTijdType();</span>
+<span class="nc" id="L203">                    d.setDatumTijdVanaf(DatatypeFactory.newInstance().newXMLGregorianCalendar(currentMoment));</span>
+<span class="nc" id="L204">                    System.out.println(String.format(&quot;Datum vanaf: %tc&quot;, currentMoment.getTime()));</span>
+
+<span class="nc" id="L206">                    currentMoment.add(loopType, 1);</span>
+<span class="nc" id="L207">                    d.setDatumTijdTot(DatatypeFactory.newInstance().newXMLGregorianCalendar(currentMoment));</span>
+<span class="nc" id="L208">                    System.out.println(String.format(&quot;Datum tot: %tc&quot;, currentMoment.getTime()));</span>
+
+<span class="nc" id="L210">                    criteria.setPeriode(d);</span>
+
+<span class="nc bnc" id="L212" title="All 3 branches missed.">                    switch (loopType) {</span>
+                        case Calendar.HOUR_OF_DAY:
+                            //0-23
+<span class="nc bnc" id="L215" title="All 2 branches missed.">                            if (currentMoment.get(loopType) == 0) {</span>
+<span class="nc" id="L216">                                increasePeriod = true;</span>
+                            }
+                            break;
+                        case Calendar.MINUTE:
+                            //0-59
+<span class="nc bnc" id="L221" title="All 2 branches missed.">                            if (currentMoment.get(loopType) == 0) {</span>
+<span class="nc" id="L222">                                increasePeriod = true;</span>
+                            }
+                            break;
+                        case Calendar.DAY_OF_MONTH:
+                        default:
+                            //alleen dagen tellen, uur en minuut altijd helemaal
+<span class="nc" id="L228">                            loopNum++;</span>
+                    }
+
+                    //bereken of einde van periode bereikt is
+<span class="nc bnc" id="L232" title="All 4 branches missed.">                    if (currentMoment.before(tot) &amp;&amp; loopNum &lt; loopMax) {</span>
+<span class="nc" id="L233">                        morePeriods2Process = true;</span>
+                    } else {
+<span class="nc" id="L235">                        morePeriods2Process = false;</span>
+                    }
+                }
+
+<span class="nc" id="L239">                verzoekGb.setAfgifteSelectieCriteria(criteria);</span>
+<span class="nc" id="L240">                BestandenlijstGBOpvragenResponse responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);</span>
+
+<span class="nc" id="L242">                int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB().size();</span>
+<span class="nc" id="L243">                System.out.println(&quot;Aantal in antwoord: &quot; + aantalInAntwoord);</span>
+
+                // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+<span class="nc" id="L246">                boolean hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase(&quot;true&quot;);</span>
+<span class="nc" id="L247">                System.out.println(&quot;Meer afgiftes beschikbaar: &quot; + hasMore);</span>
+
+
+                /*
+                 * Als &quot;al gerapporteerde berichten&quot; moeten worden opgehaald en
+                 * er zitten dan 2000 berichten in het antwoord dan heeft het
+                 * geen zin om meer keer de berichten op te halen, je krijgt
+                 * telkens dezelfde.
+                 */
+<span class="nc bnc" id="L256" title="All 4 branches missed.">                if (hasMore &amp;&amp; alGerapporteerd) {</span>
+<span class="nc" id="L257">                    reducePeriod = true;</span>
+<span class="nc" id="L258">                    morePeriods2Process = true;</span>
+<span class="nc" id="L259">                    increasePeriod = false;</span>
+                    // als er geen parsable periode is
+                    // (geen periode ingevuld en alGerapporteerd is true
+                    // dan moet morePeriods2Process false worden om een
+                    // eindloze while loop te voorkomen
+<span class="nc bnc" id="L264" title="All 2 branches missed.">                    if (!parseblePeriod) {</span>
+<span class="nc" id="L265">                        morePeriods2Process = false;</span>
+                    } else {
+                        continue;
+                    }
+                }
+
+<span class="nc" id="L271">                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB());</span>
+
+                /*
+                 * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
+                 * aangegeven of uitsluitend de nog niet gerapporteerde
+                 * bestanden moeten worden opgenomen in de lijst, of dat alle
+                 * beschikbare bestanden worden genoemd. Niet gerapporteerd
+                 * betekent in dit geval ‘niet eerder opgevraagd in deze
+                 * bestandenlijst’. Als deze indicator wordt gebruikt, dan
+                 * worden na terugmelding van de bestandenlijst de bijbehorende
+                 * bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het
+                 * systeem van GDS.
+                 */
+<span class="nc" id="L284">                boolean dontGetMoreConfig = false;</span>
+<span class="nc bnc" id="L285" title="All 4 branches missed.">                while (hasMore &amp;&amp; !dontGetMoreConfig) {</span>
+<span class="nc" id="L286">                    criteria.setNogNietGerapporteerd(true);</span>
+<span class="nc" id="L287">                    responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);</span>
+
+<span class="nc" id="L289">                    List&lt;AfgifteGBType&gt; afgiftes = responseGb.getAntwoord().getBestandenLijstGB().getAfgifteGB();</span>
+<span class="nc" id="L290">                    afgiftesGb.addAll(afgiftes);</span>
+<span class="nc" id="L291">                    aantalInAntwoord = afgiftes.size();</span>
+<span class="nc" id="L292">                    System.out.println(&quot;Aantal in antwoord: &quot; + aantalInAntwoord);</span>
+
+<span class="nc" id="L294">                    hasMore = responseGb.getAntwoord().getMeerAfgiftesbeschikbaar().equalsIgnoreCase(&quot;true&quot;);</span>
+<span class="nc" id="L295">                    System.out.println(&quot;Nog meer afgiftes beschikbaar: &quot; + hasMore);</span>
+<span class="nc" id="L296">                }</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">            } while (morePeriods2Process);</span>
+<span class="nc" id="L298">            System.out.println(&quot;Totaal aantal op te halen berichten: &quot; + afgiftesGb.size());</span>
+
+<span class="nc" id="L300">        } catch (Exception e) {</span>
+<span class="nc" id="L301">            e.printStackTrace();</span>
+<span class="nc" id="L302">        }</span>
+<span class="nc" id="L303">        verwerkAfgiftesGb(afgiftesGb);</span>
+
+<span class="nc" id="L305">        System.out.println(&quot;\n\n**** resultaat ****\n&quot;);</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">        System.out.println(&quot;Aantal afgiftes grote bestanden: &quot; + (afgiftesGb == null ? &quot;&lt;fout&gt;&quot; : afgiftesGb.size()));</span>
+
+<span class="nc" id="L308">        List&lt;AfgifteType&gt; afgiftes = null;</span>
+        try {
+<span class="nc" id="L310">            BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);</span>
+<span class="nc" id="L311">            afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();</span>
+<span class="nc" id="L312">        } catch (Exception e) {</span>
+<span class="nc" id="L313">            e.printStackTrace();</span>
+<span class="nc" id="L314">        }</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">        System.out.println(&quot;Aantal afgiftes: &quot; + (afgiftes == null ? &quot;&lt;fout&gt;&quot; : afgiftes.size()));</span>
+<span class="nc" id="L316">    }</span>
+
+    private static void verwerkAfgiftesGb(List&lt;AfgifteGBType&gt; afgiftesGb) {
+<span class="nc" id="L319">        System.out.println(&quot;Afgiftegegevens, bestandskenmerken en Digikoppeling datareference gegevens van de bestandenlijst.&quot;);</span>
+        // tab gescheiden output, of kvp
+<span class="nc" id="L321">        System.out.println(&quot;ID\treferentie\tbestandsnaam\tbestandref\tbeschikbaarTot\tcontractnr\tartikelnr\tartikelomschrijving\tcontextId\tcreationTime\texpirationTime\tfilename\tchecksum\ttype\tsize\tsenderUrl\treceiverUrl&quot;);</span>
+<span class="nc bnc" id="L322" title="All 2 branches missed.">        for (AfgifteGBType a : afgiftesGb) {</span>
+            // String kenmerken = &quot;(geen)&quot;;
+<span class="nc" id="L324">            String kenmerken = &quot;-\t-\t-&quot;;</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">            if (a.getBestandKenmerken() != null) {</span>
+                // kenmerken = String.format(&quot;contractnr: %s, artikelnr: %s, artikelomschrijving: %s&quot;,
+<span class="nc" id="L327">                kenmerken = String.format(&quot;%s\t%s\t%s&quot;,</span>
+<span class="nc" id="L328">                        a.getBestandKenmerken().getContractnummer(),</span>
+<span class="nc" id="L329">                        a.getBestandKenmerken().getArtikelnummer(),</span>
+<span class="nc" id="L330">                        a.getBestandKenmerken().getArtikelomschrijving());</span>
+            }
+            // System.out.printf(&quot;ID: %s, referentie: %s, bestandsnaam: %s, bestandref: %s, beschikbaarTot: %s, kenmerken: %s&quot;,
+<span class="nc" id="L333">            System.out.printf(&quot;%s\t%s\t%s\t%s\t%s\t%s&quot;,</span>
+<span class="nc" id="L334">                    a.getAfgifteID(),</span>
+<span class="nc" id="L335">                    a.getAfgiftereferentie(),</span>
+<span class="nc" id="L336">                    a.getBestand().getBestandsnaam(),</span>
+<span class="nc" id="L337">                    a.getBestand().getBestandsreferentie(),</span>
+<span class="nc" id="L338">                    a.getBeschikbaarTot(),</span>
+                    kenmerken);
+<span class="nc bnc" id="L340" title="All 2 branches missed.">            if (a.getDigikoppelingExternalDatareferences() != null</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">                    &amp;&amp; a.getDigikoppelingExternalDatareferences().getDataReference() != null) {</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">                for (DataReference dr : a.getDigikoppelingExternalDatareferences().getDataReference()) {</span>
+                    // System.out.printf(&quot;   Digikoppeling datareference: contextId: %s, creationTime: %s, expirationTime: %s, filename: %s, checksum: %s, size: %d, type: %s, senderUrl: %s, receiverUrl: %s\n&quot;,
+<span class="nc" id="L344">                    System.out.printf(&quot;\t%s\t%s\t%s\t%s\t%s\t%d\t%s\t%s\t%s\n&quot;,</span>
+<span class="nc" id="L345">                            dr.getContextId(),</span>
+<span class="nc" id="L346">                            dr.getLifetime().getCreationTime().getValue(),</span>
+<span class="nc" id="L347">                            dr.getLifetime().getExpirationTime().getValue(),</span>
+<span class="nc" id="L348">                            dr.getContent().getFilename(),</span>
+<span class="nc" id="L349">                            dr.getContent().getChecksum().getValue(),</span>
+<span class="nc" id="L350">                            dr.getContent().getSize(),</span>
+<span class="nc" id="L351">                            dr.getContent().getContentType(),</span>
+<span class="nc bnc" id="L352" title="All 2 branches missed.">                            dr.getTransport().getLocation().getSenderUrl() == null ? &quot;-&quot; : dr.getTransport().getLocation().getSenderUrl().getValue(),</span>
+<span class="nc bnc" id="L353" title="All 2 branches missed.">                            dr.getTransport().getLocation().getReceiverUrl() == null ? &quot;-&quot; : dr.getTransport().getLocation().getReceiverUrl().getValue());</span>
+<span class="nc" id="L354">                }</span>
+            }
+<span class="nc" id="L356">        }</span>
+<span class="nc" id="L357">    }</span>
+
+    private static BestandenlijstGBOpvragenResponse retryBestandenLijstGBOpvragen(Gds2AfgifteServiceV20130701 gds2, BestandenlijstGBOpvragenRequest requestGb) throws Exception {
+<span class="nc" id="L360">        int attempt = 0;</span>
+        while (true) {
+            try {
+<span class="nc" id="L363">                return gds2.bestandenlijstGBOpvragen(requestGb);</span>
+<span class="nc" id="L364">            } catch (Exception e) {</span>
+<span class="nc" id="L365">                attempt++;</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">                if (attempt == BESTANDENLIJST_ATTEMPTS) {</span>
+<span class="nc" id="L367">                    System.out.println(&quot;Fout bij laatste poging ophalen bestandenlijst: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L368">                    throw e;</span>
+                } else {
+<span class="nc" id="L370">                    System.out.println(&quot;Fout bij poging &quot; + attempt + &quot; om bestandenlijst op te halen: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L371">                    Thread.sleep(BESTANDENLIJST_RETRY_WAIT);</span>
+<span class="nc" id="L372">                    System.out.println(&quot;Uitvoeren poging &quot; + (attempt + 1) + &quot; om bestandenlijst op te halen...&quot;);</span>
+                }
+<span class="nc" id="L374">            }</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BestandenLijstGBType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20120901</a> &gt; <span class="el_source">BestandenLijstGBType.java</span></div><h1>BestandenLijstGBType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20120901;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * &lt;p&gt;Java class for BestandenLijstGBType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BestandenLijstGBType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstgbresultaat/afgifte/v20120901}AfgifteGB&quot; maxOccurs=&quot;unbounded&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BestandenLijstGBType&quot;, propOrder = {
+    &quot;afgifteGB&quot;
+})
+<span class="nc" id="L35">public class BestandenLijstGBType {</span>
+
+    @XmlElement(name = &quot;AfgifteGB&quot;, required = true)
+    protected List&lt;AfgifteGBType&gt; afgifteGB;
+
+    /**
+     * Gets the value of the afgifteGB property.
+     * 
+     * &lt;p&gt;
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a &lt;CODE&gt;set&lt;/CODE&gt; method for the afgifteGB property.
+     * 
+     * &lt;p&gt;
+     * For example, to add a new item, do as follows:
+     * &lt;pre&gt;
+     *    getAfgifteGB().add(newItem);
+     * &lt;/pre&gt;
+     * 
+     * 
+     * &lt;p&gt;
+     * Objects of the following type(s) are allowed in the list
+     * {@link AfgifteGBType }
+     * 
+     * 
+     */
+    public List&lt;AfgifteGBType&gt; getAfgifteGB() {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (afgifteGB == null) {</span>
+<span class="nc" id="L64">            afgifteGB = new ArrayList&lt;AfgifteGBType&gt;();</span>
+        }
+<span class="nc" id="L66">        return this.afgifteGB;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

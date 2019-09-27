@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.generiek_extern.procesresultaat.v20110922</a> &gt; <span class="el_source">ObjectFactory.java</span></div><h1>ObjectFactory.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.generiek_extern.procesresultaat.v20110922;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the nl.kadaster.schemas.generiek_extern.procesresultaat.v20110922 package. 
+ * &lt;p&gt;An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+<span class="nc" id="L27">    private final static QName _ProcesVerwerking_QNAME = new QName(&quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, &quot;ProcesVerwerking&quot;);</span>
+<span class="nc" id="L28">    private final static QName _Melding_QNAME = new QName(&quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, &quot;Melding&quot;);</span>
+<span class="nc" id="L29">    private final static QName _ProcesVerwerkingCode_QNAME = new QName(&quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, &quot;ProcesVerwerkingCode&quot;);</span>
+<span class="nc" id="L30">    private final static QName _SeverityCode_QNAME = new QName(&quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, &quot;SeverityCode&quot;);</span>
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: nl.kadaster.schemas.generiek_extern.procesresultaat.v20110922
+     * 
+     */
+<span class="nc" id="L36">    public ObjectFactory() {</span>
+<span class="nc" id="L37">    }</span>
+
+    /**
+     * Create an instance of {@link ProcesVerwerking }
+     * 
+     */
+    public ProcesVerwerking createProcesVerwerking() {
+<span class="nc" id="L44">        return new ProcesVerwerking();</span>
+    }
+
+    /**
+     * Create an instance of {@link Melding }
+     * 
+     */
+    public Melding createMelding() {
+<span class="nc" id="L52">        return new Melding();</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link ProcesVerwerking }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link ProcesVerwerking }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, name = &quot;ProcesVerwerking&quot;)
+    public JAXBElement&lt;ProcesVerwerking&gt; createProcesVerwerking(ProcesVerwerking value) {
+<span class="nc" id="L65">        return new JAXBElement&lt;ProcesVerwerking&gt;(_ProcesVerwerking_QNAME, ProcesVerwerking.class, null, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link Melding }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link Melding }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, name = &quot;Melding&quot;)
+    public JAXBElement&lt;Melding&gt; createMelding(Melding value) {
+<span class="nc" id="L78">        return new JAXBElement&lt;Melding&gt;(_Melding_QNAME, Melding.class, null, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link String }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link String }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, name = &quot;ProcesVerwerkingCode&quot;, defaultValue = &quot;1&quot;)
+    public JAXBElement&lt;String&gt; createProcesVerwerkingCode(String value) {
+<span class="nc" id="L91">        return new JAXBElement&lt;String&gt;(_ProcesVerwerkingCode_QNAME, String.class, null, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link String }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link String }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, name = &quot;SeverityCode&quot;, defaultValue = &quot;INFO&quot;)
+    public JAXBElement&lt;String&gt; createSeverityCode(String value) {
+<span class="nc" id="L104">        return new JAXBElement&lt;String&gt;(_SeverityCode_QNAME, String.class, null, value);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.logius.digikoppeling.gb._2010._10</a> &gt; <span class="el_source">ObjectFactory.java</span></div><h1>ObjectFactory.java</h1><pre class="source lang-java linenums">
+package nl.logius.digikoppeling.gb._2010._10;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the nl.logius.digikoppeling.gb._2010._10 package. 
+ * &lt;p&gt;An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+<span class="nc" id="L27">    private final static QName _DigikoppelingExternalDatareferences_QNAME = new QName(&quot;http://www.logius.nl/digikoppeling/gb/2010/10&quot;, &quot;digikoppeling-external-datareferences&quot;);</span>
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: nl.logius.digikoppeling.gb._2010._10
+     * 
+     */
+<span class="nc" id="L33">    public ObjectFactory() {</span>
+<span class="nc" id="L34">    }</span>
+
+    /**
+     * Create an instance of {@link DataReference }
+     * 
+     */
+    public DataReference createDataReference() {
+<span class="nc" id="L41">        return new DataReference();</span>
+    }
+
+    /**
+     * Create an instance of {@link DataReference.Transport }
+     * 
+     */
+    public DataReference.Transport createDataReferenceTransport() {
+<span class="nc" id="L49">        return new DataReference.Transport();</span>
+    }
+
+    /**
+     * Create an instance of {@link ExternalDataReference }
+     * 
+     */
+    public ExternalDataReference createExternalDataReference() {
+<span class="nc" id="L57">        return new ExternalDataReference();</span>
+    }
+
+    /**
+     * Create an instance of {@link DatetimeType }
+     * 
+     */
+    public DatetimeType createDatetimeType() {
+<span class="nc" id="L65">        return new DatetimeType();</span>
+    }
+
+    /**
+     * Create an instance of {@link ChecksumType }
+     * 
+     */
+    public ChecksumType createChecksumType() {
+<span class="nc" id="L73">        return new ChecksumType();</span>
+    }
+
+    /**
+     * Create an instance of {@link UrlType }
+     * 
+     */
+    public UrlType createUrlType() {
+<span class="nc" id="L81">        return new UrlType();</span>
+    }
+
+    /**
+     * Create an instance of {@link Md5String }
+     * 
+     */
+    public Md5String createMd5String() {
+<span class="nc" id="L89">        return new Md5String();</span>
+    }
+
+    /**
+     * Create an instance of {@link AnyString }
+     * 
+     */
+    public AnyString createAnyString() {
+<span class="nc" id="L97">        return new AnyString();</span>
+    }
+
+    /**
+     * Create an instance of {@link DataReference.Lifetime }
+     * 
+     */
+    public DataReference.Lifetime createDataReferenceLifetime() {
+<span class="nc" id="L105">        return new DataReference.Lifetime();</span>
+    }
+
+    /**
+     * Create an instance of {@link DataReference.Content }
+     * 
+     */
+    public DataReference.Content createDataReferenceContent() {
+<span class="nc" id="L113">        return new DataReference.Content();</span>
+    }
+
+    /**
+     * Create an instance of {@link DataReference.Transport.Location }
+     * 
+     */
+    public DataReference.Transport.Location createDataReferenceTransportLocation() {
+<span class="nc" id="L121">        return new DataReference.Transport.Location();</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link ExternalDataReference }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link ExternalDataReference }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.logius.nl/digikoppeling/gb/2010/10&quot;, name = &quot;digikoppeling-external-datareferences&quot;)
+    public JAXBElement&lt;ExternalDataReference&gt; createDigikoppelingExternalDatareferences(ExternalDataReference value) {
+<span class="nc" id="L134">        return new JAXBElement&lt;ExternalDataReference&gt;(_DigikoppelingExternalDatareferences_QNAME, ExternalDataReference.class, null, value);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

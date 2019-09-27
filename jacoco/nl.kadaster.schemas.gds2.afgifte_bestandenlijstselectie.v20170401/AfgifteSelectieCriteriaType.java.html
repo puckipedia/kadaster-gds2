@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AfgifteSelectieCriteriaType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401</a> &gt; <span class="el_source">AfgifteSelectieCriteriaType.java</span></div><h1>AfgifteSelectieCriteriaType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.FilterDatumTijdType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.KlantAfgiftenummerReeksType;
+import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.SorteringType;
+
+
+/**
+ * &lt;p&gt;Java class for AfgifteSelectieCriteriaType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;AfgifteSelectieCriteriaType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20170401}BestandKenmerken&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;choice minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401}Periode&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *           &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401}KlantAfgiftenummerReeks&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;/choice&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401}NogNietGerapporteerd&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401}Sortering&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401}Afgiftereferentie&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;AfgifteSelectieCriteriaType&quot;, propOrder = {
+    &quot;bestandKenmerken&quot;,
+    &quot;periode&quot;,
+    &quot;klantAfgiftenummerReeks&quot;,
+    &quot;nogNietGerapporteerd&quot;,
+    &quot;sortering&quot;,
+    &quot;afgiftereferentie&quot;
+})
+<span class="fc" id="L48">public class AfgifteSelectieCriteriaType {</span>
+
+    @XmlElement(name = &quot;BestandKenmerken&quot;)
+    protected BestandKenmerkenType bestandKenmerken;
+    @XmlElement(name = &quot;Periode&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401&quot;)
+    protected FilterDatumTijdType periode;
+    @XmlElement(name = &quot;KlantAfgiftenummerReeks&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401&quot;)
+    protected KlantAfgiftenummerReeksType klantAfgiftenummerReeks;
+    @XmlElement(name = &quot;NogNietGerapporteerd&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401&quot;)
+    protected Boolean nogNietGerapporteerd;
+    @XmlElement(name = &quot;Sortering&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401&quot;)
+    protected SorteringType sortering;
+    @XmlElement(name = &quot;Afgiftereferentie&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-proces/v20170401&quot;)
+    protected String afgiftereferentie;
+
+    /**
+     * Gets the value of the bestandKenmerken property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BestandKenmerkenType }
+     *     
+     */
+    public BestandKenmerkenType getBestandKenmerken() {
+<span class="fc" id="L72">        return bestandKenmerken;</span>
+    }
+
+    /**
+     * Sets the value of the bestandKenmerken property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BestandKenmerkenType }
+     *     
+     */
+    public void setBestandKenmerken(BestandKenmerkenType value) {
+<span class="fc" id="L84">        this.bestandKenmerken = value;</span>
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * Gets the value of the periode property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link FilterDatumTijdType }
+     *     
+     */
+    public FilterDatumTijdType getPeriode() {
+<span class="fc" id="L96">        return periode;</span>
+    }
+
+    /**
+     * Sets the value of the periode property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link FilterDatumTijdType }
+     *     
+     */
+    public void setPeriode(FilterDatumTijdType value) {
+<span class="fc" id="L108">        this.periode = value;</span>
+<span class="fc" id="L109">    }</span>
+
+    /**
+     * Gets the value of the klantAfgiftenummerReeks property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link KlantAfgiftenummerReeksType }
+     *     
+     */
+    public KlantAfgiftenummerReeksType getKlantAfgiftenummerReeks() {
+<span class="nc" id="L120">        return klantAfgiftenummerReeks;</span>
+    }
+
+    /**
+     * Sets the value of the klantAfgiftenummerReeks property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link KlantAfgiftenummerReeksType }
+     *     
+     */
+    public void setKlantAfgiftenummerReeks(KlantAfgiftenummerReeksType value) {
+<span class="fc" id="L132">        this.klantAfgiftenummerReeks = value;</span>
+<span class="fc" id="L133">    }</span>
+
+    /**
+     * Gets the value of the nogNietGerapporteerd property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isNogNietGerapporteerd() {
+<span class="nc" id="L144">        return nogNietGerapporteerd;</span>
+    }
+
+    /**
+     * Sets the value of the nogNietGerapporteerd property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setNogNietGerapporteerd(Boolean value) {
+<span class="fc" id="L156">        this.nogNietGerapporteerd = value;</span>
+<span class="fc" id="L157">    }</span>
+
+    /**
+     * Gets the value of the sortering property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SorteringType }
+     *     
+     */
+    public SorteringType getSortering() {
+<span class="nc" id="L168">        return sortering;</span>
+    }
+
+    /**
+     * Sets the value of the sortering property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SorteringType }
+     *     
+     */
+    public void setSortering(SorteringType value) {
+<span class="nc" id="L180">        this.sortering = value;</span>
+<span class="nc" id="L181">    }</span>
+
+    /**
+     * Gets the value of the afgiftereferentie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAfgiftereferentie() {
+<span class="nc" id="L192">        return afgiftereferentie;</span>
+    }
+
+    /**
+     * Sets the value of the afgiftereferentie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAfgiftereferentie(String value) {
+<span class="nc" id="L204">        this.afgiftereferentie = value;</span>
+<span class="nc" id="L205">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

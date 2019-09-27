@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FilterDatumTijdType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_proces.v20170401</a> &gt; <span class="el_source">FilterDatumTijdType.java</span></div><h1>FilterDatumTijdType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_proces.v20170401;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+
+/**
+ * &lt;p&gt;Java class for FilterDatumTijdType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;FilterDatumTijdType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;DatumTijdVanaf&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}dateTime&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;DatumTijdTotmet&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}dateTime&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;FilterDatumTijdType&quot;, propOrder = {
+    &quot;datumTijdVanaf&quot;,
+    &quot;datumTijdTotmet&quot;
+})
+<span class="fc" id="L37">public class FilterDatumTijdType {</span>
+
+    @XmlElement(name = &quot;DatumTijdVanaf&quot;)
+    @XmlSchemaType(name = &quot;dateTime&quot;)
+    protected XMLGregorianCalendar datumTijdVanaf;
+    @XmlElement(name = &quot;DatumTijdTotmet&quot;)
+    @XmlSchemaType(name = &quot;dateTime&quot;)
+    protected XMLGregorianCalendar datumTijdTotmet;
+
+    /**
+     * Gets the value of the datumTijdVanaf property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDatumTijdVanaf() {
+<span class="nc" id="L55">        return datumTijdVanaf;</span>
+    }
+
+    /**
+     * Sets the value of the datumTijdVanaf property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDatumTijdVanaf(XMLGregorianCalendar value) {
+<span class="fc" id="L67">        this.datumTijdVanaf = value;</span>
+<span class="fc" id="L68">    }</span>
+
+    /**
+     * Gets the value of the datumTijdTotmet property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getDatumTijdTotmet() {
+<span class="nc" id="L79">        return datumTijdTotmet;</span>
+    }
+
+    /**
+     * Sets the value of the datumTijdTotmet property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setDatumTijdTotmet(XMLGregorianCalendar value) {
+<span class="fc" id="L91">        this.datumTijdTotmet = value;</span>
+<span class="fc" id="L92">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

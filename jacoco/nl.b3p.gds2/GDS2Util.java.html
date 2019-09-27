@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GDS2Util.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.b3p.gds2</a> &gt; <span class="el_source">GDS2Util.java</span></div><h1>GDS2Util.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2017 B3Partners B.V.
+ */
+package nl.b3p.gds2;
+
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragenresultaat.v20170401.BestandenlijstOpvragenResultaatType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.AfgifteType;
+import nl.kadaster.schemas.gds2.imgds.baseurl.v20170401.BaseURLType;
+import nl.kadaster.schemas.gds2.service.afgifte.v20170401.Gds2AfgifteServiceV20170401;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenRequest;
+import nl.kadaster.schemas.gds2.service.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenResponse;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+
+/**
+ * @author mprins
+ */
+public class GDS2Util {
+
+<span class="fc" id="L41">    private static final Log LOG = LogFactory.getLog(GDS2Util.class);</span>
+    private static final String PEM_KEY_START = &quot;-----BEGIN PRIVATE KEY-----&quot;;
+    private static final String PEM_KEY_END = &quot;-----END PRIVATE KEY-----&quot;;
+    private static final String PEM_CERT_START = &quot;-----BEGIN CERTIFICATE-----&quot;;
+    private static final String PEM_CERT_END = &quot;-----END CERTIFICATE-----&quot;;
+
+    public static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (!pem.startsWith(PEM_CERT_START)) {</span>
+<span class="nc" id="L49">            throw new IllegalArgumentException(&quot;Certificaat moet beginnen met &quot; + PEM_CERT_START);</span>
+        }
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (!pem.endsWith(PEM_CERT_END)) {</span>
+<span class="nc" id="L52">            throw new IllegalArgumentException(&quot;Certificaat moet eindigen met &quot; + PEM_CERT_END);</span>
+        }
+<span class="nc" id="L54">        return CertificateFactory.getInstance(&quot;X509&quot;).generateCertificate(new ByteArrayInputStream(pem.getBytes(&quot;US-ASCII&quot;)));</span>
+    }
+
+    public static PrivateKey getPrivateKeyFromPEM(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (!pem.startsWith(PEM_KEY_START)) {</span>
+<span class="nc" id="L59">            throw new IllegalArgumentException(&quot;Private key moet beginnen met &quot; + PEM_KEY_START);</span>
+        }
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        while (pem.endsWith(&quot;\n&quot;)) {</span>
+<span class="nc" id="L62">            pem = pem.substring(0, pem.length() - 1);</span>
+        }
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (!pem.endsWith(PEM_KEY_END)) {</span>
+<span class="nc" id="L65">            throw new IllegalArgumentException(&quot;Private key moet eindigen met &quot; + PEM_KEY_END);</span>
+        }
+<span class="nc" id="L67">        pem = pem.replace(PEM_KEY_START, &quot;&quot;).replace(PEM_KEY_END, &quot;&quot;);</span>
+
+<span class="nc" id="L69">        byte[] decoded = Base64.getMimeDecoder().decode(pem);</span>
+
+<span class="nc" id="L71">        KeyFactory kf = KeyFactory.getInstance(&quot;RSA&quot;);</span>
+<span class="nc" id="L72">        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);</span>
+<span class="nc" id="L73">        return kf.generatePrivate(spec);</span>
+    }
+
+    /**
+     * vraagt de bestandenlijst op in maximaal 2 pogingen met 10000 millisec pauze.
+     *
+     * @param gds2    afgifte service
+     * @param request geconfigureerd verzoek
+     * @return opgevraagde bestanden lijst
+     * @see #retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401, BestandenlijstOpvragenRequest, int, int)
+     */
+    public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request) throws Exception {
+<span class="fc" id="L85">        return retryBestandenLijstOpvragen(gds2, request, 2, 10000);</span>
+    }
+
+    /**
+     * vraagt de bestandenlijst op.
+     *
+     * @param gds2      afgifte service
+     * @param request   geconfigureerd verzoek
+     * @param retries   aantal pogingen om verzoek uit te voeren
+     * @param retryWait te wachten milliseconden tussen retries, wordt vermenigvuldigd met retry poging (dus periode steeds langer)
+     * @return opgevraagde bestanden lijst
+     */
+    public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request, int retries, int retryWait) throws Exception {
+<span class="fc" id="L98">        int attempt = 0;</span>
+        while (true) {
+            try {
+<span class="fc" id="L101">                return gds2.bestandenlijstOpvragen(request);</span>
+<span class="nc" id="L102">            } catch (Exception e) {</span>
+<span class="nc" id="L103">                attempt++;</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">                if (attempt == retries) {</span>
+<span class="nc" id="L105">                    LOG.error(&quot;Fout bij laatste poging ophalen bestandenlijst: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L106">                    throw e;</span>
+                } else {
+<span class="nc" id="L108">                    LOG.warn(&quot;Fout bij poging &quot; + attempt + &quot; om bestandenlijst op te halen: &quot; + e.getClass().getName() + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L109">                    Thread.sleep(retryWait * attempt);</span>
+<span class="nc" id="L110">                    LOG.info(&quot;Uitvoeren poging &quot; + (attempt + 1) + &quot; om bestandenlijst op te halen...&quot;);</span>
+                }
+<span class="nc" id="L112">            }</span>
+        }
+    }
+
+    /**
+     * bepaal de &quot;certificaat&quot; url, nodig voor BRK download met PKI.
+     *
+     * @param antwoord de url
+     * @return type of {@code null}
+     */
+    public static BaseURLType getCertificaatBaseURL(BestandenlijstOpvragenResultaatType antwoord) {
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        for (BaseURLType type : antwoord.getBaseURLSet().getBaseURL()) {</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">            if (type.getType().equalsIgnoreCase(&quot;certificaat&quot;)) {</span>
+<span class="fc" id="L125">                return type;</span>
+            }
+<span class="fc" id="L127">        }</span>
+<span class="nc" id="L128">        return null;</span>
+    }
+
+    /**
+     * bepaal de &quot;anoniem&quot; url, nodig voor BAG download zonder PKI.
+     *
+     * @param antwoord de url
+     * @return type of {@code null}
+     */
+    public static BaseURLType getAnoniemBaseURL(BestandenlijstOpvragenResultaatType antwoord) {
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        for (BaseURLType type : antwoord.getBaseURLSet().getBaseURL()) {</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">            if (type.getType().equalsIgnoreCase(&quot;anoniem&quot;)) {</span>
+<span class="fc" id="L140">                return type;</span>
+            }
+<span class="fc" id="L142">        }</span>
+<span class="nc" id="L143">        return null;</span>
+    }
+
+    /**
+     * bepaal de afgifte url.
+     *
+     * @param afgifte de afgifte
+     * @param type    de base url
+     * @return de afgifte url
+     */
+    public static String getAfgifteURL(AfgifteType afgifte, BaseURLType type) {
+<span class="fc" id="L154">        return type.getValue() + &quot;/&quot; + afgifte.getAfgifteID();</span>
+    }
+
+
+    /**
+     * parse datum uit string.
+     *
+     * @param dateStr datum in dd-MM-yyyy formaat
+     * @return datum (of null in geval van een parse fout)
+     */
+    public static GregorianCalendar getDatumTijd(String dateStr) {
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (dateStr == null) {</span>
+<span class="nc" id="L166">            return null;</span>
+        }
+        Date date;
+<span class="nc" id="L169">        final DateFormat format = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        if (dateStr.equalsIgnoreCase(&quot;nu&quot;)) {</span>
+<span class="nc" id="L171">            date = new Date();</span>
+        } else {
+            try {
+<span class="nc" id="L174">                date = format.parse(dateStr);</span>
+<span class="nc" id="L175">            } catch (ParseException ex) {</span>
+<span class="nc" id="L176">                LOG.error(ex);</span>
+<span class="nc" id="L177">                return null;</span>
+<span class="nc" id="L178">            }</span>
+        }
+<span class="nc" id="L180">        GregorianCalendar gregory = new GregorianCalendar();</span>
+<span class="nc" id="L181">        gregory.setTime(date);</span>
+<span class="nc" id="L182">        return gregory;</span>
+    }
+
+    /**
+     * parse datum uit string en verschuif {@code dagen}.
+     *
+     * @param refDate datum in dd-MM-yyyy formaat
+     * @param before  aantal dagen dat de datum verschoven moet worden, bijvoorbeeld -3 voor 3 dagen eerder
+     * @return datum (of null in geval van een parse fout)
+     */
+    public static GregorianCalendar getDatumTijd(String refDate, int before) {
+<span class="nc" id="L193">        GregorianCalendar ref = getDatumTijd(refDate);</span>
+<span class="nc" id="L194">        ref.add(GregorianCalendar.DAY_OF_YEAR, before);</span>
+<span class="nc" id="L195">        return ref;</span>
+    }
+
+    /**
+     * maakt een XML datum die te gebruiken is in een &quot;van&quot; of &quot;tot&quot; criterium, houdt rekening met de juiste maand.
+     *
+     * @param year  jaartal (4 cijfers, &gt; 2000)
+     * @param month maand (waarde van 0 t/m 12)
+     * @param day   dag van de maand
+     * @return xml datum (of null ingeval van een DatatypeConfigurationException)
+     */
+    public static XMLGregorianCalendar getXMLDatumTijd(int year, int month, int day) {
+        try {
+<span class="fc" id="L208">            return DatatypeFactory.newInstance().newXMLGregorianCalendar(</span>
+                    new GregorianCalendar(
+                            year,
+                            month - 1 /* GregorianCalendar heeft 0-based month */,
+                            day)
+            );
+<span class="nc" id="L214">        } catch (DatatypeConfigurationException e) {</span>
+<span class="nc" id="L215">            LOG.error(e);</span>
+<span class="nc" id="L216">            return null;</span>
+        }
+    }
+
+    /**
+     * maakt een XML datum die te gebruiken is in een &quot;van&quot; of &quot;tot&quot; criterium.
+     *
+     * @param date datum
+     * @return xml datum (of null ingeval van een DatatypeConfigurationException)
+     */
+    public static XMLGregorianCalendar getXMLDatumTijd(Date date) {
+<span class="nc" id="L227">        final GregorianCalendar cal = new GregorianCalendar();</span>
+<span class="nc" id="L228">        cal.setTime(date);</span>
+        try {
+<span class="nc" id="L230">            return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);</span>
+<span class="nc" id="L231">        } catch (DatatypeConfigurationException e) {</span>
+<span class="nc" id="L232">            LOG.error(e);</span>
+<span class="nc" id="L233">            return null;</span>
+        }
+    }
+
+    /**
+     * maakt een XML datum die te gebruiken is in een &quot;van&quot; of &quot;tot&quot; criterium.
+     *
+     * @param date datum
+     * @return xml datum (of null ingeval van een DatatypeConfigurationException)
+     */
+    public static XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar date) {
+        try {
+<span class="nc" id="L245">            return DatatypeFactory.newInstance().newXMLGregorianCalendar(date);</span>
+<span class="nc" id="L246">        } catch (DatatypeConfigurationException e) {</span>
+<span class="nc" id="L247">            LOG.error(e);</span>
+<span class="nc" id="L248">            return null;</span>
+        }
+    }
+
+    private GDS2Util() {
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

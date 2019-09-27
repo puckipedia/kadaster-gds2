@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AfgifteType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20130701</a> &gt; <span class="el_source">AfgifteType.java</span></div><h1>AfgifteType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20130701;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701.AfgifteGBType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragenresultaat.afgifte.v20130701.AfgifteBestandType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.bestand.v20130701.Bestand;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.kenmerken.v20120901.BestandKenmerkenType;
+
+
+/**
+ * &lt;p&gt;Java class for AfgifteType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;AfgifteType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;afgifteID&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;maxLength value=&quot;36&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;afgiftereferentie&quot; minOccurs=&quot;0&quot;&amp;gt;
+ *           &amp;lt;simpleType&amp;gt;
+ *             &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}string&quot;&amp;gt;
+ *               &amp;lt;minLength value=&quot;1&quot;/&amp;gt;
+ *               &amp;lt;maxLength value=&quot;1024&quot;/&amp;gt;
+ *             &amp;lt;/restriction&amp;gt;
+ *           &amp;lt;/simpleType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20130701}Bestand&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;beschikbaarTot&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}dateTime&quot;/&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20120901}BestandKenmerken&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;AfgifteType&quot;, propOrder = {
+    &quot;afgifteID&quot;,
+    &quot;afgiftereferentie&quot;,
+    &quot;bestand&quot;,
+    &quot;beschikbaarTot&quot;,
+    &quot;bestandKenmerken&quot;
+})
+@XmlSeeAlso({
+    AfgifteGBType.class,
+    AfgifteBestandType.class
+})
+<span class="nc" id="L65">public class AfgifteType {</span>
+
+    @XmlElement(required = true)
+    protected String afgifteID;
+    protected String afgiftereferentie;
+    @XmlElement(name = &quot;Bestand&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/bestand/v20130701&quot;, required = true)
+    protected Bestand bestand;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = &quot;dateTime&quot;)
+    protected XMLGregorianCalendar beschikbaarTot;
+    @XmlElement(name = &quot;BestandKenmerken&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/kenmerken/v20120901&quot;)
+    protected BestandKenmerkenType bestandKenmerken;
+
+    /**
+     * Gets the value of the afgifteID property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAfgifteID() {
+<span class="nc" id="L87">        return afgifteID;</span>
+    }
+
+    /**
+     * Sets the value of the afgifteID property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAfgifteID(String value) {
+<span class="nc" id="L99">        this.afgifteID = value;</span>
+<span class="nc" id="L100">    }</span>
+
+    /**
+     * Gets the value of the afgiftereferentie property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getAfgiftereferentie() {
+<span class="nc" id="L111">        return afgiftereferentie;</span>
+    }
+
+    /**
+     * Sets the value of the afgiftereferentie property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAfgiftereferentie(String value) {
+<span class="nc" id="L123">        this.afgiftereferentie = value;</span>
+<span class="nc" id="L124">    }</span>
+
+    /**
+     * Gets the value of the bestand property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Bestand }
+     *     
+     */
+    public Bestand getBestand() {
+<span class="nc" id="L135">        return bestand;</span>
+    }
+
+    /**
+     * Sets the value of the bestand property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Bestand }
+     *     
+     */
+    public void setBestand(Bestand value) {
+<span class="nc" id="L147">        this.bestand = value;</span>
+<span class="nc" id="L148">    }</span>
+
+    /**
+     * Gets the value of the beschikbaarTot property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getBeschikbaarTot() {
+<span class="nc" id="L159">        return beschikbaarTot;</span>
+    }
+
+    /**
+     * Sets the value of the beschikbaarTot property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setBeschikbaarTot(XMLGregorianCalendar value) {
+<span class="nc" id="L171">        this.beschikbaarTot = value;</span>
+<span class="nc" id="L172">    }</span>
+
+    /**
+     * Gets the value of the bestandKenmerken property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BestandKenmerkenType }
+     *     
+     */
+    public BestandKenmerkenType getBestandKenmerken() {
+<span class="nc" id="L183">        return bestandKenmerken;</span>
+    }
+
+    /**
+     * Sets the value of the bestandKenmerken property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BestandKenmerkenType }
+     *     
+     */
+    public void setBestandKenmerken(BestandKenmerkenType value) {
+<span class="nc" id="L195">        this.bestandKenmerken = value;</span>
+<span class="nc" id="L196">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701</a> &gt; <span class="el_source">ObjectFactory.java</span></div><h1>ObjectFactory.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701;
+
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
+import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
+
+
+/**
+ * This object contains factory methods for each 
+ * Java content interface and Java element interface 
+ * generated in the nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701 package. 
+ * &lt;p&gt;An ObjectFactory allows you to programatically 
+ * construct new instances of the Java representation 
+ * for XML content. The Java representation of XML 
+ * content can consist of schema derived interfaces 
+ * and classes representing the binding of schema 
+ * type definitions, element declarations and model 
+ * groups.  Factory methods for each of these are 
+ * provided in this class.
+ * 
+ */
+@XmlRegistry
+public class ObjectFactory {
+
+<span class="nc" id="L27">    private final static QName _AfgifteSelectieCriteria_QNAME = new QName(&quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701&quot;, &quot;AfgifteSelectieCriteria&quot;);</span>
+<span class="nc" id="L28">    private final static QName _BestandKenmerken_QNAME = new QName(&quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701&quot;, &quot;BestandKenmerken&quot;);</span>
+
+    /**
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20130701
+     * 
+     */
+<span class="nc" id="L34">    public ObjectFactory() {</span>
+<span class="nc" id="L35">    }</span>
+
+    /**
+     * Create an instance of {@link AfgifteSelectieCriteriaType }
+     * 
+     */
+    public AfgifteSelectieCriteriaType createAfgifteSelectieCriteriaType() {
+<span class="nc" id="L42">        return new AfgifteSelectieCriteriaType();</span>
+    }
+
+    /**
+     * Create an instance of {@link BestandKenmerkenType }
+     * 
+     */
+    public BestandKenmerkenType createBestandKenmerkenType() {
+<span class="nc" id="L50">        return new BestandKenmerkenType();</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link AfgifteSelectieCriteriaType }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link AfgifteSelectieCriteriaType }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701&quot;, name = &quot;AfgifteSelectieCriteria&quot;)
+    public JAXBElement&lt;AfgifteSelectieCriteriaType&gt; createAfgifteSelectieCriteria(AfgifteSelectieCriteriaType value) {
+<span class="nc" id="L63">        return new JAXBElement&lt;AfgifteSelectieCriteriaType&gt;(_AfgifteSelectieCriteria_QNAME, AfgifteSelectieCriteriaType.class, null, value);</span>
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code &lt;}{@link BestandKenmerkenType }{@code &gt;}
+     * 
+     * @param value
+     *     Java instance representing xml element's value.
+     * @return
+     *     the new instance of {@link JAXBElement }{@code &lt;}{@link BestandKenmerkenType }{@code &gt;}
+     */
+    @XmlElementDecl(namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstselectie/v20130701&quot;, name = &quot;BestandKenmerken&quot;)
+    public JAXBElement&lt;BestandKenmerkenType&gt; createBestandKenmerken(BestandKenmerkenType value) {
+<span class="nc" id="L76">        return new JAXBElement&lt;BestandKenmerkenType&gt;(_BestandKenmerken_QNAME, BestandKenmerkenType.class, null, value);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

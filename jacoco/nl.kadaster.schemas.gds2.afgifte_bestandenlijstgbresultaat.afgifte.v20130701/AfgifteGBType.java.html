@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AfgifteGBType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701</a> &gt; <span class="el_source">AfgifteGBType.java</span></div><h1>AfgifteGBType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20130701;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20130701.AfgifteType;
+import nl.logius.digikoppeling.gb._2010._10.ExternalDataReference;
+
+
+/**
+ * &lt;p&gt;Java class for AfgifteGBType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;AfgifteGBType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;extension base=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20130701}AfgifteType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}digikoppeling-external-datareferences&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/extension&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;AfgifteGBType&quot;, propOrder = {
+    &quot;digikoppelingExternalDatareferences&quot;
+})
+<span class="nc" id="L35">public class AfgifteGBType</span>
+    extends AfgifteType
+{
+
+    @XmlElement(name = &quot;digikoppeling-external-datareferences&quot;, namespace = &quot;http://www.logius.nl/digikoppeling/gb/2010/10&quot;, required = true)
+    protected ExternalDataReference digikoppelingExternalDatareferences;
+
+    /**
+     * Gets the value of the digikoppelingExternalDatareferences property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ExternalDataReference }
+     *     
+     */
+    public ExternalDataReference getDigikoppelingExternalDatareferences() {
+<span class="nc" id="L51">        return digikoppelingExternalDatareferences;</span>
+    }
+
+    /**
+     * Sets the value of the digikoppelingExternalDatareferences property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ExternalDataReference }
+     *     
+     */
+    public void setDigikoppelingExternalDatareferences(ExternalDataReference value) {
+<span class="nc" id="L63">        this.digikoppelingExternalDatareferences = value;</span>
+<span class="nc" id="L64">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

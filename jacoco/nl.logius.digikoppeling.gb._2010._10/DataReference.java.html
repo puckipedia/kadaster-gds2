@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataReference.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.logius.digikoppeling.gb._2010._10</a> &gt; <span class="el_source">DataReference.java</span></div><h1>DataReference.java</h1><pre class="source lang-java linenums">
+package nl.logius.digikoppeling.gb._2010._10;
+
+import java.math.BigInteger;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+
+/**
+ * &lt;p&gt;Java class for data-reference complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;data-reference&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;lifetime&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;creationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;expirationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;content&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;filename&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}NCName&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;checksum&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}checksumType&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;size&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}unsignedLong&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;attribute name=&quot;contentType&quot; use=&quot;required&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; /&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;transport&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;location&quot;&amp;gt;
+ *                     &amp;lt;complexType&amp;gt;
+ *                       &amp;lt;complexContent&amp;gt;
+ *                         &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                           &amp;lt;choice&amp;gt;
+ *                             &amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+ *                             &amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+ *                           &amp;lt;/choice&amp;gt;
+ *                         &amp;lt;/restriction&amp;gt;
+ *                       &amp;lt;/complexContent&amp;gt;
+ *                     &amp;lt;/complexType&amp;gt;
+ *                   &amp;lt;/element&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attribute name=&quot;contextId&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}anySimpleType&quot; /&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;data-reference&quot;, propOrder = {
+    &quot;lifetime&quot;,
+    &quot;content&quot;,
+    &quot;transport&quot;
+})
+<span class="fc" id="L88">public class DataReference {</span>
+
+    @XmlElement(required = true)
+    protected DataReference.Lifetime lifetime;
+    @XmlElement(required = true)
+    protected DataReference.Content content;
+    @XmlElement(required = true)
+    protected DataReference.Transport transport;
+    @XmlAttribute(name = &quot;contextId&quot;)
+    @XmlSchemaType(name = &quot;anySimpleType&quot;)
+    protected String contextId;
+
+    /**
+     * Gets the value of the lifetime property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DataReference.Lifetime }
+     *     
+     */
+    public DataReference.Lifetime getLifetime() {
+<span class="nc" id="L109">        return lifetime;</span>
+    }
+
+    /**
+     * Sets the value of the lifetime property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DataReference.Lifetime }
+     *     
+     */
+    public void setLifetime(DataReference.Lifetime value) {
+<span class="nc" id="L121">        this.lifetime = value;</span>
+<span class="nc" id="L122">    }</span>
+
+    /**
+     * Gets the value of the content property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DataReference.Content }
+     *     
+     */
+    public DataReference.Content getContent() {
+<span class="nc" id="L133">        return content;</span>
+    }
+
+    /**
+     * Sets the value of the content property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DataReference.Content }
+     *     
+     */
+    public void setContent(DataReference.Content value) {
+<span class="nc" id="L145">        this.content = value;</span>
+<span class="nc" id="L146">    }</span>
+
+    /**
+     * Gets the value of the transport property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DataReference.Transport }
+     *     
+     */
+    public DataReference.Transport getTransport() {
+<span class="nc" id="L157">        return transport;</span>
+    }
+
+    /**
+     * Sets the value of the transport property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DataReference.Transport }
+     *     
+     */
+    public void setTransport(DataReference.Transport value) {
+<span class="nc" id="L169">        this.transport = value;</span>
+<span class="nc" id="L170">    }</span>
+
+    /**
+     * Gets the value of the contextId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getContextId() {
+<span class="nc" id="L181">        return contextId;</span>
+    }
+
+    /**
+     * Sets the value of the contextId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setContextId(String value) {
+<span class="nc" id="L193">        this.contextId = value;</span>
+<span class="nc" id="L194">    }</span>
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;filename&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}NCName&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;checksum&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}checksumType&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;size&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}unsignedLong&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *       &amp;lt;attribute name=&quot;contentType&quot; use=&quot;required&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; /&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;filename&quot;,
+        &quot;checksum&quot;,
+        &quot;size&quot;
+    })
+<span class="fc" id="L225">    public static class Content {</span>
+
+        @XmlElement(required = true)
+        @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+        @XmlSchemaType(name = &quot;NCName&quot;)
+        protected String filename;
+        @XmlElement(required = true)
+        protected ChecksumType checksum;
+        @XmlElement(required = true)
+        @XmlSchemaType(name = &quot;unsignedLong&quot;)
+        protected BigInteger size;
+        @XmlAttribute(name = &quot;contentType&quot;, required = true)
+        protected String contentType;
+
+        /**
+         * Gets the value of the filename property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getFilename() {
+<span class="nc" id="L248">            return filename;</span>
+        }
+
+        /**
+         * Sets the value of the filename property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setFilename(String value) {
+<span class="nc" id="L260">            this.filename = value;</span>
+<span class="nc" id="L261">        }</span>
+
+        /**
+         * Gets the value of the checksum property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link ChecksumType }
+         *     
+         */
+        public ChecksumType getChecksum() {
+<span class="nc" id="L272">            return checksum;</span>
+        }
+
+        /**
+         * Sets the value of the checksum property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link ChecksumType }
+         *     
+         */
+        public void setChecksum(ChecksumType value) {
+<span class="nc" id="L284">            this.checksum = value;</span>
+<span class="nc" id="L285">        }</span>
+
+        /**
+         * Gets the value of the size property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link BigInteger }
+         *     
+         */
+        public BigInteger getSize() {
+<span class="nc" id="L296">            return size;</span>
+        }
+
+        /**
+         * Sets the value of the size property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link BigInteger }
+         *     
+         */
+        public void setSize(BigInteger value) {
+<span class="nc" id="L308">            this.size = value;</span>
+<span class="nc" id="L309">        }</span>
+
+        /**
+         * Gets the value of the contentType property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getContentType() {
+<span class="nc" id="L320">            return contentType;</span>
+        }
+
+        /**
+         * Sets the value of the contentType property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setContentType(String value) {
+<span class="nc" id="L332">            this.contentType = value;</span>
+<span class="nc" id="L333">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;creationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;expirationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;creationTime&quot;,
+        &quot;expirationTime&quot;
+    })
+<span class="fc" id="L363">    public static class Lifetime {</span>
+
+        protected DatetimeType creationTime;
+        protected DatetimeType expirationTime;
+
+        /**
+         * Gets the value of the creationTime property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DatetimeType }
+         *     
+         */
+        public DatetimeType getCreationTime() {
+<span class="nc" id="L377">            return creationTime;</span>
+        }
+
+        /**
+         * Sets the value of the creationTime property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DatetimeType }
+         *     
+         */
+        public void setCreationTime(DatetimeType value) {
+<span class="nc" id="L389">            this.creationTime = value;</span>
+<span class="nc" id="L390">        }</span>
+
+        /**
+         * Gets the value of the expirationTime property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DatetimeType }
+         *     
+         */
+        public DatetimeType getExpirationTime() {
+<span class="nc" id="L401">            return expirationTime;</span>
+        }
+
+        /**
+         * Sets the value of the expirationTime property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DatetimeType }
+         *     
+         */
+        public void setExpirationTime(DatetimeType value) {
+<span class="nc" id="L413">            this.expirationTime = value;</span>
+<span class="nc" id="L414">        }</span>
+
+    }
+
+
+    /**
+     * &lt;p&gt;Java class for anonymous complex type.
+     * 
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+     * 
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;location&quot;&amp;gt;
+     *           &amp;lt;complexType&amp;gt;
+     *             &amp;lt;complexContent&amp;gt;
+     *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *                 &amp;lt;choice&amp;gt;
+     *                   &amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+     *                   &amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+     *                 &amp;lt;/choice&amp;gt;
+     *               &amp;lt;/restriction&amp;gt;
+     *             &amp;lt;/complexContent&amp;gt;
+     *           &amp;lt;/complexType&amp;gt;
+     *         &amp;lt;/element&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = &quot;&quot;, propOrder = {
+        &quot;location&quot;
+    })
+<span class="fc" id="L453">    public static class Transport {</span>
+
+        @XmlElement(required = true)
+        protected DataReference.Transport.Location location;
+
+        /**
+         * Gets the value of the location property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link DataReference.Transport.Location }
+         *     
+         */
+        public DataReference.Transport.Location getLocation() {
+<span class="nc" id="L467">            return location;</span>
+        }
+
+        /**
+         * Sets the value of the location property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link DataReference.Transport.Location }
+         *     
+         */
+        public void setLocation(DataReference.Transport.Location value) {
+<span class="nc" id="L479">            this.location = value;</span>
+<span class="nc" id="L480">        }</span>
+
+
+        /**
+         * &lt;p&gt;Java class for anonymous complex type.
+         * 
+         * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+         * 
+         * &lt;pre&gt;
+         * &amp;lt;complexType&amp;gt;
+         *   &amp;lt;complexContent&amp;gt;
+         *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+         *       &amp;lt;choice&amp;gt;
+         *         &amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+         *         &amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+         *       &amp;lt;/choice&amp;gt;
+         *     &amp;lt;/restriction&amp;gt;
+         *   &amp;lt;/complexContent&amp;gt;
+         * &amp;lt;/complexType&amp;gt;
+         * &lt;/pre&gt;
+         * 
+         * 
+         */
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = &quot;&quot;, propOrder = {
+            &quot;senderUrl&quot;,
+            &quot;receiverUrl&quot;
+        })
+<span class="fc" id="L508">        public static class Location {</span>
+
+            protected UrlType senderUrl;
+            protected UrlType receiverUrl;
+
+            /**
+             * Gets the value of the senderUrl property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link UrlType }
+             *     
+             */
+            public UrlType getSenderUrl() {
+<span class="nc" id="L522">                return senderUrl;</span>
+            }
+
+            /**
+             * Sets the value of the senderUrl property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link UrlType }
+             *     
+             */
+            public void setSenderUrl(UrlType value) {
+<span class="nc" id="L534">                this.senderUrl = value;</span>
+<span class="nc" id="L535">            }</span>
+
+            /**
+             * Gets the value of the receiverUrl property.
+             * 
+             * @return
+             *     possible object is
+             *     {@link UrlType }
+             *     
+             */
+            public UrlType getReceiverUrl() {
+<span class="nc" id="L546">                return receiverUrl;</span>
+            }
+
+            /**
+             * Sets the value of the receiverUrl property.
+             * 
+             * @param value
+             *     allowed object is
+             *     {@link UrlType }
+             *     
+             */
+            public void setReceiverUrl(UrlType value) {
+<span class="nc" id="L558">                this.receiverUrl = value;</span>
+<span class="nc" id="L559">            }</span>
+
+        }
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

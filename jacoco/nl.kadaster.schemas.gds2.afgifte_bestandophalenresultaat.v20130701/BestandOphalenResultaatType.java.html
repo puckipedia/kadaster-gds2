@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BestandOphalenResultaatType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandophalenresultaat.v20130701</a> &gt; <span class="el_source">BestandOphalenResultaatType.java</span></div><h1>BestandOphalenResultaatType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandophalenresultaat.v20130701;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.kadaster.schemas.gds2.afgifte_bestandophalenresultaat.afgifte.v20130701.AfgifteBestandType;
+import nl.kadaster.schemas.generiek_extern.procesresultaat.v20110922.ProcesVerwerking;
+
+
+/**
+ * Het opgehaalde bestand, behorende bij de opgegeven
+ * 				afgifte identificatie. Indien de afgifte identificatie bekend is,
+ * 				dan is er altijd een bestand aanwezig. Zo niet, dan wordt een
+ * 				functionele foutmelding gegeven, waarin het afgifte identificatie
+ * 				wordt teruggekoppeld.
+ * 
+ * &lt;p&gt;Java class for BestandOphalenResultaatType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BestandOphalenResultaatType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922}ProcesVerwerking&quot;/&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/afgifte/v20130701}AfgifteBestand&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BestandOphalenResultaatType&quot;, propOrder = {
+    &quot;procesVerwerking&quot;,
+    &quot;afgifteBestand&quot;
+})
+<span class="nc" id="L43">public class BestandOphalenResultaatType {</span>
+
+    @XmlElement(name = &quot;ProcesVerwerking&quot;, namespace = &quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, required = true)
+    protected ProcesVerwerking procesVerwerking;
+    @XmlElement(name = &quot;AfgifteBestand&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandophalenresultaat/afgifte/v20130701&quot;)
+    protected AfgifteBestandType afgifteBestand;
+
+    /**
+     * Gets the value of the procesVerwerking property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ProcesVerwerking }
+     *     
+     */
+    public ProcesVerwerking getProcesVerwerking() {
+<span class="nc" id="L59">        return procesVerwerking;</span>
+    }
+
+    /**
+     * Sets the value of the procesVerwerking property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ProcesVerwerking }
+     *     
+     */
+    public void setProcesVerwerking(ProcesVerwerking value) {
+<span class="nc" id="L71">        this.procesVerwerking = value;</span>
+<span class="nc" id="L72">    }</span>
+
+    /**
+     * Gets the value of the afgifteBestand property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AfgifteBestandType }
+     *     
+     */
+    public AfgifteBestandType getAfgifteBestand() {
+<span class="nc" id="L83">        return afgifteBestand;</span>
+    }
+
+    /**
+     * Sets the value of the afgifteBestand property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AfgifteBestandType }
+     *     
+     */
+    public void setAfgifteBestand(AfgifteBestandType value) {
+<span class="nc" id="L95">        this.afgifteBestand = value;</span>
+<span class="nc" id="L96">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

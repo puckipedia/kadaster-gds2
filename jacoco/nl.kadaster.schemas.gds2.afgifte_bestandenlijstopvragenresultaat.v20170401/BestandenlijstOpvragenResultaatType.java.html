@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BestandenlijstOpvragenResultaatType.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Kadaster-GDS2</a> &gt; <a href="index.source.html" class="el_package">nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragenresultaat.v20170401</a> &gt; <span class="el_source">BestandenlijstOpvragenResultaatType.java</span></div><h1>BestandenlijstOpvragenResultaatType.java</h1><pre class="source lang-java linenums">
+package nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragenresultaat.v20170401;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.BestandenLijstType;
+import nl.kadaster.schemas.gds2.imgds.baseurl.v20170401.BaseURLSetType;
+import nl.kadaster.schemas.generiek_extern.procesresultaat.v20110922.ProcesVerwerking;
+
+
+/**
+ * De opgevraagde bestandenlijst met afgifte gegevens
+ * 				voor bestanden. De lijst bevat die afgiftes die voldoen
+ * 				aan de gebruikte selectiegegevens. Indien er geen afgiftes voldoen
+ * 				aan deze selectie gegevens, dan is er geen bestandenlijst aanwezig
+ * 				in het resultaat. 
+ * 
+ * &lt;p&gt;Java class for BestandenlijstOpvragenResultaatType complex type.
+ * 
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
+ * 
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;BestandenlijstOpvragenResultaatType&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922}ProcesVerwerking&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;klantAfgiftenummerMax&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}int&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;afgifteAantalInLijst&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}int&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;BaseURLSet&quot; type=&quot;{http://www.kadaster.nl/schemas/gds2/imgds/baseurl/v20170401}BaseURLSetType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element ref=&quot;{http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401}BestandenLijst&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *         &amp;lt;element name=&quot;meerAfgiftesbeschikbaar&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}boolean&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = &quot;BestandenlijstOpvragenResultaatType&quot;, propOrder = {
+    &quot;procesVerwerking&quot;,
+    &quot;klantAfgiftenummerMax&quot;,
+    &quot;afgifteAantalInLijst&quot;,
+    &quot;baseURLSet&quot;,
+    &quot;bestandenLijst&quot;,
+    &quot;meerAfgiftesbeschikbaar&quot;
+})
+<span class="fc" id="L52">public class BestandenlijstOpvragenResultaatType {</span>
+
+    @XmlElement(name = &quot;ProcesVerwerking&quot;, namespace = &quot;http://www.kadaster.nl/schemas/generiek-extern/procesresultaat/v20110922&quot;, required = true)
+    protected ProcesVerwerking procesVerwerking;
+    protected int klantAfgiftenummerMax;
+    protected int afgifteAantalInLijst;
+    @XmlElement(name = &quot;BaseURLSet&quot;)
+    protected BaseURLSetType baseURLSet;
+    @XmlElement(name = &quot;BestandenLijst&quot;, namespace = &quot;http://www.kadaster.nl/schemas/gds2/afgifte-bestandenlijstresultaat/afgifte/v20170401&quot;)
+    protected BestandenLijstType bestandenLijst;
+    @XmlElement(defaultValue = &quot;true&quot;)
+    protected Boolean meerAfgiftesbeschikbaar;
+
+    /**
+     * Gets the value of the procesVerwerking property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ProcesVerwerking }
+     *     
+     */
+    public ProcesVerwerking getProcesVerwerking() {
+<span class="nc" id="L74">        return procesVerwerking;</span>
+    }
+
+    /**
+     * Sets the value of the procesVerwerking property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ProcesVerwerking }
+     *     
+     */
+    public void setProcesVerwerking(ProcesVerwerking value) {
+<span class="nc" id="L86">        this.procesVerwerking = value;</span>
+<span class="nc" id="L87">    }</span>
+
+    /**
+     * Gets the value of the klantAfgiftenummerMax property.
+     * 
+     */
+    public int getKlantAfgiftenummerMax() {
+<span class="fc" id="L94">        return klantAfgiftenummerMax;</span>
+    }
+
+    /**
+     * Sets the value of the klantAfgiftenummerMax property.
+     * 
+     */
+    public void setKlantAfgiftenummerMax(int value) {
+<span class="nc" id="L102">        this.klantAfgiftenummerMax = value;</span>
+<span class="nc" id="L103">    }</span>
+
+    /**
+     * Gets the value of the afgifteAantalInLijst property.
+     * 
+     */
+    public int getAfgifteAantalInLijst() {
+<span class="fc" id="L110">        return afgifteAantalInLijst;</span>
+    }
+
+    /**
+     * Sets the value of the afgifteAantalInLijst property.
+     * 
+     */
+    public void setAfgifteAantalInLijst(int value) {
+<span class="nc" id="L118">        this.afgifteAantalInLijst = value;</span>
+<span class="nc" id="L119">    }</span>
+
+    /**
+     * Gets the value of the baseURLSet property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BaseURLSetType }
+     *     
+     */
+    public BaseURLSetType getBaseURLSet() {
+<span class="fc" id="L130">        return baseURLSet;</span>
+    }
+
+    /**
+     * Sets the value of the baseURLSet property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BaseURLSetType }
+     *     
+     */
+    public void setBaseURLSet(BaseURLSetType value) {
+<span class="nc" id="L142">        this.baseURLSet = value;</span>
+<span class="nc" id="L143">    }</span>
+
+    /**
+     * Gets the value of the bestandenLijst property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link BestandenLijstType }
+     *     
+     */
+    public BestandenLijstType getBestandenLijst() {
+<span class="fc" id="L154">        return bestandenLijst;</span>
+    }
+
+    /**
+     * Sets the value of the bestandenLijst property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BestandenLijstType }
+     *     
+     */
+    public void setBestandenLijst(BestandenLijstType value) {
+<span class="nc" id="L166">        this.bestandenLijst = value;</span>
+<span class="nc" id="L167">    }</span>
+
+    /**
+     * Gets the value of the meerAfgiftesbeschikbaar property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isMeerAfgiftesbeschikbaar() {
+<span class="fc" id="L178">        return meerAfgiftesbeschikbaar;</span>
+    }
+
+    /**
+     * Sets the value of the meerAfgiftesbeschikbaar property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setMeerAfgiftesbeschikbaar(Boolean value) {
+<span class="nc" id="L190">        this.meerAfgiftesbeschikbaar = value;</span>
+<span class="nc" id="L191">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
