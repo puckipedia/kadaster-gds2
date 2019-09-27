@@ -4,10 +4,28 @@
 package nl.b3p.gds2;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.cert.Certificate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Map;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
+import static nl.b3p.gds2.GDS2Util.*;
 import nl.b3p.soap.logging.LogMessageHandler;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401.BestandenlijstOpvragenType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.AfgifteType;
-import nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20170401.BestandenLijstType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.AfgifteSelectieCriteriaType;
 import nl.kadaster.schemas.gds2.afgifte_bestandenlijstselectie.v20170401.BestandKenmerkenType;
 import nl.kadaster.schemas.gds2.afgifte_proces.v20170401.FilterDatumTijdType;
@@ -21,40 +39,19 @@ import nl.logius.digikoppeling.gb._2010._10.DataReference;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.Handler;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.Certificate;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import static nl.b3p.gds2.GDS2Util.*;
-
-
 /**
- * Test klasse om gds2 te bevragen.
+ * Test klasse om gds2 te bevragen met koppelvlak v20170401.
  * <p>
- * quick run:
- * <code>
+ * quick run:  <code>
  * cp some.private.key private.key && cp some.public.key public.key
  * mvn clean install -DskipTests
  * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.0-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
- * <code/>
+ * </code>
  *
  * @author mprins
  */
 public class Main2 {
+
     private static final Log LOG = LogFactory.getLog(Main2.class);
     private static final String MOCK_ENDPOINT = "http://localhost:8088/AfgifteService";
 
@@ -121,25 +118,25 @@ public class Main2 {
         // Als deze indicator wordt gebruikt, dan worden na terugmelding van de bestandenlijst
         // de bijbehorende bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het systeem van GDS.
         // alGerapporteerd
-        final Boolean alGerapporteerd = Boolean.FALSE;
+        final Boolean alGerapporteerd = Boolean.TRUE;
         criteria.setNogNietGerapporteerd(alGerapporteerd);
 
-        // vanaf 1 jan 2018
-        XMLGregorianCalendar vanaf = getXMLDatumTijd(2018, 1, 1);
-        XMLGregorianCalendar tot;
+        // vanaf 
+        GregorianCalendar vanaf = getDatumTijd("01-05-2019");
+        GregorianCalendar tot;
         // tot vandaag
-        tot = getXMLDatumTijd(new Date());
+        //tot = getDatumTijd(new Date());
         // tot 1 aug 2019
-        // tot = getXMLDatumTijd(2019, 9, 1);
+        tot = getDatumTijd("15-09-2019");
 
         // om bepaalde periode te selecteren; kan/mag niet samen met afgiftenummers
         criteria.setPeriode(new FilterDatumTijdType());
         // Indien vermeld worden alleen de afgiftes opgenomen in de lijst met een
         // aanmeldingstijdstip NA genoemde datum/tijd.
-        criteria.getPeriode().setDatumTijdVanaf(vanaf);
+        criteria.getPeriode().setDatumTijdVanaf(getXMLDatumTijd(vanaf));
         // Idem, met een aanmeldingstijdstip TOT en MET genoemde datum/tijd
         // (tijdstip op seconde nauwkeurig).
-        criteria.getPeriode().setDatumTijdTotmet(tot);
+        criteria.getPeriode().setDatumTijdTotmet(getXMLDatumTijd(tot));
 
         // om bepaalde afgiftenummers te selecteren; kan/mag niet samen met periode
         KlantAfgiftenummerReeksType afgiftenummers = new KlantAfgiftenummerReeksType();
@@ -161,19 +158,19 @@ public class Main2 {
         // maandelijkse BAG mutaties NL
         // criteria.getBestandKenmerken().setArtikelnummer("2508");
         // dagelijkse BAG mutaties NL
-        criteria.getBestandKenmerken().setArtikelnummer("2516");
+//        criteria.getBestandKenmerken().setArtikelnummer("2516");
         //
         // contractnummer voor BRK
         //
         // Indien vermeld dan worden alleen de afgiftes opgenomen in de lijst die
         // gekoppeld zijn aan het genoemde contractnummer
         //
-        // criteria.getBestandKenmerken().setContractnummer("9700005117");
+        criteria.getBestandKenmerken().setContractnummer("9700005117");
 
         LOG.info("Contract nummer: " + criteria.getBestandKenmerken().getContractnummer());
         LOG.info("Artikel nummer: " + criteria.getBestandKenmerken().getArtikelnummer());
-        LOG.info("DatumTijdVanaf criterium: " + vanaf.toGregorianCalendar().getTime());
-        LOG.info("DatumTijdTot criterium: " + tot.toGregorianCalendar().getTime());
+        LOG.info("DatumTijdVanaf criterium: " + vanaf);
+        LOG.info("DatumTijdTot criterium: " + tot);
         LOG.info("alGerapporteerd criterium: " + alGerapporteerd);
 
         BestandenlijstOpvragenRequest bestandenlijstOpvragenRequest = new BestandenlijstOpvragenRequest();
@@ -181,217 +178,208 @@ public class Main2 {
         bestandenlijstOpvragenRequest.setVerzoek(bestandenlijstOpvragenVerzoek);
         bestandenlijstOpvragenVerzoek.setAfgifteSelectieCriteria(criteria);
 
-        BestandenlijstOpvragenResponse bestandenlijstOpvragenResponse = retryBestandenLijstOpvragen(
-                gds2, bestandenlijstOpvragenRequest, 1, 10000
-        );
+//        BestandenlijstOpvragenResponse bestandenlijstOpvragenResponse = retryBestandenLijstOpvragen(
+//                gds2, bestandenlijstOpvragenRequest, 1, 10000
+//        );
+//        // basis meta info van antwoord
+//        int afgifteAantalInLijst = bestandenlijstOpvragenResponse.getAntwoord().getAfgifteAantalInLijst();
+//        LOG.info("Aantal geselecteerde afgiftes in de lijst: " + afgifteAantalInLijst);
+//        int hoogsteAfgifteNummer = bestandenlijstOpvragenResponse.getAntwoord().getKlantAfgiftenummerMax();
+//        LOG.info("Hoogst toegekende klant afgiftenummer:" + hoogsteAfgifteNummer);
+//        BaseURLType baseUrlAnon = getAnoniemBaseURL(bestandenlijstOpvragenResponse.getAntwoord());
+//        BaseURLType baseUrlCert = getCertificaatBaseURL(bestandenlijstOpvragenResponse.getAntwoord());
+//        LOG.info("Baseurl te gebruiken als prefix voor anon download urls: " + baseUrlAnon.getValue());
+//        LOG.info("Baseurl te gebruiken als prefix voor anon certificaat urls: " + baseUrlCert.getValue());
+//        // true als er meer dan het maximum aantal afgiftes zijn gevonden _voor de selectie criteria_
+//        boolean hasMore = bestandenlijstOpvragenResponse.getAntwoord().isMeerAfgiftesbeschikbaar();
+//        LOG.info("Meer afgiftes beschikbaar? " + hasMore);
+        // TODO logica om datum periode of nummerreeks kleiner te maken dan max aantal
+        GregorianCalendar currentMoment = null;
+        boolean parseblePeriod = false;
+        int loopType = Calendar.DAY_OF_MONTH;
+        int loopMax = 180;
+        int loopNum = 0;
+        boolean reducePeriod = false;
+        boolean increasePeriod = false;
 
-        // basis meta info van antwoord
-        int afgifteAantalInLijst = bestandenlijstOpvragenResponse.getAntwoord().getAfgifteAantalInLijst();
-        LOG.info("Aantal geselecteerde afgiftes in de lijst: " + afgifteAantalInLijst);
-        int hoogsteAfgifteNummer = bestandenlijstOpvragenResponse.getAntwoord().getKlantAfgiftenummerMax();
-        LOG.info("Hoogst toegekende klant afgiftenummer:" + hoogsteAfgifteNummer);
-        BaseURLType baseUrlAnon = getAnoniemBaseURL(bestandenlijstOpvragenResponse.getAntwoord());
-        BaseURLType baseUrlCert = getCertificaatBaseURL(bestandenlijstOpvragenResponse.getAntwoord());
-        LOG.info("Baseurl te gebruiken als prefix voor anon download urls: " + baseUrlAnon.getValue());
-        LOG.info("Baseurl te gebruiken als prefix voor anon certificaat urls: " + baseUrlCert.getValue());
-        // true als er meer dan het maximum aantal afgiftes zijn gevonden _voor de selectie criteria_
-        boolean hasMore = bestandenlijstOpvragenResponse.getAntwoord().isMeerAfgiftesbeschikbaar();
-        LOG.info("Meer afgiftes beschikbaar? " + hasMore);
-
-        // afgiftes
-        BestandenLijstType bestandenLijst = bestandenlijstOpvragenResponse.getAntwoord().getBestandenLijst();
-        if (criteria.getBestandKenmerken().getContractnummer() == null) {
-            // bag
-            printAfgiftes(bestandenLijst.getAfgifte(), baseUrlAnon);
-        } else {
-            // brk
-            printAfgiftes(bestandenLijst.getAfgifte(), baseUrlCert);
+        if (vanaf.before(tot)) {
+            parseblePeriod = true;
+            currentMoment = vanaf;
         }
 
-        // TODO logica om datum periode of nummerreeks kleiner te maken dan max aantal
+        List<AfgifteType> afgiftes = new ArrayList<>();
+        BestandenlijstOpvragenResponse response = null;
+        int hoogsteKlantAfgifteNummer = -1;
 
-//        GregorianCalendar currentMoment = null;
-//        boolean parseblePeriod = false;
-//        int loopType = Calendar.DAY_OF_MONTH;
-//        int loopMax = 180;
-//        int loopNum = 0;
-//        boolean reducePeriod = false;
-//        boolean increasePeriod = false;
+        boolean morePeriods2Process = false;
+        do /* while morePeriods2Process is true */ {
+            System.out.println("\n*** start periode ***");
+            //zet periode in criteria indien gewenst
+            if (parseblePeriod) {
+                //check of de periodeduur verkleind moet worden
+                if (reducePeriod) {
+                    switch (loopType) {
+                        case Calendar.DAY_OF_MONTH:
+                            currentMoment.add(loopType, -1);
+                            loopType = Calendar.HOUR_OF_DAY;
+                            System.out.println("* Verklein loop periode naar uur");
+                            break;
+                        case Calendar.HOUR_OF_DAY:
+                            currentMoment.add(loopType, -1);
+                            loopType = Calendar.MINUTE;
+                            System.out.println("* Verklein loop periode naar minuut");
+                            break;
+                        case Calendar.MINUTE:
+                        default:
+                            /*
+                                 * Hier kom je alleen als binnen een minuut meer
+                                 * dan 2000 berichten zijn aangamaakt en het
+                                 * vinkje ook "al rapporteerde berichten
+                                 * ophalen" staat aan.
+                             */
+                            System.out.println("Niet alle gevraagde berichten zijn opgehaald");
+                    }
+                    reducePeriod = false;
+                }
 
-//        if (vanaf != null && tot != null && vanaf.before(tot)) {
-//            parseblePeriod = true;
-//            currentMoment = vanaf;
-//        }
-//
-//        List<AfgifteType> afgiftesGb = new ArrayList<>();
-//        try {
-//            boolean morePeriods2Process = false;
-//            do /* while morePeriods2Process is true */ {
-//                System.out.println("\n*** start periode ***");
-//                // zet periode in criteria indien gewenst
-//                if (parseblePeriod) {
-//                    //check of de periodeduur verkleind moet worden
-//                    if (reducePeriod) {
-//                        switch (loopType) {
-//                            case Calendar.DAY_OF_MONTH:
-//                                currentMoment.add(loopType, -1);
-//                                loopType = Calendar.HOUR_OF_DAY;
-//                                System.out.println("* Verklein loop periode naar uur");
-//
-//                                break;
-//                            case Calendar.HOUR_OF_DAY:
-//                                currentMoment.add(loopType, -1);
-//                                loopType = Calendar.MINUTE;
-//                                System.out.println("* Verklein loop periode naar minuut");
-//
-//                                break;
-//                            case Calendar.MINUTE:
-//                            default:
-//                                /*
-//                                 * Hier kom je alleen als binnen een minuut meer
-//                                 * dan 2000 berichten zijn aangamaakt en het
-//                                 * vinkje "al rapporteerde berichten
-//                                 * ophalen" ook staat aan.
-//                                 */
-//                                System.out.println("Niet alle gevraagde berichten zijn opgehaald");
-//                        }
-//                        reducePeriod = false;
-//                    }
-//
-//                    //check of de periodeduur vergroot moet worden
-//                    if (increasePeriod) {
-//                        switch (loopType) {
-//                            case Calendar.HOUR_OF_DAY:
-//                                loopType = Calendar.DAY_OF_MONTH;
-//                                System.out.println("* Vergroot loop periode naar dag");
-//
-//                                break;
-//                            case Calendar.MINUTE:
-//                                loopType = Calendar.HOUR_OF_DAY;
-//                                System.out.println("* Vergroot loop periode naar uur");
-//
-//                                break;
-//                            case Calendar.DAY_OF_MONTH:
-//                            default:
-//                                //not possible
-//                        }
-//                        increasePeriod = false;
-//                    }
-//
-//                    FilterDatumTijdType d = new FilterDatumTijdType();
-//                    d.setDatumTijdVanaf(DatatypeFactory.newInstance().newXMLGregorianCalendar(currentMoment));
-//                    System.out.println(String.format("Datum vanaf: %tc", currentMoment.getTime()));
-//
-//                    currentMoment.add(loopType, 1);
-//                    d.setDatumTijdTotmet((DatatypeFactory.newInstance().newXMLGregorianCalendar(currentMoment)));
-//                    System.out.println(String.format("Datum tot: %tc", currentMoment.getTime()));
-//
-//                    criteria.setPeriode(d);
-//
-//                    switch (loopType) {
-//                        case Calendar.HOUR_OF_DAY:
-//                            //0-23
-//                            if (currentMoment.get(loopType) == 0) {
-//                                increasePeriod = true;
-//                            }
-//                            break;
-//                        case Calendar.MINUTE:
-//                            //0-59
-//                            if (currentMoment.get(loopType) == 0) {
-//                                increasePeriod = true;
-//                            }
-//                            break;
-//                        case Calendar.DAY_OF_MONTH:
-//                        default:
-//                            //alleen dagen tellen, uur en minuut altijd helemaal
-//                            loopNum++;
-//                    }
-//
-//                    //bereken of einde van periode bereikt is
-//                    if (currentMoment.before(tot) && loopNum < loopMax) {
-//                        morePeriods2Process = true;
-//                    } else {
-//                        morePeriods2Process = false;
-//                    }
-//                }
-//
-//                verzoekGb.setAfgifteSelectieCriteria(criteria);
-//                BestandenlijstOpvragenResponse responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);
-//
-//                int aantalInAntwoord = responseGb.getAntwoord().getBestandenLijst().getAfgifte().size();
-//                System.out.println("Aantal in antwoord: " + aantalInAntwoord);
-//
-//                // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
-//                boolean hasMore = responseGb.getAntwoord().isMeerAfgiftesbeschikbaar();
-//                System.out.println("Meer afgiftes beschikbaar: " + hasMore);
-//
-//
-//                /*
-//                 * Als "al gerapporteerde berichten" moeten worden opgehaald en
-//                 * er zitten dan 2000 berichten in het antwoord dan heeft het
-//                 * geen zin om meer keer de berichten op te halen, je krijgt
-//                 * telkens dezelfde.
-//                 */
-//                if (hasMore && alGerapporteerd) {
-//                    reducePeriod = true;
-//                    morePeriods2Process = true;
-//                    increasePeriod = false;
-//                    // als er geen parsable periode is
-//                    // (geen periode ingevuld en alGerapporteerd is true
-//                    // dan moet morePeriods2Process false worden om een
-//                    // eindloze while loop te voorkomen
-//                    if (!parseblePeriod) {
-//                        morePeriods2Process = false;
-//                    } else {
-//                        continue;
-//                    }
-//                }
-//
-//                afgiftesGb.addAll(responseGb.getAntwoord().getBestandenLijst().getAfgifte());
-//
-//                /*
-//                 * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
-//                 * aangegeven of uitsluitend de nog niet gerapporteerde
-//                 * bestanden moeten worden opgenomen in de lijst, of dat alle
-//                 * beschikbare bestanden worden genoemd. Niet gerapporteerd
-//                 * betekent in dit geval ‘niet eerder opgevraagd in deze
-//                 * bestandenlijst’. Als deze indicator wordt gebruikt, dan
-//                 * worden na terugmelding van de bestandenlijst de bijbehorende
-//                 * bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het
-//                 * systeem van GDS.
-//                 */
-//                boolean dontGetMoreConfig = false;
-//                while (hasMore && !dontGetMoreConfig) {
-//                    criteria.setNogNietGerapporteerd(true);
-//                    responseGb = retryBestandenLijstGBOpvragen(gds2, requestGb);
-//
-//                    List<AfgifteType> afgiftes = responseGb.getAntwoord().getBestandenLijst().getAfgifte();
-//                    afgiftesGb.addAll(afgiftes);
-//                    aantalInAntwoord = afgiftes.size();
-//                    System.out.println("Aantal in antwoord: " + aantalInAntwoord);
-//
-//                    hasMore = responseGb.getAntwoord().isMeerAfgiftesbeschikbaar();
-//                    System.out.println("Nog meer afgiftes beschikbaar: " + hasMore);
-//                }
-//            } while (morePeriods2Process);
-//            System.out.println("Totaal aantal op te halen berichten: " + afgiftesGb.size());
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+                //check of de periodeduur vergroot moet worden
+                if (increasePeriod) {
+                    switch (loopType) {
+                        case Calendar.HOUR_OF_DAY:
+                            loopType = Calendar.DAY_OF_MONTH;
+                            System.out.println("* Vergroot loop periode naar dag");
+                            break;
+                        case Calendar.MINUTE:
+                            loopType = Calendar.HOUR_OF_DAY;
+                            System.out.println("* Vergroot loop periode naar uur");
+                            break;
+                        case Calendar.DAY_OF_MONTH:
+                        default:
+                        //not possible
+                        }
+                    increasePeriod = false;
+                }
 
+                FilterDatumTijdType d = new FilterDatumTijdType();
+                d.setDatumTijdVanaf(getXMLDatumTijd(currentMoment));
+                System.out.println(String.format("Datum vanaf: %tc", currentMoment.getTime()));
+                currentMoment.add(loopType, 1);
+                d.setDatumTijdTotmet(getXMLDatumTijd(currentMoment));
+                System.out.println(String.format("Datum tot: %tc", currentMoment.getTime()));
+                criteria.setPeriode(d);
 
-//        System.out.println("\n\n**** resultaat ****\n");
-//        System.out.println("Aantal afgiftes : " + (afgiftesGb == null ? "<fout>" : afgiftesGb.size()));
-//
-//        List<AfgifteType> afgiftes = null;
-//        try {
-//            BestandenlijstOpvragenResponse response = gds2.bestandenlijstOpvragen(request);
-//            afgiftes = response.getAntwoord().getBestandenLijst().getAfgifte();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("Aantal afgiftes: " + (afgiftes == null ? "<fout>" : afgiftes.size()));
+                switch (loopType) {
+                    case Calendar.HOUR_OF_DAY:
+                        //0-23
+                        if (currentMoment.get(loopType) == 0) {
+                            increasePeriod = true;
+                        }
+                        break;
+                    case Calendar.MINUTE:
+                        //0-59
+                        if (currentMoment.get(loopType) == 0) {
+                            increasePeriod = true;
+                        }
+                        break;
+                    case Calendar.DAY_OF_MONTH:
+                    default:
+                        //alleen dagen tellen, uur en minuut altijd helemaal
+                        loopNum++;
+                }
+
+                //bereken of einde van periode bereikt is
+                if (currentMoment.before(tot) && loopNum < loopMax) {
+                    morePeriods2Process = true;
+                } else {
+                    morePeriods2Process = false;
+                }
+            }
+
+            verzoek.setAfgifteSelectieCriteria(criteria);
+            response = retryBestandenLijstOpvragen(gds2, request, 1, 10000);
+            hoogsteKlantAfgifteNummer = response.getAntwoord().getKlantAfgiftenummerMax();
+
+            int aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
+            System.out.println("Aantal in antwoord: " + aantalInAntwoord);
+            // opletten; in de xsd staat een default value van 'J' voor meerAfgiftesbeschikbaar
+            boolean hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
+            System.out.println("Meer afgiftes beschikbaar: " + hasMore);
+
+            /*
+                 * Als "al gerapporteerde berichten" moeten worden opgehaald en
+                 * er zitten dan 2000 berichten in het antwoord dan heeft het
+                 * geen zin om meer keer de berichten op te halen, je krijgt
+                 * telkens dezelfde.
+             */
+            if (hasMore && "true".equals(alGerapporteerd)) {
+                reducePeriod = true;
+                morePeriods2Process = true;
+                increasePeriod = false;
+                // als er geen parsable periode is
+                // (geen periode ingevuld en alGerapporteerd is true
+                // dan moet morePeriods2Process false worden om een
+                // eindloze while loop te voorkomen
+                if (!parseblePeriod) {
+                    morePeriods2Process = false;
+                } else {
+                    continue;
+                }
+            }
+
+            if (aantalInAntwoord > 0) {
+                afgiftes.addAll(response.getAntwoord().getBestandenLijst().getAfgifte());
+            }
+
+            /*
+                 * Indicatie nog niet gerapporteerd: Met deze indicatie wordt
+                 * aangegeven of uitsluitend de nog niet gerapporteerde
+                 * bestanden moeten worden opgenomen in de lijst, of dat alle
+                 * beschikbare bestanden worden genoemd. Niet gerapporteerd
+                 * betekent in dit geval ‘niet eerder opgevraagd in deze
+                 * bestandenlijst’. Als deze indicator wordt gebruikt, dan
+                 * worden na terugmelding van de bestandenlijst de bijbehorende
+                 * bestanden gemarkeerd als zijnde ‘gerapporteerd’ in het
+                 * systeem van GDS.
+             */
+            int moreCount = 0;
+
+            while (hasMore) {
+                System.out.println("Uitvoeren SOAP request naar Kadaster voor meer afgiftes..." + moreCount++);
+                criteria.setNogNietGerapporteerd(true);
+                response = retryBestandenLijstOpvragen(gds2, request, 1, 10000);
+                hoogsteKlantAfgifteNummer = response.getAntwoord().getKlantAfgiftenummerMax();
+
+                List<AfgifteType> afgifteLijst = response.getAntwoord().getBestandenLijst().getAfgifte();
+                for (AfgifteType t : afgiftes) {
+                    // lijst urls naar aparte logfile loggen
+                    if (t.getDigikoppelingExternalDatareferences() != null
+                            && t.getDigikoppelingExternalDatareferences().getDataReference() != null) {
+                        for (DataReference dr : t.getDigikoppelingExternalDatareferences().getDataReference()) {
+                            LOG.info("GDS2url te downloaden: " + dr.getTransport().getLocation().getSenderUrl().getValue());
+                            break;
+                        }
+                    }
+                }
+                afgiftes.addAll(afgifteLijst);
+                aantalInAntwoord = response.getAntwoord().getAfgifteAantalInLijst();
+                System.out.println("Aantal in antwoord: " + aantalInAntwoord);
+                hasMore = response.getAntwoord().isMeerAfgiftesbeschikbaar();
+                System.out.println("Nog meer afgiftes beschikbaar: " + hasMore);
+            }
+
+        } while (morePeriods2Process);
+
+        System.out.println("Totaal aantal op te halen berichten: " + afgiftes.size());
+        System.out.println("Hoogste klant afgifte nummer: " + hoogsteKlantAfgifteNummer);
+
+        if (criteria.getBestandKenmerken().getContractnummer() == null) {
+            // bag response.getAntwoord()
+            printAfgiftes(afgiftes, getAnoniemBaseURL(response.getAntwoord()));
+        } else {
+            // brk
+            printAfgiftes(afgiftes, getCertificaatBaseURL(response.getAntwoord()));
+        }
+
     }
 
     private static void printAfgiftes(List<AfgifteType> afgiftes, BaseURLType baseUrl) {

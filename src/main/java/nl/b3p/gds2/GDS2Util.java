@@ -44,9 +44,6 @@ public class GDS2Util {
     private static final String PEM_CERT_START = "-----BEGIN CERTIFICATE-----";
     private static final String PEM_CERT_END = "-----END CERTIFICATE-----";
 
-    private GDS2Util() {
-    }
-
     public static Certificate getCertificateFromPEM(String pem) throws CertificateException, UnsupportedEncodingException {
         if (!pem.startsWith(PEM_CERT_START)) {
             throw new IllegalArgumentException("Certificaat moet beginnen met " + PEM_CERT_START);
@@ -243,12 +240,15 @@ public class GDS2Util {
      * @param date datum
      * @return xml datum (of null ingeval van een DatatypeConfigurationException)
      */
-    public static XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar date) throws DatatypeConfigurationException {
+    public static XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar date) {
         try {
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(date);
         } catch (DatatypeConfigurationException e) {
             LOG.error(e);
             return null;
         }
+    }
+
+    private GDS2Util() {
     }
 }
