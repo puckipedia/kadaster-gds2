@@ -10,8 +10,8 @@ jdk:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - jdk: openjdk11
+#  allow_failures:
+#    - jdk: openjdk11
 
 cache:
   directories:

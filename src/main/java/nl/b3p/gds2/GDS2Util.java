@@ -82,7 +82,7 @@ public class GDS2Util {
      * @see #retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401, BestandenlijstOpvragenRequest, int, int)
      */
     public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request) throws Exception {
-        return retryBestandenLijstOpvragen(gds2, request, 2, 10000);
+        return retryBestandenLijstOpvragen(gds2, request, 2, 10000L);
     }
 
     /**
@@ -94,7 +94,7 @@ public class GDS2Util {
      * @param retryWait te wachten milliseconden tussen retries, wordt vermenigvuldigd met retry poging (dus periode steeds langer)
      * @return opgevraagde bestanden lijst
      */
-    public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request, int retries, int retryWait) throws Exception {
+    public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request, int retries, long retryWait) throws Exception {
         int attempt = 0;
         while (true) {
             try {
