@@ -81,9 +81,9 @@
     </distributionManagement>
     <pluginRepositories>
         <pluginRepository>
-            <id>smartbear-sweden-plugin-repository</id>
-            <url>http://www.soapui.org/repository/maven2</url>
-        </pluginRepository>
+            <id>repo.b3p.nl</id>
+            <url>https://repo.b3p.nl/nexus/repository/public/</url>
+         </pluginRepository>
     </pluginRepositories>
     <build>
         <pluginManagement>
@@ -182,7 +182,7 @@
                 <plugin>
                     <groupId>com.smartbear.soapui</groupId>
                     <artifactId>soapui-maven-plugin</artifactId>
-                    <version>5.5.0-AT</version>
+                    <version>5.5.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
