@@ -1,0 +1,40 @@
+name: Maven GH build
+
+on: [push]
+
+jobs:
+  build:
+    name: Java ${{ matrix.java }} build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        java: [ 8, 11 ]
+   
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v1.1.0
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Set up JDK 11 for toolchains
+      uses: actions/setup-java@v1.3.0
+      with:
+        java-version: 11
+    - name: Set up JDK 8 for toolchains
+      uses: actions/setup-java@v1.3.0
+      with:
+        java-version: 8
+    - name: Set up JDK 
+      uses: actions/setup-java@v1.3.0
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Inspect environment
+      run: |
+        set | grep JAVA
+    - name: Build with Maven
+      run: mvn -V -B -e package --global-toolchains .github/ubuntu-toolchains.xml
+    - name: Remove SNAPSHOT jars from repository
+      run: |
+        find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
