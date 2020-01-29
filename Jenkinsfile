@@ -24,7 +24,7 @@ timestamps {
 
                 stage('Build') {
                     echo "Building branch: ${env.BRANCH_NAME}"
-                    sh "mvn install -Dmaven.test.skip=true -B -V -e -fae -q --global-toolchains .jenkins/toolchains.xml"
+                    sh "mvn package -Dmaven.test.skip=true -B -V -e -fae -q --global-toolchains .jenkins/toolchains.xml"
                 }
 
                 lock('http-8088') {
@@ -37,7 +37,7 @@ timestamps {
                 if (TEST_JDK_NAME == 'OpenJDK11') {
                     stage("cleanup Java 11 packages") {
                         echo "Verwijder de Java 11 build artifacts uit lokale repo"
-                        sh "mvn build-helper:remove-project-artifact --global-toolchains .jenkins/toolchains.xml"
+                        sh "mvn build-helper:remove-project-artifact"
                     }
                 }
             }
