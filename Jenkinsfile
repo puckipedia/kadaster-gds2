@@ -24,7 +24,7 @@ timestamps {
 
                 stage('Build') {
                     echo "Building branch: ${env.BRANCH_NAME}"
-                    sh "mvn package -Dmaven.test.skip=true -B -V -e -fae -q --global-toolchains .jenkins/toolchains.xml"
+                    sh "mvn clean package -Dmaven.test.skip=true -B -V -e -fae -q --global-toolchains .jenkins/toolchains.xml"
                 }
 
                 lock('http-8088') {
