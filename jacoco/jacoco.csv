@@ -86,7 +86,7 @@ Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstopvragen.v20170401,
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragenresultaat.v20130701,ObjectFactory,22,0,0,0,5,0,4,0,4,0
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbopvragenresultaat.v20130701,BestandenlijstGbOpvragenResultaatType,24,0,0,0,10,0,7,0,7,0
 Kadaster-GDS2,nl.b3p.gds2,Main,869,0,63,0,189,0,37,0,4,0
-Kadaster-GDS2,nl.b3p.gds2,GDS2Util,232,80,18,6,56,14,16,9,6,7
+Kadaster-GDS2,nl.b3p.gds2,GDS2Util,187,125,14,10,42,28,11,14,3,10
 Kadaster-GDS2,nl.b3p.gds2,Main2,891,0,65,0,195,0,38,0,4,0
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20120901,ObjectFactory,40,0,0,0,8,0,6,0,6,0
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstgbresultaat.afgifte.v20120901,BestandenLijstGBType,14,0,2,0,4,0,3,0,2,0
