@@ -79,7 +79,7 @@ public class GDS2Util {
      * @param gds2    afgifte service
      * @param request geconfigureerd verzoek
      * @return opgevraagde bestanden lijst
-     * @see #retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401, BestandenlijstOpvragenRequest, int, int)
+     * @see #retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401, BestandenlijstOpvragenRequest, int, long)
      */
     public static BestandenlijstOpvragenResponse retryBestandenLijstOpvragen(Gds2AfgifteServiceV20170401 gds2, BestandenlijstOpvragenRequest request) throws Exception {
         return retryBestandenLijstOpvragen(gds2, request, 2, 10000L);
@@ -158,8 +158,8 @@ public class GDS2Util {
     /**
      * parse datum uit string.
      *
-     * @param dateStr datum in dd-MM-yyyy formaat
-     * @return datum (of null in geval van een parse fout)
+     * @param dateStr datum in dd-MM-yyyy formaat (evt. {@code null}
+     * @return datum (of {@code null} in geval van een parse fout of {@code null} argument)
      */
     public static GregorianCalendar getDatumTijd(String dateStr) {
         if (dateStr == null) {
@@ -185,7 +185,7 @@ public class GDS2Util {
     /**
      * parse datum uit string en verschuif {@code dagen}.
      *
-     * @param refDate datum in dd-MM-yyyy formaat
+     * @param refDate datum in dd-MM-yyyy formaat (niet {@code null})
      * @param before  aantal dagen dat de datum verschoven moet worden, bijvoorbeeld -3 voor 3 dagen eerder
      * @return datum (of null in geval van een parse fout)
      */
@@ -220,7 +220,7 @@ public class GDS2Util {
     /**
      * maakt een XML datum die te gebruiken is in een "van" of "tot" criterium.
      *
-     * @param date datum
+     * @param date datum (niet {@code null})
      * @return xml datum (of null ingeval van een DatatypeConfigurationException)
      */
     public static XMLGregorianCalendar getXMLDatumTijd(Date date) {
@@ -237,7 +237,7 @@ public class GDS2Util {
     /**
      * maakt een XML datum die te gebruiken is in een "van" of "tot" criterium.
      *
-     * @param date datum
+     * @param date datum (niet {@code null})
      * @return xml datum (of null ingeval van een DatatypeConfigurationException)
      */
     public static XMLGregorianCalendar getXMLDatumTijd(GregorianCalendar date) {

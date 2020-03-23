@@ -17,7 +17,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <netbeans.hint.jdkPlatform>JDK_${java.version}</netbeans.hint.jdkPlatform>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-        <junit.jupiter.version>5.6.0</junit.jupiter.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <junit.jupiter.version>5.6.1</junit.jupiter.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     </properties>
     <organization>
@@ -106,7 +107,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-scm-plugin</artifactId>
@@ -155,7 +156,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M3</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-scm-publish-plugin</artifactId>
@@ -431,7 +432,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>3.0.0-M3</version>
+                        <version>${maven-enforcer-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>enforce-versions</id>
