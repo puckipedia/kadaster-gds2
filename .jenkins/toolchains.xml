@@ -8,7 +8,7 @@
             <version>11</version>
         </provides>
         <configuration>
-            <jdkHome>/var/lib/jenkins/tools/hudson.model.JDK/JDK11</jdkHome>
+            <jdkHome>/var/jenkins_home/tools/hudson.model.JDK/JDK11</jdkHome>
         </configuration>
     </toolchain>
     <toolchain>
@@ -17,7 +17,7 @@
             <version>1.8</version>
         </provides>
         <configuration>
-            <jdkHome>/var/lib/jenkins/tools/hudson.model.JDK/JDK8</jdkHome>
+            <jdkHome>/usr/local/openjdk-8</jdkHome>
         </configuration>
     </toolchain>
 </toolchains>
