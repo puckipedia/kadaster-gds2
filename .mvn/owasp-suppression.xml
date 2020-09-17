@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
-   <suppress>
-      <notes><![CDATA[
-      file name: log4j-1.2.17.jar, we don't use the vulnerable SocketServer
+<suppressions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+    <suppress>
+        <notes><![CDATA[
+      file name: log4j-1.2.17.jar,
+      we don't use the vulnerable SocketServer (CVE-2019-17571)
+      or the log4j SMTP appender (CVE-2020-9488)
       ]]></notes>
-      <packageUrl regex="true">^pkg:maven/log4j/log4j@.*$</packageUrl>
-      <cve>CVE-2019-17571</cve>
-   </suppress>
+        <packageUrl regex="true">^pkg:maven/log4j/log4j@.*$</packageUrl>
+        <cve>CVE-2019-17571</cve>
+        <cve>CVE-2020-9488</cve>
+    </suppress>
 </suppressions>
