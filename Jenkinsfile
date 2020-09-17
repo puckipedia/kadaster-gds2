@@ -27,6 +27,11 @@ timestamps {
                     sh "mvn clean package -Dmaven.test.skip=true -B -V -e -fae -q --global-toolchains .jenkins/toolchains.xml"
                 }
 
+                stage('Check keystore') {
+                    echo "Check welke certificaten de komende 90 dagen verlopen"
+                    sh "./jks-certificate-expiry-checker.sh --keystore ./src/main/resources/pkioverheid.jks --password changeit -t90"
+                }
+
                 lock('http-8088') {
                     stage('Test') {
                         echo "Running unit tests"
