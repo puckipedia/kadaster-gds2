@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
  * quick run:  <code>
  * cp some.private.key private.key && cp some.public.key public.key
  * mvn clean install -DskipTests
- * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.0-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
+ * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.4-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
  * </code>
  *
  * @author mprins
@@ -122,12 +122,12 @@ public class Main2 {
         criteria.setNogNietGerapporteerd(alGerapporteerd);
 
         // vanaf 
-        GregorianCalendar vanaf = getDatumTijd("01-05-2019");
+        GregorianCalendar vanaf = getDatumTijd("01-09-2020");
         GregorianCalendar tot;
         // tot vandaag
         //tot = getDatumTijd(new Date());
         // tot 1 aug 2019
-        tot = getDatumTijd("15-09-2019");
+        tot = getDatumTijd("10-09-2020");
 
         // om bepaalde periode te selecteren; kan/mag niet samen met afgiftenummers
         criteria.setPeriode(new FilterDatumTijdType());
@@ -158,14 +158,14 @@ public class Main2 {
         // maandelijkse BAG mutaties NL
         // criteria.getBestandKenmerken().setArtikelnummer("2508");
         // dagelijkse BAG mutaties NL
-//        criteria.getBestandKenmerken().setArtikelnummer("2516");
+        criteria.getBestandKenmerken().setArtikelnummer("2516");
         //
         // contractnummer voor BRK
         //
         // Indien vermeld dan worden alleen de afgiftes opgenomen in de lijst die
         // gekoppeld zijn aan het genoemde contractnummer
         //
-        criteria.getBestandKenmerken().setContractnummer("9700005117");
+//        criteria.getBestandKenmerken().setContractnummer("9700005117");
 
         LOG.info("Contract nummer: " + criteria.getBestandKenmerken().getContractnummer());
         LOG.info("Artikel nummer: " + criteria.getBestandKenmerken().getArtikelnummer());
