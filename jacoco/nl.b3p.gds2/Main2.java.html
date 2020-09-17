@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
  * quick run:  &lt;code&gt;
  * cp some.private.key private.key &amp;&amp; cp some.public.key public.key
  * mvn clean install -DskipTests
- * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.0-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
+ * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.4-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
  * &lt;/code&gt;
  *
  * @author mprins
@@ -122,12 +122,12 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L122">        criteria.setNogNietGerapporteerd(alGerapporteerd);</span>
 
         // vanaf 
-<span class="nc" id="L125">        GregorianCalendar vanaf = getDatumTijd(&quot;01-05-2019&quot;);</span>
+<span class="nc" id="L125">        GregorianCalendar vanaf = getDatumTijd(&quot;01-09-2020&quot;);</span>
         GregorianCalendar tot;
         // tot vandaag
         //tot = getDatumTijd(new Date());
         // tot 1 aug 2019
-<span class="nc" id="L130">        tot = getDatumTijd(&quot;15-09-2019&quot;);</span>
+<span class="nc" id="L130">        tot = getDatumTijd(&quot;10-09-2020&quot;);</span>
 
         // om bepaalde periode te selecteren; kan/mag niet samen met afgiftenummers
 <span class="nc" id="L133">        criteria.setPeriode(new FilterDatumTijdType());</span>
@@ -158,14 +158,14 @@ import org.apache.commons.logging.LogFactory;
         // maandelijkse BAG mutaties NL
         // criteria.getBestandKenmerken().setArtikelnummer(&quot;2508&quot;);
         // dagelijkse BAG mutaties NL
-//        criteria.getBestandKenmerken().setArtikelnummer(&quot;2516&quot;);
+<span class="nc" id="L161">        criteria.getBestandKenmerken().setArtikelnummer(&quot;2516&quot;);</span>
         //
         // contractnummer voor BRK
         //
         // Indien vermeld dan worden alleen de afgiftes opgenomen in de lijst die
         // gekoppeld zijn aan het genoemde contractnummer
         //
-<span class="nc" id="L168">        criteria.getBestandKenmerken().setContractnummer(&quot;9700005117&quot;);</span>
+//        criteria.getBestandKenmerken().setContractnummer(&quot;9700005117&quot;);
 
 <span class="nc" id="L170">        LOG.info(&quot;Contract nummer: &quot; + criteria.getBestandKenmerken().getContractnummer());</span>
 <span class="nc" id="L171">        LOG.info(&quot;Artikel nummer: &quot; + criteria.getBestandKenmerken().getArtikelnummer());</span>
@@ -428,4 +428,4 @@ import org.apache.commons.logging.LogFactory;
 <span class="nc" id="L428">        }</span>
 <span class="nc" id="L429">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
