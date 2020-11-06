@@ -1,0 +1,39 @@
+tag-template: "kadaster-gds2-$NEXT_MINOR_VERSION"
+name-template: v$NEXT_MINOR_VERSION 🎁
+
+version-template: "$MAJOR.$MINOR"
+
+template: |
+  ## Aanpassingen
+
+  $CHANGES
+  
+categories:
+  - title: 🚨 Verwijderd
+    label: removed
+  - title: ⚠️ Deprecated
+    label: deprecated
+  - title: 🚀 Nieuw en Verbeterd
+    labels:
+      - enhancement
+      - feature
+  - title: 🐛 Bug Fixes
+    labels:
+      - bug
+      - fix
+      - bugfix
+      - regression
+  - title: 📖 Documentatie
+    label: documentation
+  - title: 🔨 Dependency updates
+    label: dependencies
+  - title: 🚦 Tests
+    labels:
+      - tests
+  - title: 🔨 Infra
+    lavbels:
+      - build infrastructure
+
+replacers:
+  - search: '/CVE-(\d{4})-(\d+)/g'
+    replace: 'https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-$1-$2'
