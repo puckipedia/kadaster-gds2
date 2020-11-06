@@ -1,5 +1,5 @@
 tag-template: "kadaster-gds2-$NEXT_MINOR_VERSION"
-name-template: v$NEXT_MINOR_VERSION 🎁
+name-template: $NEXT_MINOR_VERSION 🎁
 
 version-template: "$MAJOR.$MINOR"
 
