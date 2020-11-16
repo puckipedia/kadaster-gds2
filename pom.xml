@@ -265,7 +265,7 @@
                 <configuration>
                     <wsdlDirectory>src/main/resources/schemas</wsdlDirectory>
                     <wsdlFiles>
-                        <wsdlFile>gds2/service/afgifte/v20130701/Gds2Afgifte_AfgifteService_v1_0.wsdl</wsdlFile>
+                        <!--<wsdlFile>gds2/service/afgifte/v20130701/Gds2Afgifte_AfgifteService_v1_0.wsdl</wsdlFile>-->
                         <wsdlFile>gds2/service/afgifte/v20170401/Gds2Afgifte_AfgifteService_v2_0.wsdl</wsdlFile>
                     </wsdlFiles>
                     <wsdlLocation>/schemas/*</wsdlLocation>
