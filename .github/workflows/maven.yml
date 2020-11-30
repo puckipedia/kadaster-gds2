@@ -1,40 +1,53 @@
-name: Maven GH build
+name: Maven build
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:
     name: Java ${{ matrix.java }} build
     runs-on: ubuntu-latest
     strategy:
-      matrix: 
+      matrix:
         java: [ 8, 11 ]
-   
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/cache@v2.1.3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Set up JDK 11 for toolchains
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: 11
-    - name: Set up JDK 8 for toolchains
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: 8
-    - name: Set up JDK 
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: ${{ matrix.java }}
-    - name: Inspect environment
-      run: |
-        set | grep JAVA
-    - name: Build with Maven
-      run: mvn -V -B -e package --global-toolchains .github/ubuntu-toolchains.xml
-    - name: Remove SNAPSHOT jars from repository
-      run: |
-        find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK 11 for toolchains
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Set up JDK 8 for toolchains
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Set up JDK for build
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Inspect environment
+        run: |
+          set | grep JAVA
+
+      - name: Install
+        run: mvn -V -B -e install --global-toolchains .github/ubuntu-toolchains.xml
+
+      - name: Javadoc
+        if: ${{ matrix.java == '8' }}
+        run: |
+          mvn javadoc:javadoc --global-toolchains .github/ubuntu-toolchains.xml
+          mvn javadoc:test-javadoc --global-toolchains .github/ubuntu-toolchains.xml
+
+      - name: Site
+        if: ${{ matrix.java == '8' }}
+        run: mvn -B -e site site:stage
+
+      - name: Remove SNAPSHOT jars from repository
+        run: |
+          find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
