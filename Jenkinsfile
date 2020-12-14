@@ -8,7 +8,7 @@ timestamps {
             numToKeepStr: '5']
         ]]);
 
-    final def jdks = ['OpenJDK11','JDK8']
+    final def jdks = ['OpenJDK11','OpenJDK8']
 
     node {
         stage('Prepare') {
@@ -48,7 +48,7 @@ timestamps {
             }
         }
 
-        withEnv(["JAVA_HOME=${ tool 'JDK8' }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
+        withEnv(["JAVA_HOME=${ tool 'OpenJDK8' }", "PATH+MAVEN=${tool 'Maven CURRENT'}/bin:${env.JAVA_HOME}/bin"]) {
             stage('Publish Test Results') {
                 junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml, **/target/failsafe-reports/TEST-*.xml'
             }
