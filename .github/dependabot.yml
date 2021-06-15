@@ -1,18 +1,19 @@
 version: 2
 updates:
-- package-ecosystem: maven
-  directory: "/"
-  schedule:
-    interval: weekly
-    day: sunday
-    time: "06:00"
-    timezone: Europe/Amsterdam
-  open-pull-requests-limit: 25
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-    day: saturday
-    timezone: Europe/Amsterdam
-  labels:
-  - "build infrastructure"
+  - package-ecosystem: maven
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: sunday
+      time: "06:00"
+      timezone: Europe/Amsterdam
+    open-pull-requests-limit: 25
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: saturday
+      timezone: Europe/Amsterdam
+    labels:
+      - "build infrastructure"

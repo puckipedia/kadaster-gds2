@@ -1,27 +1,31 @@
 name: GH OWASP dependency check
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:
     name: OWASP dependency check
     runs-on: ubuntu-latest
-   
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          maven-
-    - name: Set up JDK 
-      uses: actions/setup-java@v2
-      with:
-        java-version: 11
-        distribution: 'zulu'
-    - name: OWASP Dependency Check
-      run: mvn org.owasp:dependency-check-maven:check -fae -B -Dorg.slf4j.simpleLogger.defaultLogLevel=WARN -DfailBuildOnCVSS=7 
-    - name: Remove any SNAPSHOT jars from repository
-      run: |
-        find ~/.m2/repository -name "*SNAPSHOT*" -type d | xargs rm -rf {}
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: 'zulu'
+
+      - name: OWASP Dependency Check
+        run: mvn -U package org.owasp:dependency-check-maven:check -fae -B -Dorg.slf4j.simpleLogger.defaultLogLevel=WARN -DfailBuildOnCVSS=7
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: target/dependency-check-report.sarif

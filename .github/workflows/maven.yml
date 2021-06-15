@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 8, 11 ]
+        java: [ 11 ]
 
     steps:
       - uses: actions/checkout@v2
@@ -18,16 +18,7 @@ jobs:
           key: maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             maven-
-      - name: Set up JDK 11 for toolchains
-        uses: actions/setup-java@v2
-        with:
-          java-version: 11
-          distribution: 'adopt'
-      - name: Set up JDK 8 for toolchains
-        uses: actions/setup-java@v2
-        with:
-          java-version: 8
-          distribution: 'adopt'
+
       - name: Set up JDK for build
         uses: actions/setup-java@v2
         with:
@@ -42,13 +33,11 @@ jobs:
         run: mvn -V -B -e install --global-toolchains .github/ubuntu-toolchains.xml
 
       - name: Javadoc
-        if: ${{ matrix.java == '8' }}
         run: |
           mvn javadoc:javadoc --global-toolchains .github/ubuntu-toolchains.xml
           mvn javadoc:test-javadoc --global-toolchains .github/ubuntu-toolchains.xml
 
       - name: Site
-        if: ${{ matrix.java == '8' }}
         run: mvn -B -e site site:stage
 
       - name: Remove SNAPSHOT jars from repository

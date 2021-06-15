@@ -198,7 +198,7 @@ public class GDS2Util {
     /**
      * maakt een XML datum die te gebruiken is in een "van" of "tot" criterium, houdt rekening met de juiste maand.
      *
-     * @param year  jaartal (4 cijfers, > 2000)
+     * @param year  jaartal (4 cijfers, &gt; 2000)
      * @param month maand (waarde van 0 t/m 12)
      * @param day   dag van de maand
      * @return xml datum (of null ingeval van een DatatypeConfigurationException)
