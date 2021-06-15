@@ -42,11 +42,12 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Test klasse om gds2 te bevragen met koppelvlak v20170401.
  * <p>
- * quick run:  <code>
+ * quick run:
+ * {@code
  * cp some.private.key private.key && cp some.public.key public.key
  * mvn clean install -DskipTests
  * java -Dlog4j.configuration=file:///home/mark/dev/projects/kadaster-gds2/target/test-classes/log4j.xml -cp ./target/kadaster-gds2-2.4-SNAPSHOT.jar:./target/lib/* nl.b3p.gds2.Main2
- * </code>
+ * }
  *
  * @author mprins
  */

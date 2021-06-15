@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>kadaster-gds2</artifactId>
@@ -8,7 +9,7 @@
     <description>JAX-WS classes voor benaderen van de Generieke Download Service 2 van het Kadaster.</description>
     <name>Kadaster-GDS2</name>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
         <project.build.sourceVersion>${java.version}</project.build.sourceVersion>
         <project.build.targetVersion>${java.version}</project.build.targetVersion>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -22,14 +23,14 @@
     </properties>
     <organization>
         <name>B3Partners B.V.</name>
-        <url>http://www.b3partners.nl/</url>
+        <url>https://www.b3partners.nl/</url>
     </organization>
     <url>https://github.com/B3Partners/kadaster-gds2/</url>
     <scm>
         <connection>scm:git:git@github.com:B3Partners/kadaster-gds2.git</connection>
         <developerConnection>scm:git:git@github.com:B3Partners/kadaster-gds2.git</developerConnection>
         <url>https://github.com/B3Partners/kadaster-gds2.git</url>
-        <tag>v2.4</tag>
+        <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>Github</system>
@@ -83,7 +84,7 @@
         <pluginRepository>
             <id>repo.b3p.nl</id>
             <url>https://repo.b3p.nl/nexus/repository/public/</url>
-         </pluginRepository>
+        </pluginRepository>
     </pluginRepositories>
     <build>
         <pluginManagement>
@@ -182,7 +183,7 @@
                 <plugin>
                     <groupId>com.smartbear.soapui</groupId>
                     <artifactId>soapui-maven-plugin</artifactId>
-                    <version>5.5.0</version>
+                    <version>5.6.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -198,7 +199,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>[3.3.9,)</version>
+                                    <version>[3.6.0,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
                                     <version>${java.version}</version>
@@ -328,10 +329,10 @@
                             <mockService>AfgifteService Mock</mockService>
                             <port>8088</port>
                             <noBlock>true</noBlock>
-<!--                            <printReport>true</printReport>-->
-<!--                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>-->
-<!--                            <junitReport>true</junitReport>-->
-<!--                            <host>http://127.0.0.1:8088</host>-->
+                            <!--                            <printReport>true</printReport>-->
+                            <!--                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>-->
+                            <!--                            <junitReport>true</junitReport>-->
+                            <!--                            <host>http://127.0.0.1:8088</host>-->
                         </configuration>
                         <goals>
                             <goal>mock</goal>
@@ -341,20 +342,20 @@
                 </executions>
             </plugin>
             <plugin>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>copy</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>copy-dependencies</goal>
-                    </goals>
-                    <configuration>
-                        <includeScope>runtime</includeScope>
-                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
@@ -404,52 +405,27 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten! -->
-                    <doclint>none</doclint>
+<!--                    <doclint>none</doclint>-->
                 </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>javadoc-no-fork</report>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
             </plugin>
         </plugins>
     </reporting>
-    <profiles>
-        <profile>
-            <id>java11</id>
-            <activation>
-                <jdk>11</jdk>
-            </activation>
-            <properties>
-                <java.version>11</java.version>
-                <maven.compiler.source>${java.version}</maven.compiler.source>
-                <maven.compiler.target>${java.version}</maven.compiler.target>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>${maven-enforcer-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>enforce-versions</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireMavenVersion>
-                                            <version>3.6.0</version>
-                                        </requireMavenVersion>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
