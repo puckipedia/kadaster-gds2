@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.b3p</groupId>
     <artifactId>kadaster-gds2</artifactId>
@@ -83,7 +84,7 @@
         <pluginRepository>
             <id>repo.b3p.nl</id>
             <url>https://repo.b3p.nl/nexus/repository/public/</url>
-         </pluginRepository>
+        </pluginRepository>
     </pluginRepositories>
     <build>
         <pluginManagement>
@@ -328,10 +329,10 @@
                             <mockService>AfgifteService Mock</mockService>
                             <port>8088</port>
                             <noBlock>true</noBlock>
-<!--                            <printReport>true</printReport>-->
-<!--                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>-->
-<!--                            <junitReport>true</junitReport>-->
-<!--                            <host>http://127.0.0.1:8088</host>-->
+                            <!--                            <printReport>true</printReport>-->
+                            <!--                            <outputFolder>${project.build.directory}/surefire-reports</outputFolder>-->
+                            <!--                            <junitReport>true</junitReport>-->
+                            <!--                            <host>http://127.0.0.1:8088</host>-->
                         </configuration>
                         <goals>
                             <goal>mock</goal>
@@ -341,20 +342,20 @@
                 </executions>
             </plugin>
             <plugin>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>copy</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>copy-dependencies</goal>
-                    </goals>
-                    <configuration>
-                        <includeScope>runtime</includeScope>
-                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
@@ -404,12 +405,23 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <!-- java 8 doclint van struikelt over de gegenereerde code; uitzetten! -->
-                    <doclint>none</doclint>
+<!--                    <doclint>none</doclint>-->
                 </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
-                            <report>javadoc-no-fork</report>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
                         </reports>
                     </reportSet>
                 </reportSets>

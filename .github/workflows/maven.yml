@@ -38,7 +38,7 @@ jobs:
           mvn javadoc:test-javadoc --global-toolchains .github/ubuntu-toolchains.xml
 
       - name: Site
-        run: mvn -B -e site site:stage
+        run: mvn -B -e site site:stage --global-toolchains .github/ubuntu-toolchains.xml
 
       - name: Remove SNAPSHOT jars from repository
         run: |
