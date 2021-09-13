@@ -1,7 +1,5 @@
 node {
     stage('Prepare') {
-        sh "ulimit -a"
-        sh "free -m"
         checkout scm
     }
 
