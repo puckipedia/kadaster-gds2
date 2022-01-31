@@ -17,7 +17,7 @@ Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandophalenresultaat.v20130701
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandophalenresultaat.v20130701,BestandOphalenResultaatType,17,0,0,0,7,0,5,0,5,0
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20120901,AfgifteType,38,0,0,0,16,0,11,0,11,0
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.afgifte.v20120901,ObjectFactory,22,0,0,0,5,0,4,0,4,0
-Kadaster-GDS2,nl.b3p.soap.logging,LogMessageHandler,6,65,1,5,3,19,2,7,1,5
+Kadaster-GDS2,nl.b3p.soap.logging,LogMessageHandler,55,16,5,1,15,7,4,5,1,5
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.kenmerken.v20170401,ObjectFactory,22,0,0,0,5,0,4,0,4,0
 Kadaster-GDS2,nl.kadaster.schemas.gds2.afgifte_bestandenlijstresultaat.kenmerken.v20170401,BestandKenmerkenType,21,3,0,0,9,1,6,1,6,1
 Kadaster-GDS2,nl.kadaster.schemas.gds2.service.afgifte.v20130701,Gds2AfgifteServiceV20130701Service,82,0,4,0,24,0,12,0,10,0

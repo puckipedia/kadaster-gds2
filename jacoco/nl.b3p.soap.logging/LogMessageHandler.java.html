@@ -35,21 +35,21 @@ import org.apache.commons.logging.LogFactory;
     public boolean handleMessage(SOAPMessageContext context) {
         try {
 <span class="pc bpc" id="L37" title="1 of 2 branches missed.">            if (LOG.isTraceEnabled()) {</span>
-<span class="fc" id="L38">                boolean isOutboundMessage=  (Boolean)context.get (MessageContext.MESSAGE_OUTBOUND_PROPERTY);</span>
-<span class="fc bfc" id="L39" title="All 2 branches covered.">                if(isOutboundMessage){</span>
-<span class="fc" id="L40">                    LOG.trace(&quot;Uitgaand soap bericht \n================&quot;);</span>
+<span class="nc" id="L38">                boolean isOutboundMessage=  (Boolean)context.get (MessageContext.MESSAGE_OUTBOUND_PROPERTY);</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">                if(isOutboundMessage){</span>
+<span class="nc" id="L40">                    LOG.trace(&quot;Uitgaand soap bericht \n================&quot;);</span>
                 }else{
-<span class="fc" id="L42">                    LOG.trace(&quot;Inkomend soap bericht \n================&quot;);</span>
+<span class="nc" id="L42">                    LOG.trace(&quot;Inkomend soap bericht \n================&quot;);</span>
                 }
 
-<span class="fc" id="L45">                Iterator&lt;MimeHeader&gt; i = context.getMessage().getMimeHeaders().getAllHeaders();</span>
-<span class="fc bfc" id="L46" title="All 2 branches covered.">                while (i.hasNext()) {</span>
-<span class="fc" id="L47">                    MimeHeader h = i.next();</span>
-<span class="fc" id="L48">                    LOG.trace(&quot;header: &quot; + h.getName() + &quot; = &quot; + h.getValue());</span>
-<span class="fc" id="L49">                }</span>
-<span class="fc" id="L50">                ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
-<span class="fc" id="L51">                context.getMessage().writeTo(bos);</span>
-<span class="fc" id="L52">                LOG.trace(&quot;bericht: &quot; + bos.toString(&quot;UTF-8&quot;) +</span>
+<span class="nc" id="L45">                Iterator&lt;MimeHeader&gt; i = context.getMessage().getMimeHeaders().getAllHeaders();</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                while (i.hasNext()) {</span>
+<span class="nc" id="L47">                    MimeHeader h = i.next();</span>
+<span class="nc" id="L48">                    LOG.trace(&quot;header: &quot; + h.getName() + &quot; = &quot; + h.getValue());</span>
+<span class="nc" id="L49">                }</span>
+<span class="nc" id="L50">                ByteArrayOutputStream bos = new ByteArrayOutputStream();</span>
+<span class="nc" id="L51">                context.getMessage().writeTo(bos);</span>
+<span class="nc" id="L52">                LOG.trace(&quot;bericht: &quot; + bos.toString(&quot;UTF-8&quot;) +</span>
                         &quot;\n================&quot;);
             }
 <span class="nc" id="L55">        } catch (SOAPException | IOException ex) {</span>

@@ -13,69 +13,69 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
- * &amp;lt;p&amp;gt;Java class for data-reference complex type.
+ * &lt;p&gt;Java class for data-reference complex type.
  * 
- * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+ * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
  * 
- * &amp;lt;pre&amp;gt;
- * &amp;amp;lt;complexType name=&quot;data-reference&quot;&amp;amp;gt;
- *   &amp;amp;lt;complexContent&amp;amp;gt;
- *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *       &amp;amp;lt;sequence&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;lifetime&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *                 &amp;amp;lt;sequence&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;creationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;expirationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/sequence&amp;amp;gt;
- *               &amp;amp;lt;/restriction&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;content&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *                 &amp;amp;lt;sequence&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;filename&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}NCName&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;checksum&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}checksumType&quot;/&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;size&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}unsignedLong&quot;/&amp;amp;gt;
- *                 &amp;amp;lt;/sequence&amp;amp;gt;
- *                 &amp;amp;lt;attribute name=&quot;contentType&quot; use=&quot;required&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; /&amp;amp;gt;
- *               &amp;amp;lt;/restriction&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *         &amp;amp;lt;element name=&quot;transport&quot;&amp;amp;gt;
- *           &amp;amp;lt;complexType&amp;amp;gt;
- *             &amp;amp;lt;complexContent&amp;amp;gt;
- *               &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *                 &amp;amp;lt;sequence&amp;amp;gt;
- *                   &amp;amp;lt;element name=&quot;location&quot;&amp;amp;gt;
- *                     &amp;amp;lt;complexType&amp;amp;gt;
- *                       &amp;amp;lt;complexContent&amp;amp;gt;
- *                         &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
- *                           &amp;amp;lt;choice&amp;amp;gt;
- *                             &amp;amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;amp;gt;
- *                             &amp;amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;amp;gt;
- *                           &amp;amp;lt;/choice&amp;amp;gt;
- *                         &amp;amp;lt;/restriction&amp;amp;gt;
- *                       &amp;amp;lt;/complexContent&amp;amp;gt;
- *                     &amp;amp;lt;/complexType&amp;amp;gt;
- *                   &amp;amp;lt;/element&amp;amp;gt;
- *                 &amp;amp;lt;/sequence&amp;amp;gt;
- *               &amp;amp;lt;/restriction&amp;amp;gt;
- *             &amp;amp;lt;/complexContent&amp;amp;gt;
- *           &amp;amp;lt;/complexType&amp;amp;gt;
- *         &amp;amp;lt;/element&amp;amp;gt;
- *       &amp;amp;lt;/sequence&amp;amp;gt;
- *       &amp;amp;lt;attribute name=&quot;contextId&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}anySimpleType&quot; /&amp;amp;gt;
- *     &amp;amp;lt;/restriction&amp;amp;gt;
- *   &amp;amp;lt;/complexContent&amp;amp;gt;
- * &amp;amp;lt;/complexType&amp;amp;gt;
- * &amp;lt;/pre&amp;gt;
+ * &lt;pre&gt;
+ * &amp;lt;complexType name=&quot;data-reference&quot;&amp;gt;
+ *   &amp;lt;complexContent&amp;gt;
+ *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *       &amp;lt;sequence&amp;gt;
+ *         &amp;lt;element name=&quot;lifetime&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;creationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;expirationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;content&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;filename&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}NCName&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;checksum&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}checksumType&quot;/&amp;gt;
+ *                   &amp;lt;element name=&quot;size&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}unsignedLong&quot;/&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *                 &amp;lt;attribute name=&quot;contentType&quot; use=&quot;required&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; /&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *         &amp;lt;element name=&quot;transport&quot;&amp;gt;
+ *           &amp;lt;complexType&amp;gt;
+ *             &amp;lt;complexContent&amp;gt;
+ *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                 &amp;lt;sequence&amp;gt;
+ *                   &amp;lt;element name=&quot;location&quot;&amp;gt;
+ *                     &amp;lt;complexType&amp;gt;
+ *                       &amp;lt;complexContent&amp;gt;
+ *                         &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+ *                           &amp;lt;choice&amp;gt;
+ *                             &amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+ *                             &amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+ *                           &amp;lt;/choice&amp;gt;
+ *                         &amp;lt;/restriction&amp;gt;
+ *                       &amp;lt;/complexContent&amp;gt;
+ *                     &amp;lt;/complexType&amp;gt;
+ *                   &amp;lt;/element&amp;gt;
+ *                 &amp;lt;/sequence&amp;gt;
+ *               &amp;lt;/restriction&amp;gt;
+ *             &amp;lt;/complexContent&amp;gt;
+ *           &amp;lt;/complexType&amp;gt;
+ *         &amp;lt;/element&amp;gt;
+ *       &amp;lt;/sequence&amp;gt;
+ *       &amp;lt;attribute name=&quot;contextId&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}anySimpleType&quot; /&amp;gt;
+ *     &amp;lt;/restriction&amp;gt;
+ *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;/complexType&amp;gt;
+ * &lt;/pre&gt;
  * 
  * 
  */
@@ -195,24 +195,24 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
-     *       &amp;amp;lt;sequence&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;filename&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}NCName&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;checksum&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}checksumType&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;size&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}unsignedLong&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/sequence&amp;amp;gt;
-     *       &amp;amp;lt;attribute name=&quot;contentType&quot; use=&quot;required&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; /&amp;amp;gt;
-     *     &amp;amp;lt;/restriction&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;filename&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}NCName&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;checksum&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}checksumType&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;size&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}unsignedLong&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *       &amp;lt;attribute name=&quot;contentType&quot; use=&quot;required&quot; type=&quot;{http://www.w3.org/2001/XMLSchema}string&quot; /&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -336,22 +336,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
-     *       &amp;amp;lt;sequence&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;creationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;expirationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;amp;gt;
-     *       &amp;amp;lt;/sequence&amp;amp;gt;
-     *     &amp;amp;lt;/restriction&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;creationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *         &amp;lt;element name=&quot;expirationTime&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}datetimeType&quot; minOccurs=&quot;0&quot;/&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -417,32 +417,32 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
     /**
-     * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+     * &lt;p&gt;Java class for anonymous complex type.
      * 
-     * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+     * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
      * 
-     * &amp;lt;pre&amp;gt;
-     * &amp;amp;lt;complexType&amp;amp;gt;
-     *   &amp;amp;lt;complexContent&amp;amp;gt;
-     *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
-     *       &amp;amp;lt;sequence&amp;amp;gt;
-     *         &amp;amp;lt;element name=&quot;location&quot;&amp;amp;gt;
-     *           &amp;amp;lt;complexType&amp;amp;gt;
-     *             &amp;amp;lt;complexContent&amp;amp;gt;
-     *               &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
-     *                 &amp;amp;lt;choice&amp;amp;gt;
-     *                   &amp;amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;amp;gt;
-     *                   &amp;amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;amp;gt;
-     *                 &amp;amp;lt;/choice&amp;amp;gt;
-     *               &amp;amp;lt;/restriction&amp;amp;gt;
-     *             &amp;amp;lt;/complexContent&amp;amp;gt;
-     *           &amp;amp;lt;/complexType&amp;amp;gt;
-     *         &amp;amp;lt;/element&amp;amp;gt;
-     *       &amp;amp;lt;/sequence&amp;amp;gt;
-     *     &amp;amp;lt;/restriction&amp;amp;gt;
-     *   &amp;amp;lt;/complexContent&amp;amp;gt;
-     * &amp;amp;lt;/complexType&amp;amp;gt;
-     * &amp;lt;/pre&amp;gt;
+     * &lt;pre&gt;
+     * &amp;lt;complexType&amp;gt;
+     *   &amp;lt;complexContent&amp;gt;
+     *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *       &amp;lt;sequence&amp;gt;
+     *         &amp;lt;element name=&quot;location&quot;&amp;gt;
+     *           &amp;lt;complexType&amp;gt;
+     *             &amp;lt;complexContent&amp;gt;
+     *               &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+     *                 &amp;lt;choice&amp;gt;
+     *                   &amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+     *                   &amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+     *                 &amp;lt;/choice&amp;gt;
+     *               &amp;lt;/restriction&amp;gt;
+     *             &amp;lt;/complexContent&amp;gt;
+     *           &amp;lt;/complexType&amp;gt;
+     *         &amp;lt;/element&amp;gt;
+     *       &amp;lt;/sequence&amp;gt;
+     *     &amp;lt;/restriction&amp;gt;
+     *   &amp;lt;/complexContent&amp;gt;
+     * &amp;lt;/complexType&amp;gt;
+     * &lt;/pre&gt;
      * 
      * 
      */
@@ -481,22 +481,22 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
         /**
-         * &amp;lt;p&amp;gt;Java class for anonymous complex type.
+         * &lt;p&gt;Java class for anonymous complex type.
          * 
-         * &amp;lt;p&amp;gt;The following schema fragment specifies the expected content contained within this class.
+         * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
          * 
-         * &amp;lt;pre&amp;gt;
-         * &amp;amp;lt;complexType&amp;amp;gt;
-         *   &amp;amp;lt;complexContent&amp;amp;gt;
-         *     &amp;amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;amp;gt;
-         *       &amp;amp;lt;choice&amp;amp;gt;
-         *         &amp;amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;amp;gt;
-         *         &amp;amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;amp;gt;
-         *       &amp;amp;lt;/choice&amp;amp;gt;
-         *     &amp;amp;lt;/restriction&amp;amp;gt;
-         *   &amp;amp;lt;/complexContent&amp;amp;gt;
-         * &amp;amp;lt;/complexType&amp;amp;gt;
-         * &amp;lt;/pre&amp;gt;
+         * &lt;pre&gt;
+         * &amp;lt;complexType&amp;gt;
+         *   &amp;lt;complexContent&amp;gt;
+         *     &amp;lt;restriction base=&quot;{http://www.w3.org/2001/XMLSchema}anyType&quot;&amp;gt;
+         *       &amp;lt;choice&amp;gt;
+         *         &amp;lt;element name=&quot;senderUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+         *         &amp;lt;element name=&quot;receiverUrl&quot; type=&quot;{http://www.logius.nl/digikoppeling/gb/2010/10}urlType&quot;/&amp;gt;
+         *       &amp;lt;/choice&amp;gt;
+         *     &amp;lt;/restriction&amp;gt;
+         *   &amp;lt;/complexContent&amp;gt;
+         * &amp;lt;/complexType&amp;gt;
+         * &lt;/pre&gt;
          * 
          * 
          */
